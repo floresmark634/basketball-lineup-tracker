@@ -242,6 +242,279 @@ margin:8px 0
 .statGrid{grid-template-columns:repeat(2,1fr)}
 .scoreboard{grid-template-columns:1fr}
 }
+/* ========================================
+MODERN BASKETBALL APP THEME
+======================================== */
+
+:root{
+--app-bg:#0f172a;
+--app-bg-light:#172033;
+--surface:#ffffff;
+--surface-soft:#f8fafc;
+--text:#172033;
+--muted:#64748b;
+--border:#e2e8f0;
+--accent:#ea580c;
+--accent-hover:#c2410c;
+--primary:#1e293b;
+--primary-hover:#0f172a;
+--danger:#b91c1c;
+--success:#166534;
+--shadow:0 10px 30px rgba(15,23,42,.10);
+--radius:16px;
+}
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+min-height:100vh;
+background:
+linear-gradient(
+135deg,
+#0f172a 0%,
+#172033 50%,
+#0f172a 100%
+);
+color:var(--text);
+font-family:
+Inter,
+ui-sans-serif,
+system-ui,
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+sans-serif;
+line-height:1.5;
+}
+
+/*
+Keeps the actual app readable against
+the dark page background.
+*/
+
+.app{
+max-width:1100px;
+margin:0 auto;
+padding:28px 18px 60px;
+}
+
+/* APP TITLE */
+
+h1{
+color:white;
+font-size:34px;
+font-weight:800;
+letter-spacing:-1px;
+text-align:center;
+margin:8px 0 24px;
+}
+
+h2{
+font-size:22px;
+font-weight:750;
+letter-spacing:-.3px;
+margin-top:0;
+}
+
+h3{
+font-weight:700;
+}
+
+/* CARDS */
+
+.card{
+background:var(--surface);
+border:1px solid rgba(255,255,255,.5);
+border-radius:var(--radius);
+box-shadow:var(--shadow);
+padding:22px;
+margin:16px 0;
+}
+
+/* BUTTONS */
+
+button{
+font-family:inherit;
+font-size:15px;
+font-weight:650;
+border:0;
+border-radius:10px;
+padding:11px 16px;
+margin:4px;
+background:#e2e8f0;
+color:#1e293b;
+cursor:pointer;
+transition:
+transform .12s ease,
+background .12s ease,
+box-shadow .12s ease;
+}
+
+button:hover{
+background:#cbd5e1;
+transform:translateY(-1px);
+}
+
+button:active{
+transform:translateY(0);
+}
+
+button.primary{
+background:var(--primary);
+color:white;
+box-shadow:
+0 4px 12px rgba(15,23,42,.18);
+}
+
+button.primary:hover{
+background:var(--primary-hover);
+}
+
+button.danger{
+background:var(--danger);
+color:white;
+}
+
+button.danger:hover{
+background:#991b1b;
+}
+
+/* INPUTS */
+
+input,
+select{
+font-family:inherit;
+font-size:16px;
+border:1px solid #cbd5e1;
+border-radius:9px;
+padding:10px 12px;
+background:white;
+color:var(--text);
+}
+
+input:focus,
+select:focus{
+outline:none;
+border-color:var(--accent);
+box-shadow:
+0 0 0 3px rgba(234,88,12,.15);
+}
+
+/* TABLES */
+
+table{
+width:100%;
+border-collapse:separate;
+border-spacing:0;
+overflow:hidden;
+}
+
+th{
+background:#f1f5f9;
+color:#475569;
+font-size:12px;
+font-weight:750;
+text-transform:uppercase;
+letter-spacing:.04em;
+}
+
+th,
+td{
+padding:10px 8px;
+border-bottom:1px solid var(--border);
+}
+
+tr:last-child td{
+border-bottom:none;
+}
+
+/* SECONDARY TEXT */
+
+.smallText{
+color:var(--muted);
+}
+
+/* SCOREBOARD NUMBERS */
+
+.score{
+font-size:52px;
+font-weight:850;
+letter-spacing:-2px;
+color:#0f172a;
+}
+
+/* CURRENT LINEUP */
+
+.lineupStats{
+font-weight:650;
+color:#334155;
+}
+
+/* SUBSTITUTION AREA */
+
+.subPlayerButton{
+background:#f1f5f9;
+border:2px solid #e2e8f0;
+box-shadow:none;
+}
+
+.subPlayerButton:hover{
+background:#e2e8f0;
+border-color:#cbd5e1;
+}
+
+.subPlayerButton.selectedOut{
+background:#991b1b;
+color:white;
+border-color:#7f1d1d;
+}
+
+.subPlayerButton.selectedIn{
+background:#166534;
+color:white;
+border-color:#14532d;
+}
+
+/* SCROLLABLE TABLES ON SMALLER DEVICES */
+
+.tableWrap{
+overflow-x:auto;
+-webkit-overflow-scrolling:touch;
+}
+
+/* IPAD / MOBILE */
+
+@media(max-width:800px){
+
+.app{
+padding:18px 10px 40px;
+}
+
+h1{
+font-size:28px;
+}
+
+.card{
+padding:16px;
+border-radius:14px;
+}
+
+button{
+min-height:46px;
+}
+
+.score{
+font-size:44px;
+}
+
+.subPlayerButton{
+min-height:68px;
+}
+
+}
 </style>
 </head>
 
