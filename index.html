@@ -3795,11 +3795,19 @@ document
 )
 .classList
 .add("hidden");
-document
-.querySelectorAll(
-"#pendingShotMarker"
-)
-.forEach(marker => marker.remove());
+const court =
+document.getElementById(
+"shotCourt"
+);
+
+const marker =
+court.querySelector(
+".pendingShotMarker"
+);
+
+if (marker) {
+court.removeChild(marker);
+}
 
 pendingShotX = null;
 pendingShotY = null;
