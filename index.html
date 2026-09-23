@@ -486,6 +486,156 @@ overflow-x:auto;
 }
 
 /* IPAD / MOBILE */
+/* =========================
+TEAM HEADER + SLIDE MENU
+========================= */
+
+.teamHeader{
+position:relative;
+padding:26px 28px;
+}
+
+.teamHeading{
+text-align:center;
+margin-bottom:22px;
+}
+
+.teamHeading h2{
+margin:4px 0 0;
+font-size:28px;
+}
+
+.teamLabel{
+font-size:11px;
+font-weight:800;
+letter-spacing:1.6px;
+color:#64748b;
+}
+
+.mainNav{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.mainNav button{
+min-height:48px;
+padding:12px 22px;
+}
+
+.menuButton{
+position:absolute;
+top:20px;
+right:20px;
+width:48px;
+height:48px;
+padding:0;
+border-radius:12px;
+font-size:24px;
+line-height:1;
+background:#f1f5f9;
+color:#0f172a;
+border:1px solid #e2e8f0;
+}
+
+.menuButton:hover{
+background:#e2e8f0;
+}
+
+
+/* DARK BACKDROP */
+
+.menuOverlay{
+position:fixed;
+inset:0;
+background:rgba(15,23,42,.55);
+z-index:999;
+}
+
+
+/* SLIDE-OUT PANEL */
+
+.teamMenu{
+position:fixed;
+top:0;
+right:-390px;
+width:min(360px,88vw);
+height:100vh;
+background:#ffffff;
+z-index:1000;
+padding:24px;
+box-shadow:-12px 0 40px rgba(0,0,0,.22);
+transition:right .25s ease;
+overflow-y:auto;
+}
+
+.teamMenu.open{
+right:0;
+}
+
+.menuHeader{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+padding-bottom:18px;
+border-bottom:1px solid #e2e8f0;
+}
+
+.menuHeader h2{
+text-align:left;
+margin:4px 0 0;
+}
+
+.menuClose{
+width:44px;
+height:44px;
+padding:0;
+border-radius:50%;
+font-size:28px;
+line-height:1;
+background:#f1f5f9;
+color:#0f172a;
+}
+
+.menuSection{
+padding:22px 0;
+border-bottom:1px solid #e2e8f0;
+}
+
+.menuSection h3{
+text-align:left;
+margin:0 0 12px;
+font-size:15px;
+}
+
+.menuSection button{
+display:block;
+width:100%;
+min-height:50px;
+margin:8px 0;
+text-align:left;
+padding:12px 16px;
+}
+
+.menuSection .smallText{
+text-align:left;
+margin-bottom:14px;
+}
+
+.dangerSection{
+border-bottom:0;
+}
+
+.dangerSection h3{
+color:#b91c1c;
+}
+
+.dangerSection .danger{
+color:white;
+}
+
 
 @media(max-width:800px){
 
@@ -542,51 +692,96 @@ min-height:68px;
 <!-- TEAM DASHBOARD -->
 <div id="teamScreen" class="hidden">
 
-<div class="card">
+<div class="card teamHeader">
+
+<button
+class="menuButton"
+onclick="toggleTeamMenu()"
+aria-label="Open team menu">
+☰
+</button>
+
+<div class="teamHeading">
+<div class="teamLabel">CURRENT TEAM</div>
 <h2 id="teamTitle"></h2>
-
-<div class="center">
-<button id="navNewGame" onclick="newGame()">New Game</button>
-<button id="navRoster" onclick="showRoster()">Edit Roster</button>
-<button id="navHistory" onclick="showHistory()">Game History</button>
-<button id="navSeason" onclick="showSeasonStats()">Season Stats</button>
-<button onclick="goHome()">Change Team</button>
-</div>
 </div>
 
-<div class="card">
+<div class="mainNav">
+<button
+id="navNewGame"
+class="primary"
+onclick="newGame()">
+＋ New Game
+</button>
 
-<h2>Team Settings</h2>
+<button
+id="navHistory"
+onclick="showHistory()">
+Game History
+</button>
 
-<p class="center smallText">
-Manage the currently selected team.
-</p>
+<button
+id="navSeason"
+onclick="showSeasonStats()">
+Season Stats
+</button>
+</div>
 
-<div class="center">
+</div>
+
+
+<!-- SLIDE-OUT TEAM MENU -->
+<div
+id="menuOverlay"
+class="menuOverlay hidden"
+onclick="closeTeamMenu()">
+</div>
+
+<div id="teamMenu" class="teamMenu">
+
+<div class="menuHeader">
+<div>
+<div class="teamLabel">TEAM MENU</div>
+<h2>Settings</h2>
+</div>
+
+<button
+class="menuClose"
+onclick="closeTeamMenu()">
+×
+</button>
+</div>
+
+
+<div class="menuSection">
+
+<h3>Team</h3>
+
+<button onclick="menuEditRoster()">
+Edit Roster
+</button>
+
+<button onclick="menuChangeTeam()">
+Change Team
+</button>
 
 <button onclick="renameTeam()">
 Rename Team
 </button>
 
-<button
-class="danger"
-onclick="deleteTeam()">
-Delete Team
-</button>
-
 </div>
 
-</div>
-<h2>Data Backup</h2>
 
-<p class="center smallText">
-Save a copy of all teams, rosters, games, stats, minutes, and lineup data.
+<div class="menuSection">
+
+<h3>Data Backup</h3>
+
+<p class="smallText">
+Save or restore teams, rosters, games,
+stats, minutes, and lineup data.
 </p>
 
-<div class="center">
-
-<button
-onclick="exportBackup()">
+<button onclick="exportBackup()">
 Download Backup
 </button>
 
@@ -605,7 +800,21 @@ onchange="importBackup(event)"
 
 </div>
 
+
+<div class="menuSection dangerSection">
+
+<h3>Danger Zone</h3>
+
+<button
+class="danger"
+onclick="deleteTeam()">
+Delete Team
+</button>
+
 </div>
+
+</div>
+
 
 <div id="teamContent"></div>
 
@@ -1453,7 +1662,17 @@ ${team.games.length} Completed Games
 
 function goHome() {
 
+closeTeamMenu();
+
 selectedTeamId = null;
+
+document
+.getElementById("teamScreen")
+.classList.add("hidden");
+
+document
+.getElementById("homeScreen")
+.classList.remove("hidden");
 
 renderHome();
 }
@@ -4652,6 +4871,39 @@ persistTeams();
 showHistory();
 }
 /* TEAM SETTINGS */
+/* =========================
+TEAM SLIDE-OUT MENU
+========================= */
+
+function toggleTeamMenu() {
+const menu = document.getElementById("teamMenu");
+const overlay = document.getElementById("menuOverlay");
+
+if (menu.classList.contains("open")) {
+closeTeamMenu();
+} else {
+menu.classList.add("open");
+overlay.classList.remove("hidden");
+}
+}
+
+function closeTeamMenu() {
+const menu = document.getElementById("teamMenu");
+const overlay = document.getElementById("menuOverlay");
+
+if (menu) menu.classList.remove("open");
+if (overlay) overlay.classList.add("hidden");
+}
+
+function menuEditRoster() {
+closeTeamMenu();
+showRoster();
+}
+
+function menuChangeTeam() {
+closeTeamMenu();
+goHome();
+}
 
 function renameTeam() {
 
