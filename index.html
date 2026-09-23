@@ -680,6 +680,182 @@ height: auto;
 max-height: 150px;
 object-fit: contain;
 }
+/* =========================
+TEAM APPEARANCE PICKER
+========================= */
+
+.appearanceLabel {
+margin: 18px 0 9px;
+font-size: 12px;
+font-weight: 800;
+letter-spacing: 1.2px;
+text-transform: uppercase;
+color: #64748b;
+}
+
+/* COLOR THEMES */
+
+.themeGrid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 9px;
+}
+
+.themeTile {
+background: #ffffff;
+border: 2px solid #e2e8f0;
+border-radius: 8px;
+padding: 9px;
+color: #0f172a;
+cursor: pointer;
+transition: transform .12s ease,
+border-color .12s ease,
+box-shadow .12s ease;
+}
+
+.themeTile:hover {
+transform: translateY(-2px);
+border-color: #94a3b8;
+box-shadow: 0 5px 12px rgba(15,23,42,.12);
+}
+
+.themeTile.selected {
+border-color: #f97316;
+box-shadow:
+0 0 0 2px rgba(249,115,22,.18),
+0 5px 12px rgba(15,23,42,.14);
+}
+
+.themeSwatches {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+height: 30px;
+overflow: hidden;
+border-radius: 5px;
+margin-bottom: 7px;
+border: 1px solid rgba(15,23,42,.12);
+}
+
+.themeSwatches span {
+display: block;
+}
+
+.themeTile strong {
+display: block;
+font-size: 13px;
+text-align: center;
+}
+
+
+/* FONT PRESETS */
+
+.fontGrid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 9px;
+margin-bottom: 14px;
+}
+
+.fontTile {
+min-height: 52px;
+background: #ffffff;
+color: #0f172a;
+border: 2px solid #e2e8f0;
+border-radius: 8px;
+padding: 10px 6px;
+cursor: pointer;
+transition: transform .12s ease,
+border-color .12s ease,
+box-shadow .12s ease;
+}
+
+.fontTile:hover {
+transform: translateY(-2px);
+border-color: #94a3b8;
+box-shadow: 0 5px 12px rgba(15,23,42,.12);
+}
+
+.fontTile.selected {
+border-color: #f97316;
+box-shadow:
+0 0 0 2px rgba(249,115,22,.18),
+0 5px 12px rgba(15,23,42,.14);
+}
+
+.fontModern {
+font-family: Arial, sans-serif;
+font-weight: 700;
+}
+
+.fontAthletic {
+font-family: "Arial Narrow", Impact, sans-serif;
+font-weight: 900;
+letter-spacing: 1.5px;
+font-style: italic;
+}
+
+.fontStrong {
+font-family: Impact, "Arial Black", sans-serif;
+letter-spacing: .8px;
+}
+
+.fontClassic {
+font-family: Georgia, "Times New Roman", serif;
+font-weight: 700;
+}
+/* =========================
+TEAM THEME SYSTEM
+========================= */
+
+:root {
+--team-primary: #f97316;
+--team-secondary: #0f172a;
+--team-accent: #ffffff;
+--team-font: Arial, sans-serif;
+}
+
+/* Use selected team font throughout the working interface */
+#teamScreen {
+font-family: var(--team-font);
+}
+
+/* Primary actions and active navigation */
+#teamScreen button.primary {
+background: var(--team-primary);
+border-color: var(--team-primary);
+color: #ffffff;
+}
+
+/* Current team name */
+#teamTitle {
+color: var(--team-secondary);
+font-family: var(--team-font);
+}
+
+/* Selected appearance tiles */
+.themeTile.selected,
+.fontTile.selected {
+border-color: var(--team-primary);
+box-shadow:
+0 0 0 2px color-mix(in srgb, var(--team-primary) 22%, transparent),
+0 5px 12px rgba(15,23,42,.14);
+}
+
+/* Give team cards a subtle branded edge */
+#teamScreen > .card {
+border-top: 4px solid var(--team-primary);
+}
+
+/* Team menu headings */
+#teamScreen .menuSection h3 {
+color: var(--team-secondary);
+}
+
+/* Links / small branded emphasis */
+#teamScreen .appearanceLabel {
+color: var(--team-secondary);
+}
+
 </style>
 </head>
 
@@ -814,6 +990,139 @@ accept=".json,application/json"
 class="hidden"
 onchange="importBackup(event)"
 >
+
+</div>
+
+<!-- TEAM APPEARANCE -->
+<div class="menuSection">
+
+<h3>Team Appearance</h3>
+
+<p class="smallText">
+Personalize this team's colors and font.
+Each team has its own settings.
+</p>
+
+<div class="appearanceLabel">Color Theme</div>
+
+<div class="themeGrid">
+
+<button class="themeTile" data-theme="cmt"
+onclick="previewTeamTheme('cmt', this)">
+<span class="themeSwatches">
+<span style="background:#f97316"></span>
+<span style="background:#0f172a"></span>
+<span style="background:#ffffff"></span>
+</span>
+<strong>CMT</strong>
+</button>
+
+<button class="themeTile" data-theme="spartans"
+onclick="previewTeamTheme('spartans', this)">
+<span class="themeSwatches">
+<span style="background:#75b2dd"></span>
+<span style="background:#0b1f3a"></span>
+<span style="background:#ffffff"></span>
+</span>
+<strong>Spartans</strong>
+</button>
+
+<button class="themeTile" data-theme="crimson"
+onclick="previewTeamTheme('crimson', this)">
+<span class="themeSwatches">
+<span style="background:#b91c1c"></span>
+<span style="background:#18181b"></span>
+<span style="background:#ffffff"></span>
+</span>
+<strong>Crimson</strong>
+</button>
+
+<button class="themeTile" data-theme="royal"
+onclick="previewTeamTheme('royal', this)">
+<span class="themeSwatches">
+<span style="background:#2563eb"></span>
+<span style="background:#172554"></span>
+<span style="background:#ffffff"></span>
+</span>
+<strong>Royal</strong>
+</button>
+
+<button class="themeTile" data-theme="forest"
+onclick="previewTeamTheme('forest', this)">
+<span class="themeSwatches">
+<span style="background:#166534"></span>
+<span style="background:#d4a72c"></span>
+<span style="background:#ffffff"></span>
+</span>
+<strong>Forest</strong>
+</button>
+
+<button class="themeTile" data-theme="purple"
+onclick="previewTeamTheme('purple', this)">
+<span class="themeSwatches">
+<span style="background:#6d28d9"></span>
+<span style="background:#374151"></span>
+<span style="background:#ffffff"></span>
+</span>
+<strong>Purple</strong>
+</button>
+
+<button class="themeTile" data-theme="blackout"
+onclick="previewTeamTheme('blackout', this)">
+<span class="themeSwatches">
+<span style="background:#09090b"></span>
+<span style="background:#52525b"></span>
+<span style="background:#d4d4d8"></span>
+</span>
+<strong>Blackout</strong>
+</button>
+
+<button class="themeTile" data-theme="gold"
+onclick="previewTeamTheme('gold', this)">
+<span class="themeSwatches">
+<span style="background:#d4a72c"></span>
+<span style="background:#18181b"></span>
+<span style="background:#ffffff"></span>
+</span>
+<strong>Gold</strong>
+</button>
+
+</div>
+
+<div class="appearanceLabel">Font Style</div>
+
+<div class="fontGrid">
+
+<button class="fontTile fontModern" data-font="modern"
+onclick="previewTeamFont('modern', this)">
+Modern
+</button>
+
+<button class="fontTile fontAthletic" data-font="athletic"
+onclick="previewTeamFont('athletic', this)">
+ATHLETIC
+</button>
+
+<button class="fontTile fontStrong" data-font="strong"
+onclick="previewTeamFont('strong', this)">
+STRONG
+</button>
+
+<button class="fontTile fontClassic" data-font="classic"
+onclick="previewTeamFont('classic', this)">
+Classic
+</button>
+
+</div>
+
+
+<button onclick="saveTeamAppearance()">
+Save Appearance
+</button>
+
+<button onclick="resetTeamAppearance()">
+Reset to Default
+</button>
 
 </div>
 
@@ -1298,6 +1607,257 @@ TEAMS_KEY,
 JSON.stringify(teams)
 );
 }
+/* =========================
+TEAM APPEARANCE ENGINE
+========================= */
+
+const TEAM_THEMES = {
+cmt: {
+primary: "#f97316",
+secondary: "#0f172a",
+accent: "#ffffff"
+},
+
+spartans: {
+primary: "#75b2dd",
+secondary: "#0b1f3a",
+accent: "#ffffff"
+},
+
+crimson: {
+primary: "#b91c1c",
+secondary: "#18181b",
+accent: "#ffffff"
+},
+
+royal: {
+primary: "#2563eb",
+secondary: "#172554",
+accent: "#ffffff"
+},
+
+forest: {
+primary: "#166534",
+secondary: "#d4a72c",
+accent: "#ffffff"
+},
+
+purple: {
+primary: "#6d28d9",
+secondary: "#374151",
+accent: "#ffffff"
+},
+
+blackout: {
+primary: "#18181b",
+secondary: "#52525b",
+accent: "#d4d4d8"
+},
+
+gold: {
+primary: "#d4a72c",
+secondary: "#18181b",
+accent: "#ffffff"
+}
+};
+
+
+const TEAM_FONTS = {
+modern: "Arial, sans-serif",
+
+athletic:
+'"Arial Narrow", Impact, sans-serif',
+
+strong:
+'Impact, "Arial Black", sans-serif',
+
+classic:
+'Georgia, "Times New Roman", serif'
+};
+
+
+let previewTheme = "cmt";
+let previewFont = "modern";
+
+
+function applyTeamAppearance(themeName, fontName) {
+
+const theme =
+TEAM_THEMES[themeName] ||
+TEAM_THEMES.cmt;
+
+const font =
+TEAM_FONTS[fontName] ||
+TEAM_FONTS.modern;
+
+const root =
+document.documentElement;
+
+root.style.setProperty(
+"--team-primary",
+theme.primary
+);
+
+root.style.setProperty(
+"--team-secondary",
+theme.secondary
+);
+
+root.style.setProperty(
+"--team-accent",
+theme.accent
+);
+
+root.style.setProperty(
+"--team-font",
+font
+);
+}
+
+
+function updateAppearanceSelections() {
+
+document
+.querySelectorAll(".themeTile")
+.forEach(tile => {
+
+tile.classList.toggle(
+"selected",
+tile.dataset.theme === previewTheme
+);
+
+});
+
+
+document
+.querySelectorAll(".fontTile")
+.forEach(tile => {
+
+tile.classList.toggle(
+"selected",
+tile.dataset.font === previewFont
+);
+
+});
+}
+
+
+function previewTeamTheme(themeName) {
+
+if (!TEAM_THEMES[themeName]) {
+return;
+}
+
+previewTheme = themeName;
+
+applyTeamAppearance(
+previewTheme,
+previewFont
+);
+
+updateAppearanceSelections();
+}
+
+
+function previewTeamFont(fontName) {
+
+if (!TEAM_FONTS[fontName]) {
+return;
+}
+
+previewFont = fontName;
+
+applyTeamAppearance(
+previewTheme,
+previewFont
+);
+
+updateAppearanceSelections();
+}
+
+
+function loadTeamAppearance() {
+
+const team = getSelectedTeam();
+
+if (!team) {
+previewTheme = "cmt";
+previewFont = "modern";
+
+applyTeamAppearance(
+previewTheme,
+previewFont
+);
+
+updateAppearanceSelections();
+return;
+}
+
+previewTheme =
+team.appearance?.theme || "cmt";
+
+previewFont =
+team.appearance?.font || "modern";
+
+applyTeamAppearance(
+previewTheme,
+previewFont
+);
+
+updateAppearanceSelections();
+}
+
+
+function saveTeamAppearance() {
+
+const team = getSelectedTeam();
+
+if (!team) {
+return;
+}
+
+team.appearance = {
+theme: previewTheme,
+font: previewFont
+};
+
+persistTeams();
+
+applyTeamAppearance(
+previewTheme,
+previewFont
+);
+
+updateAppearanceSelections();
+
+alert("Team appearance saved.");
+}
+
+
+function resetTeamAppearance() {
+
+const team = getSelectedTeam();
+
+previewTheme = "cmt";
+previewFont = "modern";
+
+if (team) {
+
+team.appearance = {
+theme: "cmt",
+font: "modern"
+};
+
+persistTeams();
+}
+
+applyTeamAppearance(
+previewTheme,
+previewFont
+);
+
+updateAppearanceSelections();
+}
 
 function getSelectedTeam() {
 return teams.find(
@@ -1652,7 +2212,7 @@ getSelectedTeam();
 if (!team) {
 return renderHome();
 }
-
+loadTeamAppearance();
 showOnly("teamScreen");
 
 document
@@ -1678,10 +2238,19 @@ ${team.games.length} Completed Games
 }
 
 function goHome() {
-
-closeTeamMenu();
-
 selectedTeamId = null;
+
+previewTheme = "cmt";
+previewFont = "modern";
+
+applyTeamAppearance(
+previewTheme,
+previewFont
+);
+
+renderHome();
+}
+
 
 document
 .getElementById("teamScreen")
