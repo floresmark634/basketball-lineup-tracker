@@ -855,6 +855,69 @@ color: var(--team-secondary);
 #teamScreen .appearanceLabel {
 color: var(--team-secondary);
 }
+/* ========================================
+CMT COURTSIDE — IPAD LANDSCAPE WORKSPACE
+======================================== */
+
+.courtsideWorkspace{
+display:grid;
+grid-template-columns: 42% 58%;
+gap:12px;
+width:100%;
+margin:12px 0;
+}
+
+.courtsideStats,
+.courtsideShotChart{
+min-height:330px;
+}
+
+.courtsideStats{
+background:#ffffff;
+border:1px solid #d9dee7;
+border-radius:10px;
+box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+.courtsideShotChart{
+background:#ffffff;
+border:1px solid #d9dee7;
+border-radius:10px;
+box-shadow:0 6px 18px rgba(0,0,0,.12);
+padding:12px;
+}
+
+.shotChartPlaceholder{
+height:100%;
+min-height:304px;
+border:2px dashed #c7ced8;
+border-radius:7px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+.shotChartLabel{
+font-size:24px;
+font-weight:800;
+letter-spacing:1px;
+}
+
+.shotChartSubtext{
+margin-top:6px;
+font-size:14px;
+opacity:.55;
+}
+
+/* Stack naturally on narrow screens.
+Landscape iPad keeps the two-column workspace. */
+@media (max-width:800px){
+.courtsideWorkspace{
+grid-template-columns:1fr;
+}
+}
+
 
 </style>
 </head>
@@ -1316,6 +1379,23 @@ Tap a player below to record our stats.
 <div id="onCourt" class="onCourt"></div>
 
 </div>
+<!-- CMT COURTSIDE WORKSPACE -->
+<div class="courtsideWorkspace">
+
+<div class="courtsideStats">
+<!-- Existing stat controls will live here -->
+
+<div class="courtsideShotChart">
+<div class="shotChartPlaceholder">
+<div class="shotChartLabel">SHOT CHART</div>
+<div class="shotChartSubtext">
+Court coming next
+</div>
+</div>
+</div>
+
+</div>
+
 
 <!-- STAT PANEL -->
 <div id="statPanel" class="card hidden center">
@@ -1382,7 +1462,7 @@ CANCEL
 
 </div>
 </div>
-
+</div><!-- closes courtsideStats -->
 <!-- ASSIST PANEL -->
 <div id="assistPanel" class="card assistChoices hidden">
 
