@@ -3770,34 +3770,16 @@ document
 .classList
 .add("hidden");
 
-const marker =
-document.getElementById(
-"pendingShotMarker"
-);
-
-if (marker) {
-marker.remove();
-}
-
-pendingShotX = null;
-pendingShotY = null;
-pendingShotType = null;
-
-document
-.querySelector(
-".shotChartSubtext"
-)
-.textContent =
-"Tap where the shot was taken";
-
 document
 .getElementById(
-"shotDecisionPanel"
+"shotChartPlaceholder"
 )
 .classList
-.add("hidden");
+.remove("hidden");
 
 renderGame();
+
+}
 function finishAssist(id) {
 
 if (id !== null) {
