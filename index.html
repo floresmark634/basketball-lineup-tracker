@@ -7,285 +7,285 @@
 
 <style>
 * { box-sizing: border-box; }
-
 body {
 margin: 0;
 font-family: Arial, sans-serif;
 background: #f3f4f6;
 color: #111827;
 }
-
-.app {
-max-width: 1200px;
-margin: auto;
-padding: 18px;
-}
-
-h1, h2, h3 { text-align: center; }
-
+.app { max-width: 1200px; margin: auto; padding: 18px; }
+h1,h2,h3 { text-align:center; }
 .card {
-background: white;
-border-radius: 14px;
-padding: 18px;
-margin-bottom: 16px;
-box-shadow: 0 2px 8px rgba(0,0,0,.08);
+background:white;
+border-radius:14px;
+padding:18px;
+margin-bottom:16px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
+.hidden { display:none !important; }
 
-.hidden { display: none !important; }
-
-button, select, input {
-font-size: 18px;
-}
-
+button,input,select { font-size:17px; }
 button {
-border: 0;
-border-radius: 10px;
-padding: 13px 17px;
-margin: 4px;
-cursor: pointer;
-background: #e5e7eb;
-min-height: 48px;
+border:0;
+border-radius:10px;
+padding:13px 17px;
+margin:4px;
+min-height:48px;
+cursor:pointer;
+background:#e5e7eb;
+}
+button:active { transform:scale(.97); }
+.primary { background:#111827; color:white; }
+.danger { background:#b91c1c; color:white; }
+.success { background:#166534; color:white; }
+
+input,select {
+padding:11px;
+margin:5px;
+border:1px solid #d1d5db;
+border-radius:8px;
 }
 
-button:active { transform: scale(.97); }
+.center { text-align:center; }
 
-.primary {
-background: #111827;
-color: white;
+.teamButtons {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:10px;
 }
-
-.danger {
-background: #b91c1c;
-color: white;
-}
-
-input {
-padding: 10px;
-margin: 5px;
-width: 180px;
+.teamButton {
+padding:20px;
+font-size:20px;
+font-weight:bold;
 }
 
 .rosterRow {
-display: flex;
-justify-content: center;
-align-items: center;
-flex-wrap: wrap;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
 }
+.rosterRow .numberInput { width:80px; }
+.rosterRow .nameInput { width:220px; }
 
 .starterChoice {
-display: inline-block;
-margin: 6px;
+display:inline-block;
+margin:6px;
 }
-
 .starterChoice label {
-display: block;
-padding: 12px;
-border: 2px solid #d1d5db;
-border-radius: 10px;
-cursor: pointer;
+display:block;
+padding:12px;
+border:2px solid #d1d5db;
+border-radius:10px;
+cursor:pointer;
 }
 
 .scoreboard {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
-
-.team {
-background: white;
-border-radius: 14px;
-padding: 15px;
-text-align: center;
+.teamScore {
+background:white;
+border-radius:14px;
+padding:15px;
+text-align:center;
 }
-
-.score {
-font-size: 60px;
-font-weight: bold;
-}
-
-.scoreButtons button {
-font-size: 22px;
-min-width: 65px;
-}
+.score { font-size:60px; font-weight:bold; }
+.scoreButtons button { font-size:22px; min-width:65px; }
 
 .onCourt {
-display: grid;
-grid-template-columns: repeat(5, 1fr);
-gap: 10px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
 }
-
 .playerCard {
-border: 2px solid #d1d5db;
-background: #f9fafb;
-padding: 16px 6px;
-border-radius: 12px;
-text-align: center;
-cursor: pointer;
-min-height: 115px;
+border:2px solid #d1d5db;
+background:#f9fafb;
+padding:16px 6px;
+border-radius:12px;
+text-align:center;
+cursor:pointer;
+min-height:115px;
 }
-
-.playerCard:hover {
-border-color: #111827;
-}
-
 .playerCard.selected {
-border: 3px solid #111827;
-background: #e5e7eb;
+border:3px solid #111827;
+background:#e5e7eb;
 }
-
-.playerNumber {
-font-size: 22px;
-font-weight: bold;
-}
-
-.playerPM {
-font-size: 22px;
-font-weight: bold;
-margin-top: 8px;
-}
-
-.statPanel {
-text-align: center;
-}
+.playerNumber { font-size:22px; font-weight:bold; }
+.playerPM { font-size:22px; font-weight:bold; margin-top:8px; }
 
 .statGrid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 8px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
 }
+.statGrid button { margin:0; }
+.make { background:#166534;color:white; }
+.miss { background:#991b1b;color:white; }
+.otherStat { background:#1e3a8a;color:white; }
 
-.statGrid button {
-margin: 0;
-}
+.assistChoices { text-align:center; }
+.assistChoices button { min-width:120px; }
 
-.make {
-background: #166534;
-color: white;
-}
+.lineupStats { text-align:center;font-size:19px; }
 
-.miss {
-background: #991b1b;
-color: white;
-}
-
-.otherStat {
-background: #1e3a8a;
-color: white;
-}
-
-.assistChoices {
-text-align: center;
-}
-
-.assistChoices button {
-min-width: 120px;
-}
-
-.lineupStats {
-text-align: center;
-font-size: 19px;
-}
-
-select {
-padding: 10px;
-margin: 5px;
-}
-
-.tableWrap {
-overflow-x: auto;
-}
-
+.tableWrap { overflow-x:auto; }
 table {
-width: 100%;
-border-collapse: collapse;
-white-space: nowrap;
+width:100%;
+border-collapse:collapse;
+white-space:nowrap;
 }
-
-th, td {
-padding: 9px;
-border-bottom: 1px solid #ddd;
-text-align: center;
+th,td {
+padding:9px;
+border-bottom:1px solid #ddd;
+text-align:center;
 }
+th { background:#f3f4f6; }
 
-th {
-background: #f3f4f6;
-}
-
-.log {
-max-height: 220px;
-overflow-y: auto;
-}
-
+.log { max-height:220px; overflow-y:auto; }
 .log p {
-margin: 7px 0;
-border-bottom: 1px solid #eee;
-padding-bottom: 6px;
+margin:7px 0;
+border-bottom:1px solid #eee;
+padding-bottom:6px;
 }
 
-@media (max-width: 750px) {
-.onCourt {
-grid-template-columns: repeat(2, 1fr);
+.gameHistoryCard {
+border:1px solid #d1d5db;
+border-radius:10px;
+padding:12px;
+margin:8px 0;
 }
 
-.statGrid {
-grid-template-columns: repeat(2, 1fr);
-}
+.smallText { color:#6b7280; font-size:14px; }
 
-.scoreboard {
-grid-template-columns: 1fr;
-}
+@media(max-width:750px) {
+.onCourt { grid-template-columns:repeat(2,1fr); }
+.statGrid { grid-template-columns:repeat(2,1fr); }
+.scoreboard { grid-template-columns:1fr; }
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <h1>🏀 Basketball Stat Tracker</h1>
 
-<!-- ROSTER SETUP -->
-<div id="setup" class="card">
-<h2>Create Roster</h2>
+<!-- HOME -->
+<div id="homeScreen" class="card">
+<h2>Choose Team</h2>
+
+<div id="teamButtons" class="teamButtons"></div>
+
+<div class="center">
+<button onclick="showAddTeam()">+ Add Team</button>
+</div>
+
+<div id="addTeamArea" class="hidden center">
+<input id="newTeamName" placeholder="Team name (Varsity, JV...)">
+<button class="primary" onclick="addTeam()">Save Team</button>
+</div>
+</div>
+
+<!-- TEAM DASHBOARD -->
+<div id="teamScreen" class="hidden">
+
+<div class="card">
+<h2 id="teamTitle"></h2>
+
+<div class="center">
+<button class="primary" onclick="newGame()">New Game</button>
+<button onclick="showRoster()">Edit Roster</button>
+<button onclick="showHistory()">Game History</button>
+<button onclick="showSeasonStats()">Season Stats</button>
+<button onclick="goHome()">Change Team</button>
+</div>
+</div>
+
+<div id="teamContent"></div>
+
+</div>
+
+<!-- ROSTER -->
+<div id="rosterScreen" class="card hidden">
+
+<h2 id="rosterTitle">Roster</h2>
 
 <div id="rosterInputs"></div>
 
-<div style="text-align:center">
+<div class="center">
 <button onclick="addRosterRow()">+ Add Player</button>
-<button class="primary" onclick="goToStarters()">Choose Starting 5</button>
+<button class="primary" onclick="saveRoster()">Save Roster</button>
+<button onclick="cancelRoster()">Cancel</button>
 </div>
+
 </div>
 
-<!-- STARTER SETUP -->
-<div id="starterSetup" class="card hidden">
-<h2>Choose Starting 5</h2>
+<!-- GAME INFO -->
+<div id="gameInfoScreen" class="card hidden">
 
-<div id="starterChoices" style="text-align:center"></div>
+<h2>New Game</h2>
 
-<p style="text-align:center">
-Selected:
-<strong id="starterCount">0</strong> / 5
+<div class="center">
+<p>
+<input id="opponentName" placeholder="Opponent name">
 </p>
 
-<div style="text-align:center">
-<button onclick="backToRoster()">Back</button>
+<p>
+<input id="gameDate" type="date">
+</p>
+
+<p>
+<select id="gameLocation">
+<option value="Home">Home</option>
+<option value="Away">Away</option>
+<option value="Neutral">Neutral</option>
+</select>
+</p>
+
+<button onclick="cancelNewGame()">Cancel</button>
+<button class="primary" onclick="continueToStarters()">Choose Starting 5</button>
+</div>
+
+</div>
+
+<!-- STARTERS -->
+<div id="starterScreen" class="card hidden">
+
+<h2>Choose Starting 5</h2>
+
+<div id="starterChoices" class="center"></div>
+
+<p class="center">
+Selected: <strong id="starterCount">0</strong> / 5
+</p>
+
+<div class="center">
+<button onclick="backToGameInfo()">Back</button>
 <button class="primary" onclick="startGame()">Start Game</button>
 </div>
+
 </div>
 
 <!-- GAME -->
-<div id="game" class="hidden">
+<div id="gameScreen" class="hidden">
+
+<div class="card center">
+<strong id="gameHeader"></strong>
+<div id="gameSubHeader" class="smallText"></div>
+</div>
 
 <div class="scoreboard">
 
-<div class="team">
-<h2>Our Team</h2>
+<div class="teamScore">
+<h2 id="ourTeamGameName">Our Team</h2>
 <div id="ourScore" class="score">0</div>
-<p>Record our scoring by tapping a player below.</p>
+<p>Tap a player below to record our stats.</p>
 </div>
 
-<div class="team">
-<h2>Opponent</h2>
+<div class="teamScore">
+<h2 id="opponentGameName">Opponent</h2>
 <div id="theirScore" class="score">0</div>
 
 <div class="scoreButtons">
@@ -297,122 +297,66 @@ Selected:
 
 </div>
 
-<!-- ON COURT -->
 <div class="card">
 <h2>Tap Player to Record Stat</h2>
 <div id="onCourt" class="onCourt"></div>
 </div>
 
-<!-- STAT ENTRY -->
-<div id="statPanel" class="card statPanel hidden">
+<div id="statPanel" class="card hidden center">
 
-<h2 id="selectedPlayerTitle">Player</h2>
+<h2 id="selectedPlayerTitle"></h2>
 
 <div class="statGrid">
+<button class="make" onclick="recordShot('2PM')">2PT MADE</button>
+<button class="miss" onclick="recordShot('2MISS')">2PT MISS</button>
 
-<button class="make" onclick="recordShot('2PM')">
-2PT MADE
-</button>
+<button class="make" onclick="recordShot('3PM')">3PT MADE</button>
+<button class="miss" onclick="recordShot('3MISS')">3PT MISS</button>
 
-<button class="miss" onclick="recordShot('2PA')">
-2PT MISS
-</button>
+<button class="make" onclick="recordShot('FTM')">FT MADE</button>
+<button class="miss" onclick="recordShot('FTMISS')">FT MISS</button>
 
-<button class="make" onclick="recordShot('3PM')">
-3PT MADE
-</button>
+<button class="otherStat" onclick="recordSimpleStat('oreb')">OREB</button>
+<button class="otherStat" onclick="recordSimpleStat('dreb')">DREB</button>
 
-<button class="miss" onclick="recordShot('3PA')">
-3PT MISS
-</button>
+<button class="otherStat" onclick="recordSimpleStat('ast')">AST</button>
+<button class="otherStat" onclick="recordSimpleStat('stl')">STL</button>
 
-<button class="make" onclick="recordShot('FTM')">
-FT MADE
-</button>
+<button class="otherStat" onclick="recordSimpleStat('blk')">BLK</button>
+<button class="otherStat" onclick="recordSimpleStat('to')">TURNOVER</button>
 
-<button class="miss" onclick="recordShot('FTA')">
-FT MISS
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('oreb')">
-OREB
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('dreb')">
-DREB
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('ast')">
-AST
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('stl')">
-STL
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('blk')">
-BLK
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('to')">
-TURNOVER
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('pf')">
-FOUL
-</button>
-
-<button onclick="closeStatPanel()">
-CANCEL
-</button>
-
+<button class="otherStat" onclick="recordSimpleStat('pf')">FOUL</button>
+<button onclick="closeStatPanel()">CANCEL</button>
 </div>
 
 </div>
 
-<!-- ASSIST -->
 <div id="assistPanel" class="card assistChoices hidden">
-
 <h2>Who assisted?</h2>
-
 <div id="assistButtons"></div>
-
 </div>
 
-<!-- CURRENT LINEUP -->
 <div class="card">
 <h2>Current Lineup</h2>
 <div id="currentLineupStats" class="lineupStats"></div>
 </div>
 
-<!-- SUBSTITUTION -->
 <div class="card">
 <h2>Substitution</h2>
 
-<div style="text-align:center">
-
+<div class="center">
 <select id="playerOut"></select>
-
 <strong> OUT → </strong>
-
 <select id="playerIn"></select>
-
-<button class="primary" onclick="makeSub()">
-Make Sub
-</button>
-
+<button class="primary" onclick="makeSub()">Make Sub</button>
 </div>
 </div>
 
-<!-- BOX SCORE -->
 <div class="card">
-
 <h2>Box Score</h2>
 
 <div class="tableWrap">
-
 <table>
-
 <thead>
 <tr>
 <th>#</th>
@@ -432,24 +376,16 @@ Make Sub
 <th>+/-</th>
 </tr>
 </thead>
-
 <tbody id="boxScore"></tbody>
-
 </table>
-
+</div>
 </div>
 
-</div>
-
-<!-- LINEUPS -->
 <div class="card">
-
 <h2>Lineup Results</h2>
 
 <div class="tableWrap">
-
 <table>
-
 <thead>
 <tr>
 <th>Lineup</th>
@@ -458,38 +394,32 @@ Make Sub
 <th>+/-</th>
 </tr>
 </thead>
-
 <tbody id="lineupTable"></tbody>
-
 </table>
-
+</div>
 </div>
 
-</div>
-
-<!-- LOG -->
 <div class="card">
-
 <h2>Game Log</h2>
 
 <div id="gameLog" class="log"></div>
 
-<div style="text-align:center">
-
-<button onclick="undoLast()">
-↶ Undo Last Action
-</button>
-
+<div class="center">
+<button onclick="undoLast()">↶ Undo Last Action</button>
+<button class="danger" onclick="endGame()">End Game</button>
 </div>
-
-</div>
-
 </div>
 
 </div>
 
 <script>
 
+const TEAMS_KEY = "basketballTeamsV2";
+const ACTIVE_GAME_KEY = "basketballActiveGameV2";
+
+let teams = loadTeams();
+
+let selectedTeamId = null;
 let roster = [];
 let onCourt = [];
 
@@ -497,575 +427,641 @@ let ourScore = 0;
 let theirScore = 0;
 
 let selectedPlayerId = null;
-
 let lineups = {};
-let history = [];
 let gameLog = [];
+let history = [];
 
-function newPlayer(id, number, name) {
+let currentGameInfo = null;
+
+function makeId() {
+return Date.now() + Math.floor(Math.random() * 100000);
+}
+
+function loadTeams() {
+try {
+return JSON.parse(localStorage.getItem(TEAMS_KEY)) || [];
+} catch {
+return [];
+}
+}
+
+function persistTeams() {
+localStorage.setItem(TEAMS_KEY, JSON.stringify(teams));
+}
+
+function getSelectedTeam() {
+return teams.find(t => t.id === selectedTeamId);
+}
+
+function blankStats() {
 return {
-id: id,
-number: number,
-name: name,
-
-points: 0,
-
-fgMade: 0,
-fgAtt: 0,
-
-threeMade: 0,
-threeAtt: 0,
-
-ftMade: 0,
-ftAtt: 0,
-
-oreb: 0,
-dreb: 0,
-
-ast: 0,
-stl: 0,
-blk: 0,
-to: 0,
-pf: 0,
-
-plusMinus: 0
+points:0,
+fgMade:0,
+fgAtt:0,
+threeMade:0,
+threeAtt:0,
+ftMade:0,
+ftAtt:0,
+oreb:0,
+dreb:0,
+ast:0,
+stl:0,
+blk:0,
+to:0,
+pf:0,
+plusMinus:0
 };
 }
 
-function addRosterRow(number = "", name = "") {
+function newRosterPlayer(number,name) {
+return {
+id:makeId(),
+number,
+name
+};
+}
 
+function gamePlayer(rosterPlayer) {
+return {
+...rosterPlayer,
+...blankStats()
+};
+}
+
+function showOnly(id) {
+[
+"homeScreen",
+"teamScreen",
+"rosterScreen",
+"gameInfoScreen",
+"starterScreen",
+"gameScreen"
+].forEach(screen => {
+document.getElementById(screen).classList.add("hidden");
+});
+
+document.getElementById(id).classList.remove("hidden");
+}
+
+function renderHome() {
+showOnly("homeScreen");
+
+const area = document.getElementById("teamButtons");
+area.innerHTML = "";
+
+teams.forEach(team => {
+const button = document.createElement("button");
+button.className = "teamButton";
+button.textContent = team.name;
+button.onclick = () => selectTeam(team.id);
+area.appendChild(button);
+});
+
+if (teams.length === 0) {
+area.innerHTML = "<p class='center'>No teams saved yet. Add your first team below.</p>";
+}
+
+const active = getActiveGame();
+
+if (active) {
+const resume = document.createElement("button");
+resume.className = "teamButton success";
+resume.textContent =
+`Resume ${active.teamName} vs ${active.gameInfo.opponent}`;
+
+resume.onclick = resumeActiveGame;
+
+area.prepend(resume);
+}
+}
+
+function showAddTeam() {
+document.getElementById("addTeamArea").classList.remove("hidden");
+document.getElementById("newTeamName").focus();
+}
+
+function addTeam() {
+const input = document.getElementById("newTeamName");
+const name = input.value.trim();
+
+if (!name) {
+alert("Enter a team name.");
+return;
+}
+
+teams.push({
+id:makeId(),
+name,
+roster:[],
+games:[]
+});
+
+persistTeams();
+
+input.value = "";
+document.getElementById("addTeamArea").classList.add("hidden");
+
+renderHome();
+}
+
+function selectTeam(id) {
+selectedTeamId = id;
+renderTeamDashboard();
+}
+
+function renderTeamDashboard() {
+const team = getSelectedTeam();
+if (!team) return renderHome();
+
+showOnly("teamScreen");
+
+document.getElementById("teamTitle").textContent = team.name;
+
+document.getElementById("teamContent").innerHTML = `
+<div class="card center">
+<h3>${team.roster.length} Players</h3>
+<p>${team.games.length} Completed Games</p>
+</div>
+`;
+}
+
+function goHome() {
+selectedTeamId = null;
+renderHome();
+}
+
+function showRoster() {
+const team = getSelectedTeam();
+if (!team) return;
+
+showOnly("rosterScreen");
+
+document.getElementById("rosterTitle").textContent =
+`${team.name} Roster`;
+
+const area = document.getElementById("rosterInputs");
+area.innerHTML = "";
+
+if (team.roster.length === 0) {
+for (let i=0;i<10;i++) addRosterRow();
+} else {
+team.roster.forEach(player => {
+addRosterRow(player.number,player.name,player.id);
+});
+}
+}
+
+function addRosterRow(number="",name="",id="") {
 const area = document.getElementById("rosterInputs");
 
 const row = document.createElement("div");
-
 row.className = "rosterRow";
+row.dataset.playerId = id;
 
 row.innerHTML = `
-<input
-class="numberInput"
-placeholder="#"
-value="${number}"
->
-
-<input
-class="nameInput"
-placeholder="Player name"
-value="${name}"
->
-
-<button onclick="this.parentElement.remove()">
-Remove
-</button>
+<input class="numberInput" placeholder="#" value="${escapeHtml(number)}">
+<input class="nameInput" placeholder="Player name" value="${escapeHtml(name)}">
+<button onclick="this.parentElement.remove()">Remove</button>
 `;
 
 area.appendChild(row);
 }
 
-for (let i = 0; i < 10; i++) {
-addRosterRow();
-}
+function saveRoster() {
+const team = getSelectedTeam();
+if (!team) return;
 
-function buildRoster() {
+const rows = [...document.querySelectorAll("#rosterInputs .rosterRow")];
 
-const numbers =
-document.querySelectorAll(".numberInput");
+const newRoster = [];
 
-const names =
-document.querySelectorAll(".nameInput");
+rows.forEach(row => {
+const number = row.querySelector(".numberInput").value.trim();
+const name = row.querySelector(".nameInput").value.trim();
 
-roster = [];
-
-for (let i = 0; i < names.length; i++) {
-
-const name =
-names[i].value.trim();
-
-const number =
-numbers[i].value.trim();
-
-if (name !== "") {
-
-roster.push(
-newPlayer(
-Date.now() + i,
+if (name) {
+newRoster.push({
+id: row.dataset.playerId
+? Number(row.dataset.playerId)
+: makeId(),
 number,
 name
-)
-);
+});
+}
+});
 
+team.roster = newRoster;
+persistTeams();
+
+renderTeamDashboard();
 }
 
+function cancelRoster() {
+renderTeamDashboard();
 }
 
-}
+function newGame() {
+const team = getSelectedTeam();
 
-function goToStarters() {
+if (!team) return;
 
-buildRoster();
-
-if (roster.length < 5) {
-
-alert("You need at least 5 players.");
-
+if (team.roster.length < 5) {
+alert("Add at least 5 players to this team's roster first.");
+showRoster();
 return;
 }
 
-document
-.getElementById("setup")
-.classList.add("hidden");
+showOnly("gameInfoScreen");
 
-document
-.getElementById("starterSetup")
-.classList.remove("hidden");
+document.getElementById("opponentName").value = "";
+document.getElementById("gameLocation").value = "Home";
 
+const today = new Date();
+const localDate =
+today.getFullYear() + "-" +
+String(today.getMonth()+1).padStart(2,"0") + "-" +
+String(today.getDate()).padStart(2,"0");
+
+document.getElementById("gameDate").value = localDate;
+}
+
+function cancelNewGame() {
+renderTeamDashboard();
+}
+
+function continueToStarters() {
+const opponent =
+document.getElementById("opponentName").value.trim();
+
+if (!opponent) {
+alert("Enter the opponent's name.");
+return;
+}
+
+currentGameInfo = {
+opponent,
+date:document.getElementById("gameDate").value,
+location:document.getElementById("gameLocation").value
+};
+
+showOnly("starterScreen");
 renderStarterChoices();
 }
 
-function backToRoster() {
-
-document
-.getElementById("starterSetup")
-.classList.add("hidden");
-
-document
-.getElementById("setup")
-.classList.remove("hidden");
+function backToGameInfo() {
+showOnly("gameInfoScreen");
 }
 
 function renderStarterChoices() {
-
-const area =
-document.getElementById("starterChoices");
+const team = getSelectedTeam();
+const area = document.getElementById("starterChoices");
 
 area.innerHTML = "";
 
-roster.forEach(player => {
-
-const box =
-document.createElement("div");
-
-box.className =
-"starterChoice";
+team.roster.forEach(player => {
+const box = document.createElement("div");
+box.className = "starterChoice";
 
 box.innerHTML = `
 <label>
-
 <input
 type="checkbox"
 class="starterCheck"
 value="${player.id}"
 onchange="starterChanged(this)"
 >
-
-#${player.number}
-${player.name}
-
+#${escapeHtml(player.number)} ${escapeHtml(player.name)}
 </label>
 `;
 
 area.appendChild(box);
-
 });
 
 updateStarterCount();
 }
 
 function starterChanged(box) {
-
 const checked =
-document.querySelectorAll(
-".starterCheck:checked"
-);
+document.querySelectorAll(".starterCheck:checked");
 
 if (checked.length > 5) {
-
 box.checked = false;
-
-alert(
-"You can only select 5 starters."
-);
+alert("You can only select 5 starters.");
 }
 
 updateStarterCount();
 }
 
 function updateStarterCount() {
-
-const count =
-document.querySelectorAll(
-".starterCheck:checked"
-).length;
-
-document
-.getElementById("starterCount")
-.textContent = count;
+document.getElementById("starterCount").textContent =
+document.querySelectorAll(".starterCheck:checked").length;
 }
 
 function startGame() {
-
-const checked = [
-...document.querySelectorAll(
-".starterCheck:checked"
-)
-];
+const checked =
+[...document.querySelectorAll(".starterCheck:checked")];
 
 if (checked.length !== 5) {
-
-alert(
-"Select exactly 5 starters."
-);
-
+alert("Select exactly 5 starters.");
 return;
 }
 
-onCourt =
-checked.map(
-box => Number(box.value)
-);
+const team = getSelectedTeam();
+
+roster = team.roster.map(gamePlayer);
+
+onCourt = checked.map(box => Number(box.value));
 
 ourScore = 0;
 theirScore = 0;
-
-lineups = {};
-history = [];
-gameLog = [];
-
 selectedPlayerId = null;
-
-document
-.getElementById("starterSetup")
-.classList.add("hidden");
-
-document
-.getElementById("game")
-.classList.remove("hidden");
+lineups = {};
+gameLog = [];
+history = [];
 
 ensureCurrentLineup();
 
+showOnly("gameScreen");
 renderGame();
 }
 
 function currentPlayers() {
-
-return onCourt.map(
-id =>
-roster.find(
-player => player.id === id
-)
-);
-
+return onCourt
+.map(id => roster.find(p => p.id === id))
+.filter(Boolean);
 }
 
 function lineupKey() {
-
-return [...onCourt]
-.sort((a,b) => a-b)
-.join("-");
-
+return [...onCourt].sort((a,b)=>a-b).join("-");
 }
 
 function ensureCurrentLineup() {
-
 const key = lineupKey();
 
 if (!lineups[key]) {
-
 lineups[key] = {
-
-playerIds: [...onCourt],
-
-pointsFor: 0,
-
-pointsAgainst: 0
-
+playerIds:[...onCourt],
+pointsFor:0,
+pointsAgainst:0
 };
-
 }
-
 }
 
 function saveHistory() {
-
-history.push(
-JSON.stringify({
+history.push(JSON.stringify({
 roster,
 onCourt,
 ourScore,
 theirScore,
 lineups,
 gameLog
-})
-);
+}));
 
+if (history.length > 100) history.shift();
+}
+
+function saveActiveGame() {
+if (!selectedTeamId || !currentGameInfo || roster.length === 0) return;
+
+const team = getSelectedTeam();
+
+const data = {
+teamId:selectedTeamId,
+teamName:team.name,
+gameInfo:currentGameInfo,
+roster,
+onCourt,
+ourScore,
+theirScore,
+lineups,
+gameLog
+};
+
+localStorage.setItem(ACTIVE_GAME_KEY,JSON.stringify(data));
+}
+
+function getActiveGame() {
+try {
+return JSON.parse(localStorage.getItem(ACTIVE_GAME_KEY));
+} catch {
+return null;
+}
+}
+
+function resumeActiveGame() {
+const data = getActiveGame();
+
+if (!data) {
+alert("No saved game was found.");
+return;
+}
+
+const team = teams.find(t => t.id === data.teamId);
+
+if (!team) {
+alert("The team for this saved game no longer exists.");
+return;
+}
+
+selectedTeamId = data.teamId;
+currentGameInfo = data.gameInfo;
+
+roster = data.roster || [];
+onCourt = data.onCourt || [];
+
+ourScore = data.ourScore || 0;
+theirScore = data.theirScore || 0;
+
+lineups = data.lineups || {};
+gameLog = data.gameLog || [];
+
+history = [];
+selectedPlayerId = null;
+
+showOnly("gameScreen");
+renderGame();
 }
 
 function selectPlayer(id) {
-
 selectedPlayerId = id;
 
-const player =
-roster.find(p => p.id === id);
+const player = roster.find(p => p.id === id);
 
-document
-.getElementById(
-"selectedPlayerTitle"
-)
-.textContent =
+document.getElementById("selectedPlayerTitle").textContent =
 `#${player.number} ${player.name}`;
 
-document
-.getElementById("statPanel")
-.classList.remove("hidden");
-
-document
-.getElementById("assistPanel")
-.classList.add("hidden");
+document.getElementById("statPanel").classList.remove("hidden");
+document.getElementById("assistPanel").classList.add("hidden");
 
 renderOnCourt();
 }
 
 function closeStatPanel() {
-
 selectedPlayerId = null;
-
-document
-.getElementById("statPanel")
-.classList.add("hidden");
-
+document.getElementById("statPanel").classList.add("hidden");
 renderOnCourt();
 }
 
 function recordShot(type) {
-
 if (!selectedPlayerId) return;
 
 saveHistory();
 
-const player =
-roster.find(
-p => p.id === selectedPlayerId
-);
+const player = roster.find(p => p.id === selectedPlayerId);
 
 ensureCurrentLineup();
 
-const key = lineupKey();
+const lineup = lineups[lineupKey()];
 
 if (type === "2PM") {
-
 player.points += 2;
-
 player.fgMade++;
 player.fgAtt++;
 
 ourScore += 2;
+lineup.pointsFor += 2;
 
-lineups[key].pointsFor += 2;
-
-currentPlayers()
-.forEach(p => p.plusMinus += 2);
+currentPlayers().forEach(p => p.plusMinus += 2);
 
 gameLog.unshift(
 `#${player.number} ${player.name} — 2PT MADE`
 );
 
 renderGame();
-
 showAssistChoices();
-
 return;
 }
 
 if (type === "3PM") {
-
 player.points += 3;
-
 player.fgMade++;
 player.fgAtt++;
-
 player.threeMade++;
 player.threeAtt++;
 
 ourScore += 3;
+lineup.pointsFor += 3;
 
-lineups[key].pointsFor += 3;
-
-currentPlayers()
-.forEach(p => p.plusMinus += 3);
+currentPlayers().forEach(p => p.plusMinus += 3);
 
 gameLog.unshift(
 `#${player.number} ${player.name} — 3PT MADE`
 );
 
 renderGame();
-
 showAssistChoices();
-
 return;
 }
 
-if (type === "2PA") {
-
+if (type === "2MISS") {
 player.fgAtt++;
-
 gameLog.unshift(
 `#${player.number} ${player.name} — 2PT MISS`
 );
-
 }
 
-if (type === "3PA") {
-
+if (type === "3MISS") {
 player.fgAtt++;
-
 player.threeAtt++;
 
 gameLog.unshift(
 `#${player.number} ${player.name} — 3PT MISS`
 );
-
 }
 
 if (type === "FTM") {
-
 player.points++;
-
 player.ftMade++;
 player.ftAtt++;
 
 ourScore++;
+lineup.pointsFor++;
 
-lineups[key].pointsFor++;
-
-currentPlayers()
-.forEach(p => p.plusMinus++);
+currentPlayers().forEach(p => p.plusMinus++);
 
 gameLog.unshift(
 `#${player.number} ${player.name} — FT MADE`
 );
-
 }
 
-if (type === "FTA") {
-
+if (type === "FTMISS") {
 player.ftAtt++;
 
 gameLog.unshift(
 `#${player.number} ${player.name} — FT MISS`
 );
-
 }
 
 selectedPlayerId = null;
-
-document
-.getElementById("statPanel")
-.classList.add("hidden");
+document.getElementById("statPanel").classList.add("hidden");
 
 renderGame();
 }
 
 function showAssistChoices() {
+document.getElementById("statPanel").classList.add("hidden");
 
-document
-.getElementById("statPanel")
-.classList.add("hidden");
-
-const area =
-document.getElementById(
-"assistButtons"
-);
-
+const area = document.getElementById("assistButtons");
 area.innerHTML = "";
 
-const unassisted =
-document.createElement("button");
-
-unassisted.textContent =
-"Unassisted";
-
-unassisted.onclick =
-() => finishAssist(null);
-
+const unassisted = document.createElement("button");
+unassisted.textContent = "Unassisted";
+unassisted.onclick = () => finishAssist(null);
 area.appendChild(unassisted);
 
 currentPlayers()
-.filter(
-player =>
-player.id !== selectedPlayerId
-)
+.filter(p => p.id !== selectedPlayerId)
 .forEach(player => {
-
-const button =
-document.createElement("button");
+const button = document.createElement("button");
 
 button.textContent =
 `#${player.number} ${player.name}`;
 
-button.onclick =
-() => finishAssist(player.id);
+button.onclick = () => finishAssist(player.id);
 
 area.appendChild(button);
-
 });
 
-document
-.getElementById("assistPanel")
-.classList.remove("hidden");
+document.getElementById("assistPanel").classList.remove("hidden");
 }
 
 function finishAssist(assistPlayerId) {
-
 if (assistPlayerId !== null) {
-
-const assister =
-roster.find(
-p => p.id === assistPlayerId
-);
+const assister = roster.find(p => p.id === assistPlayerId);
 
 assister.ast++;
 
 gameLog.unshift(
 `Assist — #${assister.number} ${assister.name}`
 );
-
 } else {
-
-gameLog.unshift(
-"Basket was unassisted"
-);
-
+gameLog.unshift("Basket was unassisted");
 }
 
 selectedPlayerId = null;
 
-document
-.getElementById("assistPanel")
-.classList.add("hidden");
+document.getElementById("assistPanel").classList.add("hidden");
 
 renderGame();
 }
 
 function recordSimpleStat(stat) {
-
 if (!selectedPlayerId) return;
 
 saveHistory();
 
-const player =
-roster.find(
-p => p.id === selectedPlayerId
-);
+const player = roster.find(p => p.id === selectedPlayerId);
 
 player[stat]++;
 
 const labels = {
-oreb: "OFFENSIVE REBOUND",
-dreb: "DEFENSIVE REBOUND",
-ast: "ASSIST",
-stl: "STEAL",
-blk: "BLOCK",
-to: "TURNOVER",
-pf: "FOUL"
+oreb:"OFFENSIVE REBOUND",
+dreb:"DEFENSIVE REBOUND",
+ast:"ASSIST",
+stl:"STEAL",
+blk:"BLOCK",
+to:"TURNOVER",
+pf:"FOUL"
 };
 
 gameLog.unshift(
@@ -1074,75 +1070,41 @@ gameLog.unshift(
 
 selectedPlayerId = null;
 
-document
-.getElementById("statPanel")
-.classList.add("hidden");
+document.getElementById("statPanel").classList.add("hidden");
 
 renderGame();
 }
 
 function opponentScore(points) {
-
 saveHistory();
-
 ensureCurrentLineup();
 
 theirScore += points;
 
-const key = lineupKey();
+lineups[lineupKey()].pointsAgainst += points;
 
-lineups[key]
-.pointsAgainst += points;
+currentPlayers().forEach(p => p.plusMinus -= points);
 
-currentPlayers()
-.forEach(
-player =>
-player.plusMinus -= points
-);
-
-gameLog.unshift(
-`Opponent +${points}`
-);
+gameLog.unshift(`Opponent +${points}`);
 
 renderGame();
 }
 
 function makeSub() {
-
-const outId =
-Number(
-document
-.getElementById("playerOut")
-.value
-);
-
-const inId =
-Number(
-document
-.getElementById("playerIn")
-.value
-);
+const outId = Number(document.getElementById("playerOut").value);
+const inId = Number(document.getElementById("playerIn").value);
 
 if (!outId || !inId) {
-
-alert(
-"Choose a player out and a player in."
-);
-
+alert("Choose a player out and a player in.");
 return;
 }
 
 saveHistory();
 
-const outPlayer =
-roster.find(p => p.id === outId);
+const outPlayer = roster.find(p => p.id === outId);
+const inPlayer = roster.find(p => p.id === inId);
 
-const inPlayer =
-roster.find(p => p.id === inId);
-
-const index =
-onCourt.indexOf(outId);
-
+const index = onCourt.indexOf(outId);
 onCourt[index] = inId;
 
 ensureCurrentLineup();
@@ -1153,77 +1115,312 @@ gameLog.unshift(
 
 selectedPlayerId = null;
 
-document
-.getElementById("statPanel")
-.classList.add("hidden");
-
-document
-.getElementById("assistPanel")
-.classList.add("hidden");
+document.getElementById("statPanel").classList.add("hidden");
+document.getElementById("assistPanel").classList.add("hidden");
 
 renderGame();
 }
 
 function undoLast() {
-
 if (history.length === 0) {
-
 alert("Nothing to undo.");
-
 return;
 }
 
-const previous =
-JSON.parse(history.pop());
+const previous = JSON.parse(history.pop());
 
-roster =
-previous.roster;
-
-onCourt =
-previous.onCourt;
-
-ourScore =
-previous.ourScore;
-
-theirScore =
-previous.theirScore;
-
-lineups =
-previous.lineups;
-
-gameLog =
-previous.gameLog;
+roster = previous.roster;
+onCourt = previous.onCourt;
+ourScore = previous.ourScore;
+theirScore = previous.theirScore;
+lineups = previous.lineups;
+gameLog = previous.gameLog;
 
 selectedPlayerId = null;
 
-document
-.getElementById("statPanel")
-.classList.add("hidden");
-
-document
-.getElementById("assistPanel")
-.classList.add("hidden");
+document.getElementById("statPanel").classList.add("hidden");
+document.getElementById("assistPanel").classList.add("hidden");
 
 renderGame();
 }
 
-function formatPM(value) {
+function endGame() {
+const team = getSelectedTeam();
 
-return value > 0
-? "+" + value
-: value;
+if (!team) return;
 
+const answer = confirm(
+`End game?\n\nFinal: ${team.name} ${ourScore} - ${theirScore} ${currentGameInfo.opponent}`
+);
+
+if (!answer) return;
+
+const completedGame = {
+id:makeId(),
+...currentGameInfo,
+teamName:team.name,
+ourScore,
+theirScore,
+players:JSON.parse(JSON.stringify(roster)),
+lineups:JSON.parse(JSON.stringify(lineups)),
+gameLog:[...gameLog]
+};
+
+team.games.push(completedGame);
+
+persistTeams();
+localStorage.removeItem(ACTIVE_GAME_KEY);
+
+roster = [];
+onCourt = [];
+currentGameInfo = null;
+history = [];
+gameLog = [];
+lineups = {};
+
+renderTeamDashboard();
+showHistory();
+}
+
+function showHistory() {
+const team = getSelectedTeam();
+if (!team) return;
+
+showOnly("teamScreen");
+
+const area = document.getElementById("teamContent");
+
+if (team.games.length === 0) {
+area.innerHTML = `
+<div class="card center">
+<h2>Game History</h2>
+<p>No completed games yet.</p>
+</div>
+`;
+return;
+}
+
+const games = [...team.games].reverse();
+
+area.innerHTML = `
+<div class="card">
+<h2>Game History</h2>
+<div id="historyList"></div>
+</div>
+`;
+
+const list = document.getElementById("historyList");
+
+games.forEach(game => {
+const result =
+game.ourScore > game.theirScore ? "W" :
+game.ourScore < game.theirScore ? "L" : "T";
+
+const div = document.createElement("div");
+div.className = "gameHistoryCard";
+
+div.innerHTML = `
+<strong>
+${result} — ${team.name} ${game.ourScore},
+${escapeHtml(game.opponent)} ${game.theirScore}
+</strong>
+
+<div class="smallText">
+${formatDate(game.date)} • ${escapeHtml(game.location)}
+</div>
+
+<button onclick="viewCompletedGame(${game.id})">
+View Box Score
+</button>
+`;
+
+list.appendChild(div);
+});
+}
+
+function viewCompletedGame(gameId) {
+const team = getSelectedTeam();
+const game = team.games.find(g => g.id === gameId);
+
+if (!game) return;
+
+const area = document.getElementById("teamContent");
+
+let rows = "";
+
+game.players.forEach(player => {
+rows += `
+<tr>
+<td>#${escapeHtml(player.number)}</td>
+<td>${escapeHtml(player.name)}</td>
+<td>${player.points}</td>
+<td>${player.fgMade}/${player.fgAtt}</td>
+<td>${player.threeMade}/${player.threeAtt}</td>
+<td>${player.ftMade}/${player.ftAtt}</td>
+<td>${player.oreb}</td>
+<td>${player.dreb}</td>
+<td>${player.oreb + player.dreb}</td>
+<td>${player.ast}</td>
+<td>${player.stl}</td>
+<td>${player.blk}</td>
+<td>${player.to}</td>
+<td>${player.pf}</td>
+<td>${formatPM(player.plusMinus)}</td>
+</tr>
+`;
+});
+
+area.innerHTML = `
+<div class="card">
+<h2>
+${team.name} ${game.ourScore} -
+${game.theirScore} ${escapeHtml(game.opponent)}
+</h2>
+
+<p class="center smallText">
+${formatDate(game.date)} • ${escapeHtml(game.location)}
+</p>
+
+<div class="tableWrap">
+<table>
+<thead>
+<tr>
+<th>#</th><th>Player</th><th>PTS</th>
+<th>FG</th><th>3PT</th><th>FT</th>
+<th>OREB</th><th>DREB</th><th>REB</th>
+<th>AST</th><th>STL</th><th>BLK</th>
+<th>TO</th><th>PF</th><th>+/-</th>
+</tr>
+</thead>
+<tbody>${rows}</tbody>
+</table>
+</div>
+
+<div class="center">
+<button onclick="showHistory()">Back to Game History</button>
+</div>
+</div>
+`;
+}
+
+function showSeasonStats() {
+const team = getSelectedTeam();
+if (!team) return;
+
+showOnly("teamScreen");
+
+const totals = {};
+
+team.roster.forEach(player => {
+totals[player.id] = {
+number:player.number,
+name:player.name,
+games:0,
+...blankStats()
+};
+});
+
+team.games.forEach(game => {
+game.players.forEach(player => {
+if (!totals[player.id]) {
+totals[player.id] = {
+number:player.number,
+name:player.name,
+games:0,
+...blankStats()
+};
+}
+
+const t = totals[player.id];
+
+t.games++;
+
+[
+"points","fgMade","fgAtt","threeMade","threeAtt",
+"ftMade","ftAtt","oreb","dreb","ast","stl",
+"blk","to","pf","plusMinus"
+].forEach(stat => {
+t[stat] += player[stat] || 0;
+});
+});
+});
+
+let wins = 0;
+let losses = 0;
+let ties = 0;
+
+team.games.forEach(game => {
+if (game.ourScore > game.theirScore) wins++;
+else if (game.ourScore < game.theirScore) losses++;
+else ties++;
+});
+
+let rows = "";
+
+Object.values(totals).forEach(player => {
+rows += `
+<tr>
+<td>#${escapeHtml(player.number)}</td>
+<td>${escapeHtml(player.name)}</td>
+<td>${player.games}</td>
+<td>${player.points}</td>
+<td>${player.fgMade}/${player.fgAtt}</td>
+<td>${player.threeMade}/${player.threeAtt}</td>
+<td>${player.ftMade}/${player.ftAtt}</td>
+<td>${player.oreb}</td>
+<td>${player.dreb}</td>
+<td>${player.oreb + player.dreb}</td>
+<td>${player.ast}</td>
+<td>${player.stl}</td>
+<td>${player.blk}</td>
+<td>${player.to}</td>
+<td>${player.pf}</td>
+<td>${formatPM(player.plusMinus)}</td>
+</tr>
+`;
+});
+
+document.getElementById("teamContent").innerHTML = `
+<div class="card">
+<h2>Season Stats</h2>
+
+<h3>
+Record: ${wins}-${losses}${ties ? "-" + ties : ""}
+</h3>
+
+<div class="tableWrap">
+<table>
+<thead>
+<tr>
+<th>#</th><th>Player</th><th>GP</th><th>PTS</th>
+<th>FG</th><th>3PT</th><th>FT</th>
+<th>OREB</th><th>DREB</th><th>REB</th>
+<th>AST</th><th>STL</th><th>BLK</th>
+<th>TO</th><th>PF</th><th>+/-</th>
+</tr>
+</thead>
+<tbody>${rows}</tbody>
+</table>
+</div>
+</div>
+`;
 }
 
 function renderGame() {
+const team = getSelectedTeam();
 
-document
-.getElementById("ourScore")
-.textContent = ourScore;
+document.getElementById("gameHeader").textContent =
+`${team.name} vs ${currentGameInfo.opponent}`;
 
-document
-.getElementById("theirScore")
-.textContent = theirScore;
+document.getElementById("gameSubHeader").textContent =
+`${formatDate(currentGameInfo.date)} • ${currentGameInfo.location}`;
+
+document.getElementById("ourTeamGameName").textContent = team.name;
+document.getElementById("opponentGameName").textContent =
+currentGameInfo.opponent;
+
+document.getElementById("ourScore").textContent = ourScore;
+document.getElementById("theirScore").textContent = theirScore;
 
 renderOnCourt();
 renderSubs();
@@ -1231,283 +1428,174 @@ renderBoxScore();
 renderLineups();
 renderCurrentLineup();
 renderLog();
+
+saveActiveGame();
 }
 
 function renderOnCourt() {
-
-const area =
-document.getElementById("onCourt");
-
+const area = document.getElementById("onCourt");
 area.innerHTML = "";
 
-currentPlayers()
-.forEach(player => {
-
-const div =
-document.createElement("div");
+currentPlayers().forEach(player => {
+const div = document.createElement("div");
 
 div.className =
 "playerCard" +
-(
-player.id === selectedPlayerId
-? " selected"
-: ""
-);
+(player.id === selectedPlayerId ? " selected" : "");
 
-div.onclick =
-() => selectPlayer(player.id);
+div.onclick = () => selectPlayer(player.id);
 
 div.innerHTML = `
-<div class="playerNumber">
-#${player.number}
-</div>
-
-<div>
-${player.name}
-</div>
-
-<div class="playerPM">
-${formatPM(player.plusMinus)}
-</div>
+<div class="playerNumber">#${escapeHtml(player.number)}</div>
+<div>${escapeHtml(player.name)}</div>
+<div class="playerPM">${formatPM(player.plusMinus)}</div>
 `;
 
 area.appendChild(div);
-
 });
-
 }
 
 function renderSubs() {
+const out = document.getElementById("playerOut");
+const incoming = document.getElementById("playerIn");
 
-const out =
-document.getElementById("playerOut");
+out.innerHTML = `<option value="">Player Out</option>`;
+incoming.innerHTML = `<option value="">Player In</option>`;
 
-const incoming =
-document.getElementById("playerIn");
-
-out.innerHTML =
-`<option value="">Player Out</option>`;
-
-incoming.innerHTML =
-`<option value="">Player In</option>`;
-
-currentPlayers()
-.forEach(player => {
-
+currentPlayers().forEach(player => {
 out.innerHTML += `
 <option value="${player.id}">
-#${player.number} ${player.name}
+#${escapeHtml(player.number)} ${escapeHtml(player.name)}
 </option>
 `;
-
 });
 
 roster
-.filter(
-player =>
-!onCourt.includes(player.id)
-)
+.filter(player => !onCourt.includes(player.id))
 .forEach(player => {
-
 incoming.innerHTML += `
 <option value="${player.id}">
-#${player.number} ${player.name}
+#${escapeHtml(player.number)} ${escapeHtml(player.name)}
 </option>
 `;
-
 });
-
 }
 
 function renderBoxScore() {
-
-const body =
-document.getElementById("boxScore");
-
+const body = document.getElementById("boxScore");
 body.innerHTML = "";
 
 roster.forEach(player => {
-
-const rebounds =
-player.oreb + player.dreb;
-
 body.innerHTML += `
 <tr>
-
-<td>#${player.number}</td>
-
-<td>${player.name}</td>
-
+<td>#${escapeHtml(player.number)}</td>
+<td>${escapeHtml(player.name)}</td>
 <td>${player.points}</td>
-
-<td>
-${player.fgMade}/${player.fgAtt}
-</td>
-
-<td>
-${player.threeMade}/${player.threeAtt}
-</td>
-
-<td>
-${player.ftMade}/${player.ftAtt}
-</td>
-
+<td>${player.fgMade}/${player.fgAtt}</td>
+<td>${player.threeMade}/${player.threeAtt}</td>
+<td>${player.ftMade}/${player.ftAtt}</td>
 <td>${player.oreb}</td>
-
 <td>${player.dreb}</td>
-
-<td>${rebounds}</td>
-
+<td>${player.oreb + player.dreb}</td>
 <td>${player.ast}</td>
-
 <td>${player.stl}</td>
-
 <td>${player.blk}</td>
-
 <td>${player.to}</td>
-
 <td>${player.pf}</td>
-
-<td>
-${formatPM(player.plusMinus)}
-</td>
-
+<td>${formatPM(player.plusMinus)}</td>
 </tr>
 `;
-
 });
-
 }
 
 function renderLineups() {
-
-const body =
-document.getElementById(
-"lineupTable"
-);
-
+const body = document.getElementById("lineupTable");
 body.innerHTML = "";
 
 Object.values(lineups)
-.sort(
-(a,b) =>
-(
-b.pointsFor -
-b.pointsAgainst
-)
--
-(
-a.pointsFor -
-a.pointsAgainst
-)
+.sort((a,b) =>
+(b.pointsFor-b.pointsAgainst) -
+(a.pointsFor-a.pointsAgainst)
 )
 .forEach(lineup => {
-
-const names =
-lineup.playerIds
+const names = lineup.playerIds
 .map(id => {
-
-const player =
-roster.find(
-p => p.id === id
-);
+const player = roster.find(p => p.id === id);
 
 return player
-? `#${player.number}`
+? `#${player.number} ${player.name}`
 : "";
-
 })
 .join(", ");
 
 const pm =
-lineup.pointsFor -
-lineup.pointsAgainst;
+lineup.pointsFor - lineup.pointsAgainst;
 
 body.innerHTML += `
 <tr>
-
-<td>${names}</td>
-
-<td>
-${lineup.pointsFor}
-</td>
-
-<td>
-${lineup.pointsAgainst}
-</td>
-
-<td>
-${formatPM(pm)}
-</td>
-
+<td>${escapeHtml(names)}</td>
+<td>${lineup.pointsFor}</td>
+<td>${lineup.pointsAgainst}</td>
+<td>${formatPM(pm)}</td>
 </tr>
 `;
-
 });
-
 }
 
 function renderCurrentLineup() {
-
 ensureCurrentLineup();
 
-const lineup =
-lineups[lineupKey()];
+const lineup = lineups[lineupKey()];
 
 const pm =
-lineup.pointsFor -
-lineup.pointsAgainst;
+lineup.pointsFor - lineup.pointsAgainst;
 
-document
-.getElementById(
-"currentLineupStats"
-)
-.innerHTML = `
-PF:
-<strong>
-${lineup.pointsFor}
-</strong>
-
+document.getElementById("currentLineupStats").innerHTML = `
+PF: <strong>${lineup.pointsFor}</strong>
 &nbsp; | &nbsp;
-
-PA:
-<strong>
-${lineup.pointsAgainst}
-</strong>
-
+PA: <strong>${lineup.pointsAgainst}</strong>
 &nbsp; | &nbsp;
-
-+/-:
-<strong>
-${formatPM(pm)}
-</strong>
++/-: <strong>${formatPM(pm)}</strong>
 `;
-
 }
 
 function renderLog() {
-
-const area =
-document.getElementById("gameLog");
+const area = document.getElementById("gameLog");
 
 if (gameLog.length === 0) {
-
-area.innerHTML =
-"<p>No actions yet.</p>";
-
+area.innerHTML = "<p>No actions yet.</p>";
 return;
 }
 
 area.innerHTML =
-gameLog
-.map(
-item => `<p>${item}</p>`
-)
-.join("");
-
+gameLog.map(item => `<p>${escapeHtml(item)}</p>`).join("");
 }
 
-</script>
+function formatPM(value) {
+return value > 0 ? "+" + value : value;
+}
 
+function formatDate(value) {
+if (!value) return "";
+
+const parts = value.split("-");
+
+if (parts.length !== 3) return value;
+
+return `${Number(parts[1])}/${Number(parts[2])}/${parts[0]}`;
+}
+
+function escapeHtml(value) {
+return String(value ?? "")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+renderHome();
+
+</script>
 </body>
 </html>
