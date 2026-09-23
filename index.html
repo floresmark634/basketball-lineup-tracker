@@ -1429,8 +1429,79 @@ Tap a player below to record our stats.
 <!-- CMT COURTSIDE WORKSPACE -->
 <div class="courtsideWorkspace">
 
-<div class="courtsideShotChart">
+<div class="courtsideStats">
 
+<!-- STAT PANEL -->
+<div id="statPanel" class="card center">
+
+<h2 id="selectedPlayerTitle">SELECT A PLAYER</h2>
+<div id="noPlayerMessage">
+  Tap one of the five players above to record stats.
+</div>
+<div class="statGrid">
+
+<button class="make" onclick="recordShot('2PM')">
+2PT MADE
+</button>
+
+<button class="miss" onclick="recordShot('2MISS')">
+2PT MISS
+</button>
+
+<button class="make" onclick="recordShot('3PM')">
+3PT MADE
+</button>
+
+<button class="miss" onclick="recordShot('3MISS')">
+3PT MISS
+</button>
+
+<button class="make" onclick="recordShot('FTM')">
+FT MADE
+</button>
+
+<button class="miss" onclick="recordShot('FTMISS')">
+FT MISS
+</button>
+
+<button class="otherStat" onclick="recordSimpleStat('oreb')">
+OREB
+</button>
+
+<button class="otherStat" onclick="recordSimpleStat('dreb')">
+DREB
+</button>
+
+<button class="otherStat" onclick="recordSimpleStat('ast')">
+AST
+</button>
+
+<button class="otherStat" onclick="recordSimpleStat('stl')">
+STL
+</button>
+
+<button class="otherStat" onclick="recordSimpleStat('blk')">
+BLK
+</button>
+
+<button class="otherStat" onclick="recordSimpleStat('to')">
+TURNOVER
+</button>
+
+<button class="otherStat" onclick="recordSimpleStat('pf')">
+FOUL
+</button>
+
+<button onclick="closeStatPanel()">
+CANCEL
+</button>
+
+</div>
+</div>
+
+</div> <!-- closes courtsideStats -->
+
+<div class="courtsideShotChart">
 <div id="shotChartPlaceholder" class="shotChartPlaceholder">
 
 <div class="shotChartLabel">
@@ -1530,79 +1601,6 @@ class="courtLine"
 </svg>
 
 </div>
-<div class="courtsideStats">
-<!-- STAT PANEL -->
-<div id="statPanel" class="card center">
-
-<h2 id="selectedPlayerTitle">SELECT A PLAYER</h2>
-<div id="noPlayerMessage">
-  Tap one of the five players above to record stats.
-</div>
-<div class="statGrid">
-
-<button class="make" onclick="recordShot('2PM')">
-2PT MADE
-</button>
-
-<button class="miss" onclick="recordShot('2MISS')">
-2PT MISS
-</button>
-
-<button class="make" onclick="recordShot('3PM')">
-3PT MADE
-</button>
-
-<button class="miss" onclick="recordShot('3MISS')">
-3PT MISS
-</button>
-
-<button class="make" onclick="recordShot('FTM')">
-FT MADE
-</button>
-
-<button class="miss" onclick="recordShot('FTMISS')">
-FT MISS
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('oreb')">
-OREB
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('dreb')">
-DREB
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('ast')">
-AST
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('stl')">
-STL
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('blk')">
-BLK
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('to')">
-TURNOVER
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('pf')">
-FOUL
-</button>
-
-<button onclick="closeStatPanel()">
-CANCEL
-</button>
-
-</div>
-</div>
-
-</div> <!-- closes courtsideStats -->
-
-<div class="courtsideShotChart">
-
 <!-- ASSIST PANEL -->
 
 <!-- CURRENT LINEUP -->
