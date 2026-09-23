@@ -3538,6 +3538,32 @@ recordShot("2MISS");
 
 if (pendingShotType === "3PT") {
 recordShot("3MISS");
+const marker =
+document.getElementById(
+"pendingShotMarker"
+);
+
+if (marker) {
+marker.remove();
+}
+
+pendingShotX = null;
+pendingShotY = null;
+pendingShotType = null;
+
+document
+.getElementById(
+"shotDecisionPanel"
+)
+.classList
+.add("hidden");
+
+document
+.querySelector(
+".shotChartSubtext"
+)
+.textContent =
+"Tap where the shot was taken";
 }
 
 }
