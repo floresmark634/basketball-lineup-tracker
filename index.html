@@ -665,13 +665,30 @@ min-height:68px;
 }
 
 }
+/* CMT BRANDING */
+.cmtBrand {
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 4px auto 22px;
+}
+
+.cmtBrand img {
+display: block;
+width: min(420px, 82vw);
+height: auto;
+max-height: 150px;
+object-fit: contain;
+}
 </style>
 </head>
 
 <body>
 <div class="app">
 
-<h1>🏀 Basketball Stat Tracker</h1>
+<div class="cmtBrand">
+<img src="cmt-logo.png.png" alt="CMT Basketball">
+</div>
 
 <!-- HOME -->
 <div id="homeScreen" class="card">
