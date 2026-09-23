@@ -866,7 +866,15 @@ gap:12px;
 width:100%;
 margin:12px 0;
 }
+.courtsideStats{
+grid-column:1;
+grid-row:1;
+}
 
+.courtsideShotChart{
+grid-column:2;
+grid-row:1;
+}
 .courtsideStats,
 .courtsideShotChart{
 min-height:330px;
@@ -915,6 +923,12 @@ Landscape iPad keeps the two-column workspace. */
 @media (max-width:800px){
 .courtsideWorkspace{
 grid-template-columns:1fr;
+}
+
+.courtsideStats,
+.courtsideShotChart{
+grid-column:1;
+grid-row:auto;
 }
 }
 
@@ -3337,16 +3351,6 @@ logAction(
 );
 }
 
-selectedPlayerId =
-null;
-
-document
-.getElementById(
-"statPanel"
-)
-.classList
-.add("hidden");
-
 renderGame();
 }
 
@@ -3511,16 +3515,6 @@ pf:
 logAction(
 `#${player.number} ${player.name} — ${labels[stat]}`
 );
-
-selectedPlayerId =
-null;
-
-document
-.getElementById(
-"statPanel"
-)
-.classList
-.add("hidden");
 
 renderGame();
 }
