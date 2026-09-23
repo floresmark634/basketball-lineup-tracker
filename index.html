@@ -3461,7 +3461,12 @@ document
 )
 .textContent =
 `${shotType} location selected`;
-const oldMarker =
+
+pendingShotX = x;
+pendingShotY = y;
+pendingShotType = shotType;
+
+  const oldMarker =
 document.getElementById("pendingShotMarker");
 
 if (oldMarker) {
