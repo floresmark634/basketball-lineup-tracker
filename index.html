@@ -1026,6 +1026,44 @@ grid-row:auto;
 .statGrid button:last-child{
   grid-column:1 / -1;
 }
+/* GAME DATA FULL-SCREEN VIEW */
+
+.gameDataPanel{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  background:#111827;
+  padding:18px;
+  overflow-y:auto;
+  box-sizing:border-box;
+}
+
+.gameDataPanel.hidden{
+  display:none !important;
+}
+
+.gameDataPanelHeader{
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#111827;
+  padding:8px 0 14px;
+}
+
+.gameDataPanelHeader h2{
+  margin:0;
+  color:white;
+}
+
+.gameDataPanelHeader button{
+  width:44px;
+  height:44px;
+  margin:0;
+  font-size:20px;
+}
 </style>
 </head>
 
