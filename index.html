@@ -997,6 +997,12 @@ grid-row:auto;
 #shotCourt{
   max-height:360px;
 }
+.pendingShotMarker{
+  fill:#2563eb;
+  stroke:white;
+  stroke-width:4;
+  pointer-events:none;
+}
 </style>
 </head>
 
@@ -1547,6 +1553,7 @@ Tap where the shot was taken
 id="shotCourt"
 viewBox="0 0 500 470"
 preserveAspectRatio="xMidYMid meet"
+onclick="selectShotLocation(event)"
 >
 
 <!-- COURT BORDER -->
@@ -3402,7 +3409,47 @@ gameLog.unshift(
 }
 
 /* SHOTS */
+function selectShotLocation(event) {
 
+if (!selectedPlayerId) {
+alert("Select a player first.");
+return;
+}
+
+const court =
+document.getElementById("shotCourt");
+
+const rect =
+court.getBoundingClientRect();
+
+const x =
+((event.clientX - rect.left) / rect.width) * 500;
+
+const y =
+((event.clientY - rect.top) / rect.height) * 470;
+
+const oldMarker =
+document.getElementById("pendingShotMarker");
+
+if (oldMarker) {
+oldMarker.remove();
+}
+
+const marker =
+document.createElementNS(
+"http://www.w3.org/2000/svg",
+"circle"
+);
+
+marker.setAttribute("id","pendingShotMarker");
+marker.setAttribute("cx",x);
+marker.setAttribute("cy",y);
+marker.setAttribute("r","10");
+marker.setAttribute("class","pendingShotMarker");
+
+court.appendChild(marker);
+
+}
 function recordShot(type) {
 
 if (!selectedPlayerId) {
