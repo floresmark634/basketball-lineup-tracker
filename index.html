@@ -1012,6 +1012,20 @@ grid-row:auto;
   margin:10px auto 0 !important;
   touch-action:manipulation;
 }
+/* CLEAN LEFT STAT PANEL */
+.statGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:8px;
+}
+
+.statGrid button{
+  margin:0;
+}
+
+.statGrid button:last-child{
+  grid-column:1 / -1;
+}
 </style>
 </head>
 
@@ -1486,22 +1500,6 @@ Tap a player below to record our stats.
 </div>
 <div class="statGrid">
 
-<button class="make" onclick="recordShot('2PM')">
-2PT MADE
-</button>
-
-<button class="miss" onclick="recordShot('2MISS')">
-2PT MISS
-</button>
-
-<button class="make" onclick="recordShot('3PM')">
-3PT MADE
-</button>
-
-<button class="miss" onclick="recordShot('3MISS')">
-3PT MISS
-</button>
-
 <button class="make" onclick="recordShot('FTM')">
 FT MADE
 </button>
@@ -1516,10 +1514,6 @@ OREB
 
 <button class="otherStat" onclick="recordSimpleStat('dreb')">
 DREB
-</button>
-
-<button class="otherStat" onclick="recordSimpleStat('ast')">
-AST
 </button>
 
 <button class="otherStat" onclick="recordSimpleStat('stl')">
