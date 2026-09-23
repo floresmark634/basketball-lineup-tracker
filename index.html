@@ -1442,6 +1442,11 @@ Selected:
 <button class="primary" onclick="endPeriod()">
 End Quarter
 </button>
+
+<button onclick="openGameDataPanel()">
+Game Data
+</button>
+
 </div>
 
 <p class="center smallText">
@@ -1662,7 +1667,17 @@ MISS
 
 </div>
 <!-- ASSIST PANEL -->
+<div id="gameDataPanel" class="gameDataPanel hidden">
 
+<div class="gameDataPanelHeader">
+
+<h2>Game Controls & Data</h2>
+
+<button onclick="closeGameDataPanel()">
+✕
+</button>
+
+</div>
 <!-- CURRENT LINEUP -->
 <div class="card">
 
@@ -1820,6 +1835,8 @@ End Game
 
 </div>
 </div>
+
+</div> <!-- closes gameDataPanel -->
 
 </div>
 
@@ -4628,7 +4645,16 @@ renderTeamDashboard();
 showHistory();
 }
 /* LIVE GAME RENDERING */
+function openGameDataPanel() {
 
+document
+.getElementById(
+"gameDataPanel"
+)
+.classList
+.remove("hidden");
+
+}
 function renderGame() {
 
 const team =
