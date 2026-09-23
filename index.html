@@ -1143,6 +1143,20 @@ grid-row:auto;
   font-size:16px;
   font-weight:700;
 }
+/* COMPACT LIVE GAME HEADER */
+body:has(#gameScreen:not(.hidden)) #gameScreen > .card.center:first-child{
+  padding:8px 14px !important;
+  margin-bottom:8px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) #gameHeader{
+  font-size:18px;
+}
+
+body:has(#gameScreen:not(.hidden)) #gameSubHeader{
+  font-size:12px;
+  margin-top:2px;
+}
 </style>
 </head>
 
