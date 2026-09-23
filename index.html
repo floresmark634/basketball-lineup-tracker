@@ -283,6 +283,27 @@ margin:8px 0
 
 <div class="card">
 
+<h2>Team Settings</h2>
+
+<p class="center smallText">
+Manage the currently selected team.
+</p>
+
+<div class="center">
+
+<button onclick="renameTeam()">
+Rename Team
+</button>
+
+<button
+class="danger"
+onclick="deleteTeam()">
+Delete Team
+</button>
+
+</div>
+
+</div>
 <h2>Data Backup</h2>
 
 <p class="center smallText">
@@ -4356,6 +4377,178 @@ Number(id)
 persistTeams();
 
 showHistory();
+}
+/* TEAM SETTINGS */
+
+function renameTeam() {
+
+const team = getSelectedTeam();
+
+if (!team) {
+return;
+}
+
+const newName = prompt(
+"Enter the new team name:",
+team.name
+);
+
+if (newName === null) {
+return;
+}
+
+const cleanName = newName.trim();
+
+if (!cleanName) {
+
+alert("Team name cannot be blank.");
+return;
+
+}
+
+const duplicate = teams.some(
+otherTeam =>
+Number(otherTeam.id) !== Number(team.id) &&
+otherTeam.name.trim().toLowerCase() ===
+cleanName.toLowerCase()
+);
+
+if (duplicate) {
+
+alert("A team with that name already exists.");
+return;
+
+}
+
+persistTeams();
+
+/*
+If this team has a game in progress,
+update its saved team name too.
+*/
+
+const activeGame =
+getActiveGame();
+
+if (
+activeGame &&
+Number(activeGame.teamId) ===
+Number(team.id)
+) {
+
+activeGame.teamName =
+cleanName;
+
+localStorage.setItem(
+ACTIVE_GAME_KEY,
+JSON.stringify(activeGame)
+);
+
+}
+
+document.getElementById(
+"teamTitle"
+).textContent = cleanName;
+
+alert(
+`Team renamed to ${cleanName}.`
+);
+}
+function deleteTeam() {
+
+const team = getSelectedTeam();
+
+if (!team) {
+return;
+}
+
+/*
+Do not allow a team to be deleted
+while it has a saved game in progress.
+*/
+
+const activeGame =
+getActiveGame();
+
+if (
+activeGame &&
+Number(activeGame.teamId) ===
+Number(team.id)
+) {
+
+alert(
+`You cannot delete ${team.name} while it has a game in progress.
+
+Finish or delete the active game first.`
+);
+
+return;
+}
+
+const confirmed = confirm(
+`DELETE ${team.name}?
+
+This will permanently delete:
+
+• The team
+• Its roster
+• All completed games
+• All player stats
+• All lineup stats
+
+This cannot be undone unless you have a backup.`
+);
+
+if (!confirmed) {
+return;
+}
+
+/*
+Require a second confirmation because
+this deletes an entire team's history.
+*/
+
+const typedName = prompt(
+`To confirm deletion, type the team name exactly:
+
+${team.name}`
+);
+
+if (typedName === null) {
+return;
+}
+
+if (
+typedName.trim() !==
+team.name
+) {
+
+alert(
+"Team name did not match. Nothing was deleted."
+);
+
+return;
+}
+
+teams =
+teams.filter(
+otherTeam =>
+Number(otherTeam.id) !==
+Number(team.id)
+);
+
+persistTeams();
+
+selectedTeamId = null;
+
+roster = [];
+onCourt = [];
+
+alert(
+`${team.name} was deleted.`
+);
+
+goHome();
 }
 /* DATA BACKUP */
 
