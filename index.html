@@ -1397,12 +1397,27 @@ Tap a player below to record our stats.
 <div class="courtsideWorkspace">
 
 <div class="courtsideShotChart">
-<div class="shotChartPlaceholder">
-<div class="shotChartLabel">SHOT CHART</div>
+
+<div id="shotChartPlaceholder" class="shotChartPlaceholder">
+
+<div class="shotChartLabel">
+SHOT CHART
+</div>
+
 <div class="shotChartSubtext">
 Court coming next
 </div>
+
 </div>
+
+<div id="assistPanel" class="card assistChoices hidden">
+
+<h2>Who assisted?</h2>
+
+<div id="assistButtons"></div>
+
+</div>
+
 </div>
 
 <div class="courtsideStats">
@@ -1473,13 +1488,7 @@ CANCEL
 
 </div>
 </div>
-<div id="assistPanel" class="card assistChoices hidden">
 
-<h2>Who assisted?</h2>
-
-<div id="assistButtons"></div>
-
-</div>
 </div> <!-- closes courtsideStats -->
 
 <div class="courtsideShotChart">
@@ -3382,71 +3391,51 @@ renderGame();
 
 /* ASSISTS */
 
-function showAssistChoices() {
+function finishAssist(id) {
 
-document
-.getElementById(
-"statPanel"
-)
-.classList
-.add("hidden");
+if (id !== null) {
 
-const area =
-document.getElementById(
-"assistButtons"
-);
-
-area.innerHTML = "";
-
-const unassisted =
-document.createElement(
-"button"
-);
-
-unassisted.textContent =
-"Unassisted";
-
-unassisted.onclick =
-() => finishAssist(null);
-
-area.appendChild(
-unassisted
-);
-
-currentPlayers()
-.filter(
+const player =
+roster.find(
 player =>
-Number(player.id) !==
-Number(selectedPlayerId)
-)
-.forEach(player => {
-
-const button =
-document.createElement(
-"button"
+Number(player.id) ===
+Number(id)
 );
 
-button.textContent =
-`#${player.number} ${player.name}`;
+if (player) {
 
-button.onclick =
-() =>
-finishAssist(
-player.id
+player.ast += 1;
+
+logAction(
+`Assist — #${player.number} ${player.name}`
 );
 
-area.appendChild(
-button
+}
+
+} else {
+
+logAction(
+"Basket was unassisted"
 );
 
-});
+}
 
 document
 .getElementById(
 "assistPanel"
 )
 .classList
+.add("hidden");
+
+document
+.getElementById(
+"shotChartPlaceholder"
+)
+.classList
 .remove("hidden");
+
+renderGame();
+
 }
 
 function finishAssist(id) {
