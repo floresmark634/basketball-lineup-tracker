@@ -3543,6 +3543,70 @@ recordShot("3MISS");
 }
 
 }
+function showAssistChoices() {
+
+const area =
+document.getElementById(
+"assistButtons"
+);
+
+area.innerHTML = "";
+
+const unassisted =
+document.createElement(
+"button"
+);
+
+unassisted.textContent =
+"Unassisted";
+
+unassisted.onclick =
+() => finishAssist(null);
+
+area.appendChild(
+unassisted
+);
+
+currentPlayers()
+.filter(
+player =>
+Number(player.id) !==
+Number(selectedPlayerId)
+)
+.forEach(player => {
+
+const button =
+document.createElement(
+"button"
+);
+
+button.textContent =
+`#${player.number} ${player.name}`;
+
+button.onclick =
+() => finishAssist(player.id);
+
+area.appendChild(
+button
+);
+
+});
+
+document
+.getElementById(
+"shotDecisionPanel"
+)
+.classList
+.add("hidden");
+
+document
+.getElementById(
+"assistPanel"
+)
+.classList
+.remove("hidden");
+
+}
 function recordShot(type) {
 
 if (!selectedPlayerId) {
