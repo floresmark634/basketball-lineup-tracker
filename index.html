@@ -1066,6 +1066,56 @@ grid-row:auto;
   margin:0;
   font-size:20px;
 }
+/* SUBSTITUTION FULL-SCREEN VIEW */
+.substitutionPanel{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  background:#111827;
+  padding:18px;
+  overflow-y:auto;
+  box-sizing:border-box;
+}
+
+.substitutionPanel.hidden{
+  display:none !important;
+}
+
+.substitutionPanelHeader{
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#111827;
+  padding:8px 0 14px;
+}
+
+.substitutionPanelHeader h2{
+  margin:0;
+  color:white;
+}
+
+.substitutionPanelHeader button{
+  width:44px;
+  height:44px;
+  margin:0;
+  font-size:20px;
+}
+
+/* MAIN GAME BOTTOM BAR */
+.gameBottomBar{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+
+.gameBottomBar button{
+  width:100%;
+  margin:0;
+}
 </style>
 </head>
 
