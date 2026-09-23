@@ -1303,70 +1303,362 @@ ${formatDate(game.date)} • ${escapeHtml(game.location)}
 `;
 }
 
-function showSeasonStats() {
+function getSeasonData() {
+const team = getSelectedTeam();
+
+const totals = {};
+const appearances = {};
+const seasonLineups = {};
+
+team.roster.forEach(player => {
+totals[player.id] = {
+id: player.id,
+number: player.number,
+name: player.name,
+games: 0,
+...blankStats()
+};
+
+appearances[player.id] = new Set();
+});
+
+team.games.forEach(game => {
+
+// Determine who actually appeared in this game.
+const appearedIds = new Set();
+
+Object.values(game.lineups || {}).forEach(lineup => {
+(lineup.playerIds || []).forEach(id => appearedIds.add(id));
+
+// Aggregate identical 5-player lineups across games.
+const ids = [...(lineup.playerIds || [])]
+.map(Number)
+.sort((a,b) => a-b);
+
+const key = ids.join("-");
+
+if (ids.length === 5) {
+if (!seasonLineups[key]) {
+seasonLineups[key] = {
+playerIds: ids,
+games: new Set(),
+pointsFor: 0,
+pointsAgainst: 0
+};
+}
+
+seasonLineups[key].games.add(game.id);
+seasonLineups[key].pointsFor += lineup.pointsFor || 0;
+seasonLineups[key].pointsAgainst += lineup.pointsAgainst || 0;
+}
+});
+
+(game.players || []).forEach(player => {
+
+if (!totals[player.id]) {
+totals[player.id] = {
+id: player.id,
+number: player.number,
+name: player.name,
+games: 0,
+...blankStats()
+};
+
+appearances[player.id] = new Set();
+}
+
+const t = totals[player.id];
+
+[
+"points","fgMade","fgAtt",
+"threeMade","threeAtt",
+"ftMade","ftAtt",
+"oreb","dreb","ast","stl",
+"blk","to","pf","plusMinus"
+].forEach(stat => {
+t[stat] += Number(player[stat] || 0);
+});
+
+if (appearedIds.has(Number(player.id))) {
+appearances[player.id].add(game.id);
+}
+});
+});
+
+Object.values(totals).forEach(player => {
+player.games =
+appearances[player.id]
+? appearances[player.id].size
+: 0;
+});
+
+return {
+totals,
+seasonLineups
+};
+}
+
+function statAverage(total, games) {
+if (!games) return "0.0";
+return (total / games).toFixed(1);
+}
+
+function statPercent(made, attempts) {
+if (!attempts) return "—";
+return ((made / attempts) * 100).toFixed(1) + "%";
+}
+
+function showSeasonStats(view = "perGame") {
 const team = getSelectedTeam();
 if (!team) return;
 
 showOnly("teamScreen");
 
-const totals = {};
-
-team.roster.forEach(player => {
-totals[player.id] = {
-number:player.number,
-name:player.name,
-games:0,
-...blankStats()
-};
-});
-
-team.games.forEach(game => {
-game.players.forEach(player => {
-if (!totals[player.id]) {
-totals[player.id] = {
-number:player.number,
-name:player.name,
-games:0,
-...blankStats()
-};
-}
-
-const t = totals[player.id];
-
-t.games++;
-
-[
-"points","fgMade","fgAtt","threeMade","threeAtt",
-"ftMade","ftAtt","oreb","dreb","ast","stl",
-"blk","to","pf","plusMinus"
-].forEach(stat => {
-t[stat] += player[stat] || 0;
-});
-});
-});
+const { totals, seasonLineups } = getSeasonData();
 
 let wins = 0;
 let losses = 0;
 let ties = 0;
+let teamPoints = 0;
+let opponentPoints = 0;
 
 team.games.forEach(game => {
+teamPoints += Number(game.ourScore || 0);
+opponentPoints += Number(game.theirScore || 0);
+
 if (game.ourScore > game.theirScore) wins++;
 else if (game.ourScore < game.theirScore) losses++;
 else ties++;
 });
 
+const gamesPlayed = team.games.length;
+
+const teamPPG =
+gamesPlayed ? (teamPoints / gamesPlayed).toFixed(1) : "0.0";
+
+const opponentPPG =
+gamesPlayed ? (opponentPoints / gamesPlayed).toFixed(1) : "0.0";
+
+const differential = teamPoints - opponentPoints;
+
+const averageMargin =
+gamesPlayed ? (differential / gamesPlayed).toFixed(1) : "0.0";
+
+document.getElementById("teamContent").innerHTML = `
+<div class="card">
+<h2>Season Dashboard</h2>
+
+<div class="center">
+<h3>
+Record:
+${wins}-${losses}${ties ? "-" + ties : ""}
+</h3>
+
+<p>
+<strong>Games:</strong> ${gamesPlayed}
+&nbsp; | &nbsp;
+<strong>PPG:</strong> ${teamPPG}
+&nbsp; | &nbsp;
+<strong>Opp PPG:</strong> ${opponentPPG}
+</p>
+
+<p>
+<strong>Point Differential:</strong>
+${formatPM(differential)}
+&nbsp; | &nbsp;
+<strong>Avg Margin:</strong>
+${Number(averageMargin) > 0 ? "+" : ""}${averageMargin}
+</p>
+</div>
+</div>
+
+<div class="card">
+<h2>Player Stats</h2>
+
+<div class="center">
+<button
+class="${view === "perGame" ? "primary" : ""}"
+onclick="showSeasonStats('perGame')">
+Per Game
+</button>
+
+<button
+class="${view === "shooting" ? "primary" : ""}"
+onclick="showSeasonStats('shooting')">
+Shooting
+</button>
+
+<button
+class="${view === "totals" ? "primary" : ""}"
+onclick="showSeasonStats('totals')">
+Totals
+</button>
+</div>
+
+<div id="seasonPlayerTable"></div>
+</div>
+
+<div class="card">
+<h2>Season Lineup Stats</h2>
+<div id="seasonLineupTable"></div>
+</div>
+`;
+
+renderSeasonPlayerTable(view, totals);
+renderSeasonLineupTable(seasonLineups);
+}
+
+function renderSeasonPlayerTable(view, totals) {
+const players = Object.values(totals);
+
+let headers = "";
 let rows = "";
 
-Object.values(totals).forEach(player => {
+if (view === "perGame") {
+
+headers = `
+<th>#</th>
+<th>Player</th>
+<th>GP</th>
+<th>PPG</th>
+<th>RPG</th>
+<th>ORPG</th>
+<th>DRPG</th>
+<th>APG</th>
+<th>SPG</th>
+<th>BPG</th>
+<th>TOPG</th>
+<th>PFPG</th>
+<th>+/- PG</th>
+`;
+
+players.forEach(player => {
+const rebounds = player.oreb + player.dreb;
+
 rows += `
 <tr>
 <td>#${escapeHtml(player.number)}</td>
-<td>${escapeHtml(player.name)}</td>
+
+<td>
+<button onclick="showPlayerPage(${player.id})">
+${escapeHtml(player.name)}
+</button>
+</td>
+
+<td>${player.games}</td>
+<td>${statAverage(player.points,player.games)}</td>
+<td>${statAverage(rebounds,player.games)}</td>
+<td>${statAverage(player.oreb,player.games)}</td>
+<td>${statAverage(player.dreb,player.games)}</td>
+<td>${statAverage(player.ast,player.games)}</td>
+<td>${statAverage(player.stl,player.games)}</td>
+<td>${statAverage(player.blk,player.games)}</td>
+<td>${statAverage(player.to,player.games)}</td>
+<td>${statAverage(player.pf,player.games)}</td>
+<td>${statAverage(player.plusMinus,player.games)}</td>
+</tr>
+`;
+});
+}
+
+if (view === "shooting") {
+
+headers = `
+<th>#</th>
+<th>Player</th>
+<th>GP</th>
+<th>FG</th>
+<th>FG%</th>
+<th>2PT</th>
+<th>2P%</th>
+<th>3PT</th>
+<th>3P%</th>
+<th>FT</th>
+<th>FT%</th>
+<th>eFG%</th>
+`;
+
+players.forEach(player => {
+const twoMade =
+player.fgMade - player.threeMade;
+
+const twoAtt =
+player.fgAtt - player.threeAtt;
+
+const efg =
+player.fgAtt
+? (
+(
+player.fgMade +
+(0.5 * player.threeMade)
+) /
+player.fgAtt *
+100
+).toFixed(1) + "%"
+: "—";
+
+rows += `
+<tr>
+<td>#${escapeHtml(player.number)}</td>
+
+<td>
+<button onclick="showPlayerPage(${player.id})">
+${escapeHtml(player.name)}
+</button>
+</td>
+
+<td>${player.games}</td>
+
+<td>${player.fgMade}/${player.fgAtt}</td>
+<td>${statPercent(player.fgMade,player.fgAtt)}</td>
+
+<td>${twoMade}/${twoAtt}</td>
+<td>${statPercent(twoMade,twoAtt)}</td>
+
+<td>${player.threeMade}/${player.threeAtt}</td>
+<td>${statPercent(player.threeMade,player.threeAtt)}</td>
+
+<td>${player.ftMade}/${player.ftAtt}</td>
+<td>${statPercent(player.ftMade,player.ftAtt)}</td>
+
+<td>${efg}</td>
+</tr>
+`;
+});
+}
+
+if (view === "totals") {
+
+headers = `
+<th>#</th>
+<th>Player</th>
+<th>GP</th>
+<th>PTS</th>
+<th>OREB</th>
+<th>DREB</th>
+<th>REB</th>
+<th>AST</th>
+<th>STL</th>
+<th>BLK</th>
+<th>TO</th>
+<th>PF</th>
+<th>+/-</th>
+`;
+
+players.forEach(player => {
+
+rows += `
+<tr>
+<td>#${escapeHtml(player.number)}</td>
+
+<td>
+<button onclick="showPlayerPage(${player.id})">
+${escapeHtml(player.name)}
+</button>
+</td>
+
 <td>${player.games}</td>
 <td>${player.points}</td>
-<td>${player.fgMade}/${player.fgAtt}</td>
-<td>${player.threeMade}/${player.threeAtt}</td>
-<td>${player.ftMade}/${player.ftAtt}</td>
 <td>${player.oreb}</td>
 <td>${player.dreb}</td>
 <td>${player.oreb + player.dreb}</td>
@@ -1379,29 +1671,255 @@ rows += `
 </tr>
 `;
 });
+}
+
+document.getElementById("seasonPlayerTable").innerHTML = `
+<div class="tableWrap">
+<table>
+<thead>
+<tr>${headers}</tr>
+</thead>
+<tbody>${rows}</tbody>
+</table>
+</div>
+`;
+}
+
+function renderSeasonLineupTable(seasonLineups) {
+const team = getSelectedTeam();
+
+const lineups =
+Object.values(seasonLineups)
+.sort((a,b) =>
+(b.pointsFor-b.pointsAgainst) -
+(a.pointsFor-a.pointsAgainst)
+);
+
+if (lineups.length === 0) {
+document.getElementById("seasonLineupTable").innerHTML =
+"<p class='center'>No lineup data yet.</p>";
+return;
+}
+
+let rows = "";
+
+lineups.forEach(lineup => {
+
+const names = lineup.playerIds
+.map(id => {
+const player =
+team.roster.find(p => p.id === id);
+
+return player
+? `#${player.number} ${player.name}`
+: "Former Player";
+})
+.join(", ");
+
+const pm =
+lineup.pointsFor - lineup.pointsAgainst;
+
+rows += `
+<tr>
+<td>${escapeHtml(names)}</td>
+<td>${lineup.games.size}</td>
+<td>${lineup.pointsFor}</td>
+<td>${lineup.pointsAgainst}</td>
+<td>${formatPM(pm)}</td>
+</tr>
+`;
+});
+
+document.getElementById("seasonLineupTable").innerHTML = `
+<div class="tableWrap">
+<table>
+<thead>
+<tr>
+<th>Lineup</th>
+<th>Games Used</th>
+<th>PF</th>
+<th>PA</th>
+<th>+/-</th>
+</tr>
+</thead>
+
+<tbody>${rows}</tbody>
+</table>
+</div>
+`;
+}
+
+function showPlayerPage(playerId) {
+const team = getSelectedTeam();
+if (!team) return;
+
+const { totals } = getSeasonData();
+
+const player = totals[playerId];
+
+if (!player) return;
+
+const rebounds =
+player.oreb + player.dreb;
+
+const twoMade =
+player.fgMade - player.threeMade;
+
+const twoAtt =
+player.fgAtt - player.threeAtt;
+
+const efg =
+player.fgAtt
+? (
+(
+player.fgMade +
+(0.5 * player.threeMade)
+) /
+player.fgAtt *
+100
+).toFixed(1) + "%"
+: "—";
+
+let gameRows = "";
+
+[...team.games].reverse().forEach(game => {
+
+const gamePlayer =
+(game.players || [])
+.find(p => Number(p.id) === Number(playerId));
+
+const appeared =
+Object.values(game.lineups || {})
+.some(lineup =>
+(lineup.playerIds || []).map(Number).includes(Number(playerId))
+);
+
+if (!gamePlayer || !appeared) return;
+
+const gameRebounds =
+(gamePlayer.oreb || 0) +
+(gamePlayer.dreb || 0);
+
+const result =
+game.ourScore > game.theirScore ? "W" :
+game.ourScore < game.theirScore ? "L" : "T";
+
+gameRows += `
+<tr>
+<td>${formatDate(game.date)}</td>
+<td>${result}</td>
+<td>${escapeHtml(game.opponent)}</td>
+<td>${gamePlayer.points || 0}</td>
+<td>${gameRebounds}</td>
+<td>${gamePlayer.ast || 0}</td>
+<td>${gamePlayer.stl || 0}</td>
+<td>${gamePlayer.blk || 0}</td>
+<td>${gamePlayer.to || 0}</td>
+<td>${formatPM(gamePlayer.plusMinus || 0)}</td>
+</tr>
+`;
+});
 
 document.getElementById("teamContent").innerHTML = `
 <div class="card">
-<h2>Season Stats</h2>
 
-<h3>
-Record: ${wins}-${losses}${ties ? "-" + ties : ""}
-</h3>
+<h2>
+#${escapeHtml(player.number)}
+${escapeHtml(player.name)}
+</h2>
+
+<h3>Season Averages</h3>
+
+<div class="center">
+<p>
+<strong>${statAverage(player.points,player.games)}</strong> PPG
+&nbsp; | &nbsp;
+<strong>${statAverage(rebounds,player.games)}</strong> RPG
+&nbsp; | &nbsp;
+<strong>${statAverage(player.ast,player.games)}</strong> APG
+</p>
+
+<p>
+<strong>${statAverage(player.stl,player.games)}</strong> SPG
+&nbsp; | &nbsp;
+<strong>${statAverage(player.blk,player.games)}</strong> BPG
+&nbsp; | &nbsp;
+<strong>${statAverage(player.plusMinus,player.games)}</strong> +/- PG
+</p>
+</div>
+
+<h3>Shooting</h3>
 
 <div class="tableWrap">
 <table>
 <thead>
 <tr>
-<th>#</th><th>Player</th><th>GP</th><th>PTS</th>
-<th>FG</th><th>3PT</th><th>FT</th>
-<th>OREB</th><th>DREB</th><th>REB</th>
-<th>AST</th><th>STL</th><th>BLK</th>
-<th>TO</th><th>PF</th><th>+/-</th>
+<th>FG</th>
+<th>FG%</th>
+<th>2PT</th>
+<th>2P%</th>
+<th>3PT</th>
+<th>3P%</th>
+<th>FT</th>
+<th>FT%</th>
+<th>eFG%</th>
 </tr>
 </thead>
-<tbody>${rows}</tbody>
+
+<tbody>
+<tr>
+<td>${player.fgMade}/${player.fgAtt}</td>
+<td>${statPercent(player.fgMade,player.fgAtt)}</td>
+
+<td>${twoMade}/${twoAtt}</td>
+<td>${statPercent(twoMade,twoAtt)}</td>
+
+<td>${player.threeMade}/${player.threeAtt}</td>
+<td>${statPercent(player.threeMade,player.threeAtt)}</td>
+
+<td>${player.ftMade}/${player.ftAtt}</td>
+<td>${statPercent(player.ftMade,player.ftAtt)}</td>
+
+<td>${efg}</td>
+</tr>
+</tbody>
 </table>
 </div>
+
+<h3>Game-by-Game</h3>
+
+<div class="tableWrap">
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Result</th>
+<th>Opponent</th>
+<th>PTS</th>
+<th>REB</th>
+<th>AST</th>
+<th>STL</th>
+<th>BLK</th>
+<th>TO</th>
+<th>+/-</th>
+</tr>
+</thead>
+
+<tbody>
+${
+gameRows ||
+`<tr><td colspan="10">No games played yet.</td></tr>`
+}
+</tbody>
+</table>
+</div>
+
+<div class="center">
+<button onclick="showSeasonStats()">
+Back to Season Stats
+</button>
+</div>
+
 </div>
 `;
 }
