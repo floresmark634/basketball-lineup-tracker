@@ -3210,17 +3210,38 @@ renderOnCourt();
 
 function closeStatPanel() {
 
-selectedPlayerId =
-null;
+selectedPlayerId = null;
+
+document
+.getElementById(
+"selectedPlayerTitle"
+)
+.textContent =
+"SELECT A PLAYER";
+
+document
+.getElementById(
+"noPlayerMessage"
+)
+.classList
+.remove("hidden");
 
 document
 .getElementById(
 "statPanel"
 )
 .classList
+.remove("hidden");
+
+document
+.getElementById(
+"assistPanel"
+)
+.classList
 .add("hidden");
 
 renderOnCourt();
+
 }
 
 /* GAME LOG */
