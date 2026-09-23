@@ -155,7 +155,58 @@ gap:8px
 text-align:center;
 font-size:19px
 }
+.subPlayerGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:10px;
+margin:10px 0 18px
+}
 
+.subPlayerButton{
+min-height:72px;
+margin:0;
+padding:12px 8px;
+font-size:18px;
+font-weight:bold;
+border:3px solid transparent;
+}
+
+.subPlayerButton .subNumber{
+display:block;
+font-size:24px;
+margin-bottom:4px
+}
+
+.subPlayerButton.selectedOut{
+background:#991b1b;
+color:white;
+border-color:#7f1d1d
+}
+
+.subPlayerButton.selectedIn{
+background:#166534;
+color:white;
+border-color:#14532d
+}
+
+.subPlayerButton:disabled{
+opacity:.45;
+cursor:not-allowed
+}
+
+.subSummary{
+font-size:18px;
+font-weight:bold;
+padding:12px;
+margin:8px 0
+}
+
+#confirmSubButton{
+font-size:20px;
+min-height:58px;
+padding-left:25px;
+padding-right:25px
+}
 .tableWrap{overflow-x:auto}
 table{
 width:100%;
@@ -497,25 +548,51 @@ class="lineupStats">
 
 <h2>Substitution</h2>
 
+<p class="center smallText">
+Tap the player(s) coming OUT, then tap the same number of players coming IN.
+</p>
+
+<h3>OUT</h3>
+
+<div
+id="subOutButtons"
+class="subPlayerGrid">
+</div>
+
+<h3>IN</h3>
+
+<div
+id="subInButtons"
+class="subPlayerGrid">
+</div>
+
+<div
+id="subSummary"
+class="center subSummary">
+Select who is coming out.
+</div>
+
 <div class="center">
 
-<select id="playerOut"></select>
-
-<strong> OUT → </strong>
-
-<select id="playerIn"></select>
+<button
+id="confirmSubButton"
+class="primary hidden"
+onclick="makeSub()">
+MAKE SUB
+</button>
 
 <button
-class="primary"
-onclick="makeSub()">
-Make Sub
+id="cancelSubButton"
+class="hidden"
+onclick="clearSubSelection()">
+CLEAR
 </button>
 
 </div>
 
 <p class="center smallText">
-After tapping Make Sub, enter the scoreboard time remaining
-(example: 643 = 6:43).
+You'll enter the scoreboard time after choosing the substitution.
+Example: 643 = 6:43.
 </p>
 
 </div>
@@ -630,6 +707,9 @@ let ourScore = 0;
 let theirScore = 0;
 
 let selectedPlayerId = null;
+
+let selectedSubOut = [];
+let selectedSubIn = [];
 
 let lineups = {};
 let gameLog = [];
@@ -2389,31 +2469,25 @@ renderGame();
 
 function makeSub() {
 
-const outId =
-Number(
-document
-.getElementById(
-"playerOut"
-)
-.value
-);
-
-const inId =
-Number(
-document
-.getElementById(
-"playerIn"
-)
-.value
-);
-
 if (
-!outId ||
-!inId
+selectedSubOut.length === 0 ||
+selectedSubIn.length === 0
 ) {
 
 alert(
-"Choose a player out and a player in."
+"Choose who is coming out and who is coming in."
+);
+
+return;
+}
+
+if (
+selectedSubOut.length !==
+selectedSubIn.length
+) {
+
+alert(
+"Select the same number of players OUT and IN."
 );
 
 return;
@@ -2421,9 +2495,7 @@ return;
 
 const seconds =
 promptClock(
-
 `Time remaining in ${periodLabel(periodState.number)} for this substitution?`
-
 );
 
 if (seconds === null) {
@@ -2433,42 +2505,44 @@ return;
 saveHistory();
 
 /*
-Close the old five-man stint at the
-scoreboard time entered.
+Close the OLD five-man lineup once.
+
+This is important for multi-player subs:
+if two players check in at the same dead
+ball, we do not create a fake intermediate
+lineup between the two substitutions.
 */
 
-closeStint(
-seconds
-);
+closeStint(seconds);
 
 periodState.clockSeconds =
 seconds;
 
-const playerOut =
+const outPlayers =
+selectedSubOut
+.map(id =>
 roster.find(
 player =>
-Number(player.id) ===
-outId
-);
+Number(player.id) === Number(id)
+)
+)
+.filter(Boolean);
 
-const playerIn =
+const inPlayers =
+selectedSubIn
+.map(id =>
 roster.find(
 player =>
-Number(player.id) ===
-inId
-);
-
-const index =
-onCourt.findIndex(
-id =>
-Number(id) ===
-outId
-);
+Number(player.id) === Number(id)
+)
+)
+.filter(Boolean);
 
 if (
-index === -1 ||
-!playerOut ||
-!playerIn
+outPlayers.length !==
+selectedSubOut.length ||
+inPlayers.length !==
+selectedSubIn.length
 ) {
 
 alert(
@@ -2478,38 +2552,74 @@ alert(
 return;
 }
 
-onCourt[index] =
-inId;
+/*
+Replace every selected OUT player with
+the corresponding selected IN player.
+*/
+
+selectedSubOut
+.forEach((outId,index) => {
+
+const inId =
+selectedSubIn[index];
+
+const courtIndex =
+onCourt.findIndex(
+id =>
+Number(id) === Number(outId)
+);
+
+if (courtIndex !== -1) {
+
+onCourt[courtIndex] =
+Number(inId);
+
+}
+
+});
 
 ensureCurrentLineup();
 
 /*
-The new lineup begins at the exact
-same scoreboard time.
+The NEW five-man lineup begins once,
+at the exact same scoreboard time.
 */
 
-startStint(
-seconds
-);
+startStint(seconds);
+
+const outText =
+outPlayers
+.map(
+player =>
+`#${player.number} ${player.name}`
+)
+.join(", ");
+
+const inText =
+inPlayers
+.map(
+player =>
+`#${player.number} ${player.name}`
+)
+.join(", ");
 
 logAction(
-`SUB: #${playerOut.number} ${playerOut.name} OUT — #${playerIn.number} ${playerIn.name} IN`
+`SUB: ${outText} OUT — ${inText} IN`
 );
+
+selectedSubOut = [];
+selectedSubIn = [];
 
 selectedPlayerId =
 null;
 
 document
-.getElementById(
-"statPanel"
-)
+.getElementById("statPanel")
 .classList
 .add("hidden");
 
 document
-.getElementById(
-"assistPanel"
-)
+.getElementById("assistPanel")
 .classList
 .add("hidden");
 
@@ -2535,6 +2645,9 @@ return;
 }
 
 saveHistory();
+
+selectedSubOut = [];
+selectedSubIn = [];
 
 /*
 Everyone currently on the floor gets
@@ -2913,7 +3026,7 @@ periodState
 : "—";
 
 renderOnCourt();
-renderSubs();
+renderSubButtons();
 renderBoxScore();
 renderLineups();
 renderCurrentLineup();
@@ -2966,29 +3079,47 @@ area.appendChild(card);
 });
 }
 
-function renderSubs() {
+function renderSubButtons() {
 
-const playerOut =
-document.getElementById("playerOut");
+const outArea =
+document.getElementById("subOutButtons");
 
-const playerIn =
-document.getElementById("playerIn");
+const inArea =
+document.getElementById("subInButtons");
 
-playerOut.innerHTML =
-'<option value="">Player Out</option>';
+if (!outArea || !inArea) {
+return;
+}
 
-playerIn.innerHTML =
-'<option value="">Player In</option>';
+outArea.innerHTML = "";
+inArea.innerHTML = "";
 
 currentPlayers()
 .forEach(player => {
 
-playerOut.innerHTML += `
-<option value="${player.id}">
+const button =
+document.createElement("button");
+
+const selected =
+selectedSubOut
+.map(Number)
+.includes(Number(player.id));
+
+button.className =
+"subPlayerButton" +
+(selected ? " selectedOut" : "");
+
+button.innerHTML = `
+<span class="subNumber">
 #${escapeHtml(player.number)}
+</span>
 ${escapeHtml(player.name)}
-</option>
 `;
+
+button.onclick =
+() => toggleSubOut(player.id);
+
+outArea.appendChild(button);
 
 });
 
@@ -2997,20 +3128,236 @@ roster
 player =>
 !onCourt
 .map(Number)
-.includes(
-Number(player.id)
-)
+.includes(Number(player.id))
 )
 .forEach(player => {
 
-playerIn.innerHTML += `
-<option value="${player.id}">
+const button =
+document.createElement("button");
+
+const selected =
+selectedSubIn
+.map(Number)
+.includes(Number(player.id));
+
+button.className =
+"subPlayerButton" +
+(selected ? " selectedIn" : "");
+
+button.innerHTML = `
+<span class="subNumber">
 #${escapeHtml(player.number)}
+</span>
 ${escapeHtml(player.name)}
-</option>
 `;
 
+button.onclick =
+() => toggleSubIn(player.id);
+
+inArea.appendChild(button);
+
 });
+
+renderSubSummary();
+}
+
+function toggleSubOut(id) {
+
+id = Number(id);
+
+const index =
+selectedSubOut
+.map(Number)
+.indexOf(id);
+
+if (index >= 0) {
+
+selectedSubOut.splice(
+index,
+1
+);
+
+} else {
+
+selectedSubOut.push(id);
+
+}
+
+/*
+If fewer players are now selected OUT
+than IN, remove extra IN selections.
+*/
+
+while (
+selectedSubIn.length >
+selectedSubOut.length
+) {
+
+selectedSubIn.pop();
+}
+
+renderSubButtons();
+}
+
+function toggleSubIn(id) {
+
+id = Number(id);
+
+const index =
+selectedSubIn
+.map(Number)
+.indexOf(id);
+
+if (index >= 0) {
+
+selectedSubIn.splice(
+index,
+1
+);
+
+renderSubButtons();
+return;
+}
+
+if (
+selectedSubIn.length >=
+selectedSubOut.length
+) {
+
+return;
+}
+
+selectedSubIn.push(id);
+
+renderSubButtons();
+}
+
+function clearSubSelection() {
+
+selectedSubOut = [];
+selectedSubIn = [];
+
+renderSubButtons();
+}
+
+function renderSubSummary() {
+
+const summary =
+document.getElementById(
+"subSummary"
+);
+
+const confirmButton =
+document.getElementById(
+"confirmSubButton"
+);
+
+const clearButton =
+document.getElementById(
+"cancelSubButton"
+);
+
+if (
+!summary ||
+!confirmButton ||
+!clearButton
+) {
+return;
+}
+
+if (
+selectedSubOut.length === 0
+) {
+
+summary.textContent =
+"Select who is coming out.";
+
+confirmButton
+.classList
+.add("hidden");
+
+clearButton
+.classList
+.add("hidden");
+
+return;
+}
+
+clearButton
+.classList
+.remove("hidden");
+
+if (
+selectedSubIn.length <
+selectedSubOut.length
+) {
+
+summary.textContent =
+`${selectedSubOut.length} OUT selected — choose ${selectedSubOut.length - selectedSubIn.length} more IN.`;
+
+confirmButton
+.classList
+.add("hidden");
+
+return;
+}
+
+const outNames =
+selectedSubOut
+.map(id => {
+
+const player =
+roster.find(
+p =>
+Number(p.id) === Number(id)
+);
+
+return player
+? `#${player.number} ${player.name}`
+: "";
+
+})
+.filter(Boolean)
+.join(", ");
+
+const inNames =
+selectedSubIn
+.map(id => {
+
+const player =
+roster.find(
+p =>
+Number(p.id) === Number(id)
+);
+
+return player
+? `#${player.number} ${player.name}`
+: "";
+
+})
+.filter(Boolean)
+.join(", ");
+
+summary.innerHTML = `
+<span style="color:#991b1b">
+OUT: ${escapeHtml(outNames)}
+</span>
+
+<br>
+
+<span style="color:#166534">
+IN: ${escapeHtml(inNames)}
+</span>
+`;
+
+confirmButton.textContent =
+selectedSubOut.length === 1
+? "MAKE SUB"
+: `MAKE ${selectedSubOut.length} SUBS`;
+
+confirmButton
+.classList
+.remove("hidden");
 }
 
 /*
