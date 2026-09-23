@@ -1648,7 +1648,7 @@ class="courtLine"
 </svg>
 <div id="shotDecisionPanel" class="hidden">
 
-<button class="make">
+<button class="make" onclick="finishChartShot(true)">
 MADE
 </button>
 
@@ -3504,6 +3504,25 @@ marker.setAttribute("r","10");
 marker.setAttribute("class","pendingShotMarker");
 
 court.appendChild(marker);
+
+}
+function finishChartShot(isMade) {
+
+if (!pendingShotType) {
+return;
+}
+
+if (isMade) {
+
+if (pendingShotType === "2PT") {
+recordShot("2PM");
+}
+
+if (pendingShotType === "3PT") {
+recordShot("3PM");
+}
+
+}
 
 }
 function recordShot(type) {
