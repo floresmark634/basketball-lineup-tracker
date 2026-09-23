@@ -3511,7 +3511,11 @@ marker.setAttribute("cy",y);
 marker.setAttribute("r","10");
 marker.setAttribute("class","pendingShotMarker");
 
-court.appendChild(marker);
+document
+.getElementById(
+"shotMarkerLayer"
+)
+.appendChild(marker);
 
 }
 function finishChartShot(isMade) {
