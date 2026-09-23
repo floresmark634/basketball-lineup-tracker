@@ -3871,10 +3871,8 @@ logAction(
 logAction(
 "Basket was unassisted"
 );
-}
 
-selectedPlayerId =
-null;
+}
 
 document
 .getElementById(
@@ -3883,7 +3881,32 @@ document
 .classList
 .add("hidden");
 
+document
+.getElementById(
+"shotMarkerLayer"
+)
+.innerHTML = "";
+
+pendingShotX = null;
+pendingShotY = null;
+pendingShotType = null;
+
+document
+.getElementById(
+"shotDecisionPanel"
+)
+.classList
+.add("hidden");
+
+document
+.querySelector(
+".shotChartSubtext"
+)
+.textContent =
+"Tap where the shot was taken";
+
 renderGame();
+
 }
 
 /* OTHER STATS */
