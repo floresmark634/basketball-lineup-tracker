@@ -3436,7 +3436,27 @@ const x =
 
 const y =
 ((event.clientY - rect.top) / rect.height) * 470;
+const distanceFromHoop =
+Math.hypot(
+x - 250,
+y - 65
+);
 
+let shotType = "2PT";
+
+if (
+(y <= 145 && (x <= 35 || x >= 465)) ||
+(y > 145 && distanceFromHoop >= 230)
+) {
+shotType = "3PT";
+}
+
+document
+.querySelector(
+".shotChartSubtext"
+)
+.textContent =
+`${shotType} location selected`;
 const oldMarker =
 document.getElementById("pendingShotMarker");
 
