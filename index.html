@@ -281,6 +281,38 @@ margin:8px 0
 </div>
 </div>
 
+<div class="card">
+
+<h2>Data Backup</h2>
+
+<p class="center smallText">
+Save a copy of all teams, rosters, games, stats, minutes, and lineup data.
+</p>
+
+<div class="center">
+
+<button
+onclick="exportBackup()">
+Download Backup
+</button>
+
+<button
+onclick="document.getElementById('backupFileInput').click()">
+Restore Backup
+</button>
+
+<input
+id="backupFileInput"
+type="file"
+accept=".json,application/json"
+class="hidden"
+onchange="importBackup(event)"
+>
+
+</div>
+
+</div>
+
 <div id="teamContent"></div>
 
 </div>
@@ -4324,6 +4356,171 @@ Number(id)
 persistTeams();
 
 showHistory();
+}
+/* DATA BACKUP */
+
+function exportBackup() {
+
+const backup = {
+app: "Basketball Stat Tracker",
+version: 1,
+exportedAt: new Date().toISOString(),
+teams: teams
+};
+
+const json = JSON.stringify(
+backup,
+null,
+2
+);
+
+const blob = new Blob(
+[json],
+{
+type: "application/json"
+}
+);
+
+const url =
+URL.createObjectURL(blob);
+
+const link =
+document.createElement("a");
+
+const date =
+new Date()
+.toISOString()
+.slice(0,10);
+
+link.href = url;
+
+link.download =
+`basketball-stat-tracker-backup-${date}.json`;
+
+document.body.appendChild(link);
+
+link.click();
+
+link.remove();
+
+URL.revokeObjectURL(url);
+}
+function importBackup(event) {
+
+const input = event.target;
+const file = input.files[0];
+
+if (!file) {
+return;
+}
+
+const reader = new FileReader();
+
+reader.onload = function(e) {
+
+try {
+
+const backup =
+JSON.parse(e.target.result);
+
+/*
+Basic validation so we don't replace
+the app's data with the wrong JSON file.
+*/
+
+if (
+!backup ||
+backup.app !== "Basketball Stat Tracker" ||
+!Array.isArray(backup.teams)
+) {
+
+alert(
+"This does not appear to be a valid Basketball Stat Tracker backup."
+);
+
+input.value = "";
+return;
+}
+
+const confirmed = confirm(
+`Restore this backup?
+
+Backup date: ${
+backup.exportedAt
+? new Date(backup.exportedAt).toLocaleString()
+: "Unknown"
+}
+
+Teams in backup: ${backup.teams.length}
+
+WARNING: This will replace all teams and game data currently stored on this device.`
+);
+
+if (!confirmed) {
+
+input.value = "";
+return;
+}
+
+/*
+Replace the current database with
+the data from the backup.
+*/
+
+teams = backup.teams;
+
+localStorage.setItem(
+TEAMS_KEY,
+JSON.stringify(teams)
+);
+
+/*
+An active game is intentionally cleared.
+
+The backup currently protects completed
+team/roster/game data. We don't want an
+old unfinished game accidentally restored
+over a current session.
+*/
+
+localStorage.removeItem(
+ACTIVE_GAME_KEY
+);
+
+input.value = "";
+
+alert(
+"Backup restored successfully."
+);
+
+goHome();
+
+} catch (error) {
+
+console.error(
+"Backup restore failed:",
+error
+);
+
+alert(
+"That backup could not be restored. Your current data was not changed."
+);
+
+input.value = "";
+}
+
+};
+
+reader.onerror = function() {
+
+alert(
+"That backup file could not be read. Your current data was not changed."
+);
+
+input.value = "";
+};
+
+reader.readAsText(file);
 }
 
 /* SEASON DATA */
