@@ -1407,10 +1407,12 @@ Court coming next
 
 <div class="courtsideStats">
 <!-- STAT PANEL -->
-<div id="statPanel" class="card hidden center">
+<div id="statPanel" class="card center">
 
-<h2 id="selectedPlayerTitle"></h2>
-
+<h2 id="selectedPlayerTitle">SELECT A PLAYER</h2>
+<div id="noPlayerMessage">
+  Tap one of the five players above to record stats.
+</div>
 <div class="statGrid">
 
 <button class="make" onclick="recordShot('2PM')">
@@ -3189,7 +3191,12 @@ document
 )
 .classList
 .remove("hidden");
-
+document
+.getElementById(
+"noPlayerMessage"
+)
+.classList
+.add("hidden");
 document
 .getElementById(
 "assistPanel"
