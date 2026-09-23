@@ -1351,6 +1351,131 @@ body:has(#gameScreen:not(.hidden)) .scoreButtons button{
   margin:0 !important;
   font-size:11px !important;
 }
+/* FINAL IPAD FIT + MATCHED COURTSIDE HEIGHTS */
+
+body:has(#gameScreen:not(.hidden)) .app{
+  max-width:1180px;
+  padding:8px;
+}
+
+body:has(#gameScreen:not(.hidden)) .liveTopPanel{
+  padding:7px 12px !important;
+  margin-bottom:6px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .liveControlRow{
+  margin-top:5px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) #gameSubHeader{
+  display:none;
+}
+
+body:has(#gameScreen:not(.hidden)) #gameScreen > .card:has(#onCourt){
+  padding:7px 10px !important;
+  margin-bottom:6px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) #gameScreen > .card:has(#onCourt) h2{
+  font-size:14px !important;
+  margin:0 0 5px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .onCourt{
+  gap:6px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .playerCard{
+  min-height:48px !important;
+  padding:5px 8px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .playerNumber,
+body:has(#gameScreen:not(.hidden)) .playerPM,
+body:has(#gameScreen:not(.hidden)) #onCourt .playerCard > div:nth-child(2){
+  font-size:14px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .courtsideWorkspace{
+  grid-template-columns:40% 60% !important;
+  gap:8px !important;
+  margin:6px 0 !important;
+  align-items:stretch !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .courtsideStats,
+body:has(#gameScreen:not(.hidden)) .courtsideShotChart{
+  height:300px !important;
+  min-height:300px !important;
+  max-height:300px !important;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+
+body:has(#gameScreen:not(.hidden)) #statPanel{
+  height:100% !important;
+  margin:0 !important;
+  padding:8px !important;
+  box-sizing:border-box;
+}
+
+body:has(#gameScreen:not(.hidden)) #selectedPlayerTitle{
+  font-size:17px !important;
+  margin:0 0 5px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) #noPlayerMessage{
+  font-size:12px !important;
+  margin-bottom:5px;
+}
+
+body:has(#gameScreen:not(.hidden)) .statGrid{
+  gap:5px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .statGrid button{
+  min-height:34px !important;
+  padding:5px 6px !important;
+  font-size:12px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .courtsideShotChart{
+  padding:7px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .shotChartLabel{
+  font-size:15px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .shotChartSubtext{
+  font-size:11px !important;
+  margin-top:1px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) #shotCourt{
+  width:auto !important;
+  height:245px !important;
+  max-height:245px !important;
+  margin:3px auto 0 !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .gameBottomBar{
+  gap:6px !important;
+  margin-top:6px !important;
+}
+
+body:has(#gameScreen:not(.hidden)) .gameBottomBar button{
+  min-height:38px !important;
+  padding:6px 8px !important;
+  font-size:13px !important;
+}
+/* MATCH STAT PANEL + SHOT CHART HEIGHT */
+.courtsideStats,
+.courtsideShotChart{
+  height:300px !important;
+  min-height:300px !important;
+  max-height:300px !important;
+}
 </style>
 </head>
 
