@@ -3419,80 +3419,6 @@ return;
 const court =
 document.getElementById("shotCourt");
 
-const point =
-court.createSVGPoint();
-
-point.x =
-event.clientX;
-
-point.y =
-event.clientY;
-
-const svgPoint =
-point.matrixTransform(
-court
-.getScreenCTM()
-.inverse()
-);
-
-const x =
-svgPoint.x;
-
-const y =
-svgPoint.y;
-
-const oldMarker =
-document.getElementById(
-"pendingShotMarker"
-);
-
-if (oldMarker) {
-oldMarker.remove();
-}
-
-const marker =
-document.createElementNS(
-"http://www.w3.org/2000/svg",
-"circle"
-);
-
-marker.setAttribute(
-"id",
-"pendingShotMarker"
-);
-
-marker.setAttribute(
-"cx",
-x
-);
-
-marker.setAttribute(
-"cy",
-y
-);
-
-marker.setAttribute(
-"r",
-"10"
-);
-
-marker.setAttribute(
-"class",
-"pendingShotMarker"
-);
-
-court.appendChild(marker);
-
-}
-
-if (!selectedPlayerId) {
-alert("Select a player first.");
-return;
-}
-
-const court =
-document.getElementById("shotCourt");
-
 const rect =
 court.getBoundingClientRect();
 
@@ -3524,7 +3450,6 @@ marker.setAttribute("class","pendingShotMarker");
 court.appendChild(marker);
 
 }
-function recordShot(type) {
 
 if (!selectedPlayerId) {
 return;
