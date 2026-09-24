@@ -7530,18 +7530,19 @@ ${gamesPlayed
 
 <button
 class="${view === "perGame" ? "primary" : ""}"
-onclick="${statsFunction}('perGame')"Per Game
+onclick="${statsFunction}('perGame')">
+Per Game
 </button>
 
 <button
 class="${view === "shooting" ? "primary" : ""}"
-onclick="showSeasonStats('shooting')">
+onclick="${statsFunction}('shooting')">
 Shooting
 </button>
 
 <button
 class="${view === "totals" ? "primary" : ""}"
-onclick="showSeasonStats('totals')">
+onclick="${statsFunction}('totals')">
 Totals
 </button>
 
