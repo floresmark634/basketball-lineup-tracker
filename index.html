@@ -1481,6 +1481,48 @@ body:has(#gameScreen:not(.hidden)) .gameBottomBar button{
   max-height:70px !important;
   width:auto !important;
 }
+/* FINAL PLAYER SELECTOR LAYOUT */
+.courtsideStats .onCourt{
+  display:grid !important;
+  grid-template-columns:repeat(5,1fr) !important;
+  gap:5px !important;
+}
+
+.courtsideStats .playerCard{
+  min-width:0 !important;
+  min-height:66px !important;
+  padding:5px 3px !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+
+  text-align:center !important;
+}
+
+.courtsideStats .playerNumber{
+  font-size:13px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+}
+
+.courtsideStats .playerCard > div:nth-child(2){
+  font-size:12px !important;
+  font-weight:700 !important;
+  line-height:1.1 !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  width:100%;
+}
+
+.courtsideStats .playerPM{
+  font-size:12px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+}
 </style>
 </head>
 
