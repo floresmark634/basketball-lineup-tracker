@@ -3409,10 +3409,10 @@ periodMinutes,
 overtimeMinutes,
 
 gameType:
-document.getElementById("gameType").value,
+document.getElementById("gameType")?.value || "regular",
 
 conferenceGame:
-document.getElementById("conferenceGame").checked
+document.getElementById("conferenceGame")?.checked || false
 
 };
 
