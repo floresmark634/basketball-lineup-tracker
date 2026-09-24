@@ -7044,12 +7044,11 @@ reader.readAsText(file);
 
 /* SEASON DATA */
 
-function getSeasonData() {
-
+function getSeasonData(games = null) {
 const team =
 getSelectedTeam();
-
-const totals = {};
+const gamesToUse =
+games || team.games;const totals = {};
 const appearances = {};
 const seasonLineups = {};
 
@@ -7083,6 +7082,7 @@ new Set();
 });
 
 team.games
+gamesToUse
 .forEach(game => {
 
 const appearedIds =
