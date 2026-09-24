@@ -7406,7 +7406,26 @@ lineupTitle =
 statsFunction =
 "showConferenceStats";
 }
+if (scope === "tournament") {
 
+gamesToUse =
+team.games.filter(
+game =>
+game.gameType === "tournament"
+);
+
+navKey =
+"tournament";
+
+dashboardTitle =
+"Tournament Dashboard";
+
+lineupTitle =
+"Tournament Lineup Stats";
+
+statsFunction =
+"showTournamentStats";
+}
 setTeamNav(navKey);
 
 showOnly("teamScreen");
