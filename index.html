@@ -3154,7 +3154,9 @@ const buttons = {
 newGame: document.getElementById("navNewGame"),
 roster: document.getElementById("navRoster"),
 history: document.getElementById("navHistory"),
-season: document.getElementById("navSeason")
+season: document.getElementById("navSeason"),
+conference: document.getElementById("navConference"),
+tournament: document.getElementById("navTournament")
 };
 
 Object.values(buttons).forEach(button => {
@@ -7359,26 +7361,58 @@ return attempted
 
 function showSeasonStats(
 view="perGame",
-showAll=false
+showAll=false,
+scope="season"
 ) {
 
-setTeamNav("season");
-
+setTeamNav(navKey);
 const team =
 getSelectedTeam();
 
 if (!team) {
 return;
 }
+let gamesToUse =
+team.games;
 
+let navKey =
+"season";
+
+let dashboardTitle =
+"Season Dashboard";
+
+let lineupTitle =
+"Season Lineup Stats";
+
+let statsFunction =
+"showSeasonStats";
+
+if (scope === "conference") {
+setTeamNav(navKey);gamesToUse =
+team.games.filter(
+game =>
+game.conferenceGame === true
+);
+
+navKey =
+"conference";
+
+dashboardTitle =
+"Conference Dashboard";
+
+lineupTitle =
+"Conference Lineup Stats";
+
+statsFunction =
+"showConferenceStats";
+}
 showOnly("teamScreen");
 
 const {
 totals,
 seasonLineups
 } =
-getSeasonData();
-
+getSeasonData(gamesToUse);
 let wins = 0;
 let losses = 0;
 let ties = 0;
@@ -7386,7 +7420,7 @@ let ties = 0;
 let pointsFor = 0;
 let pointsAgainst = 0;
 
-team.games
+gamesToUse
 .forEach(game => {
 
 pointsFor +=
@@ -7421,7 +7455,7 @@ ties += 1;
 });
 
 const gamesPlayed =
-team.games.length;
+gamesToUse.length;
 
 const differential =
 pointsFor -
@@ -7435,8 +7469,7 @@ document
 
 <div class="card">
 
-<h2>Season Dashboard</h2>
-
+<h2>${dashboardTitle}</h2>
 <div class="center">
 
 <h3>
@@ -7494,8 +7527,7 @@ ${gamesPlayed
 
 <button
 class="${view === "perGame" ? "primary" : ""}"
-onclick="showSeasonStats('perGame')">
-Per Game
+onclick="${statsFunction}('perGame')"Per Game
 </button>
 
 <button
@@ -7518,8 +7550,7 @@ Totals
 
 <div class="card">
 
-<h2>Season Lineup Stats</h2>
-
+<h2>${lineupTitle}</h2>
 <div id="seasonLineupTable"></div>
 
 </div>
