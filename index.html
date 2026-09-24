@@ -7365,7 +7365,6 @@ showAll=false,
 scope="season"
 ) {
 
-setTeamNav(navKey);
 const team =
 getSelectedTeam();
 
@@ -7388,7 +7387,8 @@ let statsFunction =
 "showSeasonStats";
 
 if (scope === "conference") {
-setTeamNav(navKey);gamesToUse =
+
+gamesToUse =
 team.games.filter(
 game =>
 game.conferenceGame === true
@@ -7406,6 +7406,9 @@ lineupTitle =
 statsFunction =
 "showConferenceStats";
 }
+
+setTeamNav(navKey);
+
 showOnly("teamScreen");
 
 const {
