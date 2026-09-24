@@ -1855,13 +1855,32 @@ Delete Team
 <input id="gameDate" type="date">
 </p>
 
+<!-- GAME CLASSIFICATION -->
+<div class="gameClassification">
+
+<h3>Game Classification</h3>
+
 <p>
-<select id="gameLocation">
-<option>Home</option>
-<option>Away</option>
-<option>Neutral</option>
+<label>
+Game Type:
+<select id="gameType">
+<option value="regular">Regular Season</option>
+<option value="tournament">Tournament</option>
 </select>
+</label>
 </p>
+
+<p>
+<label>
+<input
+type="checkbox"
+id="conferenceGame"
+>
+Conference Game
+</label>
+</p>
+
+</div>
 
 <p>
 <label>
