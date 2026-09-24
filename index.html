@@ -1406,11 +1406,12 @@ body:has(#gameScreen:not(.hidden)) .courtsideWorkspace{
 
 body:has(#gameScreen:not(.hidden)) .courtsideStats,
 body:has(#gameScreen:not(.hidden)) .courtsideShotChart{
-  height:300px !important;
-  min-height:300px !important;
-  max-height:300px !important;
-  overflow:hidden;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  overflow:visible !important;
   box-sizing:border-box;
+  align-self:stretch !important;
 }
 
 body:has(#gameScreen:not(.hidden)) #statPanel{
