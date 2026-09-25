@@ -3648,7 +3648,10 @@ box => Number(box.value)
 
 ourScore = 0;
 theirScore = 0;
-
+opponentRebounds = {
+  oreb: 0,
+  dreb: 0
+};
 selectedPlayerId = null;
 
 lineups = {};
@@ -4044,7 +4047,10 @@ clockSeconds:
 periodLength(1),
 
 startOur:0,
-startTheir:0
+startTheir:0,
+
+startOppOreb:0,
+startOppDreb:0
 
 };
 
@@ -5086,7 +5092,15 @@ endOur:
 ourScore,
 
 endTheir:
-theirScore
+theirScore,
+
+oppOreb:
+opponentRebounds.oreb -
+Number(periodState.startOppOreb || 0),
+
+oppDreb:
+opponentRebounds.dreb -
+Number(periodState.startOppDreb || 0)
 
 });
 
