@@ -1976,36 +1976,13 @@ Selected:
 
 <div class="liveTopRow">
 
-<div class="liveMatchup">
-<strong id="gameHeader"></strong>
-<div id="gameSubHeader" class="smallText"></div>
-</div>
+<!-- LEFT: CLOCK + CONTROLS -->
+<div class="liveClockZone">
 
 <div class="liveClock">
 <span id="periodDisplay">Q1</span>
 <span id="clockDisplay">10:00</span>
 </div>
-
-<div class="liveScore">
-<span id="ourTeamGameName">Our Team</span>
-<strong id="ourScore">0</strong>
-
-<span class="scoreDivider">|</span>
-
-<span id="opponentGameName">Opponent</span>
-<strong id="theirScore">0</strong>
-
-<div class="compactOpponentScore">
-<button onclick="opponentScore(1)">+1</button>
-<button onclick="opponentScore(2)">+2</button>
-<button onclick="opponentScore(3)">+3</button>
-</div>
-
-</div>
-
-</div>
-
-<div class="liveControlRow">
 
 <div class="liveClockButtons">
 
@@ -2013,29 +1990,47 @@ Selected:
 Set Clock
 </button>
 
-<button class="primary" onclick="endPeriod()">
+<button class="danger" onclick="endPeriod()">
 End Quarter
 </button>
 
 </div>
 
-<div id="timeoutTracker" class="timeoutTracker">
+</div>
 
-<span class="timeoutLabel">
-TIMEOUTS:
+
+<!-- CENTER: SCOREBOARD -->
+<div class="liveScore">
+
+<span id="ourTeamGameName">Our Team</span>
+
+<strong id="ourScore">
+0
+</strong>
+
+<span class="scoreDivider">
+|
 </span>
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
-□ FULL
-</button>
+<strong id="theirScore">
+0
+</strong>
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
-□ FULL
-</button>
+<span id="opponentGameName">
+Opponent
+</span>
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
-□ FULL
-</button>
+</div>
+
+
+<!-- RIGHT: TIMEOUTS -->
+<div id="timeoutTracker" class="timeoutTracker">
+
+<div class="timeoutLabel">
+TIMEOUTS
+</div>
+
+<div class="timeoutBoxes">
 
 <button class="timeoutBox" onclick="toggleTimeout(this)">
 □ 30
@@ -2044,6 +2039,20 @@ TIMEOUTS:
 <button class="timeoutBox" onclick="toggleTimeout(this)">
 □ 30
 </button>
+
+<button class="timeoutBox" onclick="toggleTimeout(this)">
+□ FULL
+</button>
+
+<button class="timeoutBox" onclick="toggleTimeout(this)">
+□ FULL
+</button>
+
+<button class="timeoutBox" onclick="toggleTimeout(this)">
+□ FULL
+</button>
+
+</div>
 
 </div>
 
