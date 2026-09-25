@@ -5411,7 +5411,19 @@ Number(periodState.startOurOreb || 0),
 
 ourDreb:
 getOurRebounds().dreb -
-Number(periodState.startOurDreb || 0)
+Number(periodState.startOurDreb || 0),
+
+ftMade:
+getOurTeamTotals().ftMade -
+Number(periodState.startFtMade || 0),
+
+ftAtt:
+getOurTeamTotals().ftAtt -
+Number(periodState.startFtAtt || 0),
+
+turnovers:
+getOurTeamTotals().turnovers -
+Number(periodState.startTurnovers || 0)
 
 });
 
