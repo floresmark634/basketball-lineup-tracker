@@ -6406,6 +6406,12 @@ return `
 
 <td>${stats ? stats.oppPoints : "—"}</td>
 
+<td>${
+stats
+? formatPM(stats.points - stats.oppPoints)
+: "—"
+}</td>
+
 <td>${stats ? display(stats.oreb) : "—"}</td>
 
 <td>${stats ? display(stats.dreb) : "—"}</td>
@@ -6476,6 +6482,7 @@ area.innerHTML = `
 <th>Period</th>
 <th>PTS</th>
 <th>OPP PTS</th>
+<th>PTS +/-</th>
 <th>OREB</th>
 <th>DREB</th>
 <th>REB +/-</th>
