@@ -3666,18 +3666,27 @@ playerSeconds = {};
 roster.forEach(player => {
 playerSeconds[player.id] = 0;
 });
-
 periodState = {
 
-number:1,
+number: 1,
 
 clockSeconds:
 periodLength(1),
 
-startOur:0,
-startTheir:0
-};
+startOur: 0,
+startTheir: 0,
 
+startOppOreb: 0,
+startOppDreb: 0,
+
+startOurOreb: 0,
+startOurDreb: 0,
+
+startFtMade: 0,
+startFtAtt: 0,
+startTurnovers: 0
+
+};
 ensureCurrentLineup();
 
 startStint(
@@ -4039,7 +4048,7 @@ currentGameInfo.periodMinutes = 10;
 currentGameInfo.overtimeMinutes = 4;
 }
 
-periodState = {
+
 
 number:1,
 
