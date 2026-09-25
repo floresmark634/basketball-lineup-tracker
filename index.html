@@ -4008,13 +4008,6 @@ return;
 
 document
 .getElementById(
-"selectedPlayerTitle"
-)
-.textContent =
-`#${player.number} ${player.name}`;
-
-document
-.getElementById(
 "statPanel"
 )
 .classList
@@ -4023,8 +4016,8 @@ document
 .getElementById(
 "noPlayerMessage"
 )
-.classList
-.add("hidden");
+.textContent =
+`#${player.number} ${player.name} selected`;
 document
 .getElementById(
 "assistPanel"
