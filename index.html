@@ -1553,6 +1553,30 @@ body:has(#gameScreen:not(.hidden)) .gameBottomBar button{
   font-weight:800;
   margin-bottom:6px;
 }
+#opponentStatsPanel button{
+  min-height:46px !important;
+  padding:10px 12px !important;
+  font-size:14px !important;
+  margin:0 !important;
+
+  background:#f3e8e8;
+  border:1px solid #caa3a3;
+  color:#7f1d1d;
+
+  font-weight:800;
+}
+.opponentScoreRow{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.opponentQuickRow{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
 </style>
 </head>
 
