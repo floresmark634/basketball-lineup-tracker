@@ -6377,6 +6377,7 @@ selectedPeriods.reduce(
 
 return {
 points: total("our"),
+oppPoints: total("their"),
 oreb: hasRebounds ? total("ourOreb") : null,
 dreb: hasRebounds ? total("ourDreb") : null,
 rebDiff: hasRebounds
@@ -6402,6 +6403,8 @@ return `
 <td><strong>${label}</strong></td>
 
 <td>${stats ? stats.points : "—"}</td>
+
+<td>${stats ? stats.oppPoints : "—"}</td>
 
 <td>${stats ? display(stats.oreb) : "—"}</td>
 
@@ -6472,6 +6475,7 @@ area.innerHTML = `
 <tr>
 <th>Period</th>
 <th>PTS</th>
+<th>OPP PTS</th>
 <th>OREB</th>
 <th>DREB</th>
 <th>REB +/-</th>
