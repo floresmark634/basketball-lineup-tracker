@@ -6335,6 +6335,19 @@ selectedPeriods.reduce(
 return {
 points: total("our"),
 oppPoints: total("their"),
+
+ftMade: selectedPeriods.every(
+p => p.ftMade !== undefined
+) ? total("ftMade") : null,
+
+ftAtt: selectedPeriods.every(
+p => p.ftAtt !== undefined
+) ? total("ftAtt") : null,
+
+turnovers: selectedPeriods.every(
+p => p.turnovers !== undefined
+) ? total("turnovers") : null,
+
 oreb: hasRebounds ? total("ourOreb") : null,
 dreb: hasRebounds ? total("ourDreb") : null,
 rebDiff: hasRebounds
@@ -6379,8 +6392,20 @@ stats && stats.rebDiff !== null
 : "—"
 }</td>
 
-<td>—</td>
-<td>—</td>
+<td>${
+stats &&
+stats.ftMade !== null &&
+stats.ftAtt !== null
+? `${stats.ftMade}/${stats.ftAtt}`
+: "—"
+}</td>
+
+<td>${
+stats && stats.turnovers !== null
+? stats.turnovers
+: "—"
+}</td>
+
 <td>—</td>
 <td>—</td>
 
