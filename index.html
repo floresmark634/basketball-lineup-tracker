@@ -2452,6 +2452,15 @@ class="lineupStats">
 
 </div>
 
+<!-- TEAM STATS BREAKDOWN -->
+<div class="card">
+
+<h2>Team Stats Breakdown</h2>
+
+<div id="teamStatsBreakdown"></div>
+
+</div>
+
 <!-- BOX SCORE -->
 <div class="card">
 
@@ -4050,7 +4059,10 @@ startOur:0,
 startTheir:0,
 
 startOppOreb:0,
-startOppDreb:0
+startOppDreb:0,
+
+startOurOreb:0,
+startOurDreb:0
 
 };
 
@@ -4694,7 +4706,29 @@ logAction(
 
 renderGame();
 }
+/* OUR TEAM REBOUND TOTALS */
 
+function getOurRebounds() {
+
+return {
+
+oreb:
+roster.reduce(
+(total, player) =>
+total + Number(player.oreb || 0),
+0
+),
+
+dreb:
+roster.reduce(
+(total, player) =>
+total + Number(player.dreb || 0),
+0
+)
+
+};
+
+}
 /* OPPONENT SCORING */
 
 function opponentScore(points) {
@@ -5100,7 +5134,15 @@ Number(periodState.startOppOreb || 0),
 
 oppDreb:
 opponentRebounds.dreb -
-Number(periodState.startOppDreb || 0)
+Number(periodState.startOppDreb || 0),
+
+ourOreb:
+getOurRebounds().oreb -
+Number(periodState.startOurOreb || 0),
+
+ourDreb:
+getOurRebounds().dreb -
+Number(periodState.startOurDreb || 0)
 
 });
 
@@ -5151,7 +5193,19 @@ startOur:
 ourScore,
 
 startTheir:
-theirScore
+theirScore,
+
+startOppOreb:
+opponentRebounds.oreb,
+
+startOppDreb:
+opponentRebounds.dreb,
+
+startOurOreb:
+getOurRebounds().oreb,
+
+startOurDreb:
+getOurRebounds().dreb
 
 };
 
@@ -5294,7 +5348,23 @@ endTheir:
 theirScore,
 
 endClock:
-seconds
+seconds,
+
+oppOreb:
+opponentRebounds.oreb -
+Number(periodState.startOppOreb || 0),
+
+oppDreb:
+opponentRebounds.dreb -
+Number(periodState.startOppDreb || 0),
+
+ourOreb:
+getOurRebounds().oreb -
+Number(periodState.startOurOreb || 0),
+
+ourDreb:
+getOurRebounds().dreb -
+Number(periodState.startOurDreb || 0)
 
 });
 
@@ -5499,6 +5569,7 @@ renderBoxScore();
 renderLineups();
 renderCurrentLineup();
 renderQuarterTable();
+renderTeamStatsBreakdown();
 renderLog();
 
 saveActiveGame();
@@ -6131,7 +6202,23 @@ Number(periodState.startOur || 0),
 
 their:
 theirScore -
-Number(periodState.startTheir || 0)
+Number(periodState.startTheir || 0),
+
+ourOreb:
+getOurRebounds().oreb -
+Number(periodState.startOurOreb || 0),
+
+ourDreb:
+getOurRebounds().dreb -
+Number(periodState.startOurDreb || 0),
+
+oppOreb:
+opponentRebounds.oreb -
+Number(periodState.startOppOreb || 0),
+
+oppDreb:
+opponentRebounds.dreb -
+Number(periodState.startOppDreb || 0)
 
 };
 }
@@ -6235,7 +6322,109 @@ ${rows}
 </p>
 `;
 }
+/* TEAM STATS BREAKDOWN */
 
+function renderTeamStatsBreakdown() {
+
+const area =
+document.getElementById(
+"teamStatsBreakdown"
+);
+
+if (!area) {
+return;
+}
+
+const periods = [
+...periodScores
+];
+
+const current =
+currentPeriodScore();
+
+if (
+current &&
+!periods.some(
+period =>
+Number(period.period) ===
+Number(periodState.number)
+)
+) {
+
+periods.push(current);
+
+}
+
+let rows = "";
+
+periods.forEach(period => {
+
+const values = [
+period.ourOreb,
+period.ourDreb,
+period.oppOreb,
+period.oppDreb
+];
+
+const hasRebounds =
+values.every(
+value => value !== undefined
+);
+
+if (!hasRebounds) {
+return;
+}
+
+const our =
+Number(period.ourOreb) +
+Number(period.ourDreb);
+
+const opp =
+Number(period.oppOreb) +
+Number(period.oppDreb);
+
+rows += `
+<tr>
+<td>${escapeHtml(period.label)}</td>
+<td>${our}</td>
+<td>${opp}</td>
+<td>${formatPM(our - opp)}</td>
+</tr>
+`;
+
+});
+
+area.innerHTML = `
+
+<h3>Rebound Comparison</h3>
+
+<div class="tableWrap">
+<table>
+
+<thead>
+<tr>
+<th>Quarter</th>
+<th>Our REB</th>
+<th>Opp REB</th>
+<th>Diff</th>
+</tr>
+</thead>
+
+<tbody>
+${rows || `
+<tr>
+<td colspan="4">
+No rebound data available yet.
+</td>
+</tr>
+`}
+</tbody>
+
+</table>
+</div>
+`;
+
+}
 function renderLog() {
 
 const area =
