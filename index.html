@@ -6628,49 +6628,168 @@ list.appendChild(card);
 
 function completedPeriodRows(game) {
 
-const periods =
-game.periodScores || [];
+const periods = game.periodScores || [];
 
 if (!periods.length) {
-
 return `
 <p class="center smallText">
-Quarter breakdown unavailable for this legacy game.
+Period statistics unavailable for this game.
 </p>
 `;
 }
 
-const rows =
-periods
-.map(period => {
+function getStats(selectedPeriods) {
+
+if (!selectedPeriods.length) return null;
+
+const total = field =>
+selectedPeriods.reduce(
+(sum, p) => sum + Number(p[field] || 0),
+0
+);
+
+const hasFields = fields =>
+selectedPeriods.every(
+p => fields.every(
+field =>
+p[field] !== undefined &&
+p[field] !== null
+)
+);
+
+const hasRebounds = hasFields([
+"ourOreb", "ourDreb",
+"oppOreb", "oppDreb"
+]);
+
+const hasFT = hasFields([
+"ftMade", "ftAtt"
+]);
+
+const hasTO = hasFields([
+"turnovers"
+]);
+
+return {
+points: total("our"),
+oppPoints: total("their"),
+
+oreb: hasRebounds ? total("ourOreb") : null,
+dreb: hasRebounds ? total("ourDreb") : null,
+
+rebDiff: hasRebounds
+? total("ourOreb") +
+  total("ourDreb") -
+  total("oppOreb") -
+  total("oppDreb")
+: null,
+
+ftMade: hasFT ? total("ftMade") : null,
+ftAtt: hasFT ? total("ftAtt") : null,
+
+turnovers: hasTO ? total("turnovers") : null
+};
+
+}
+
+function makeRow(label, selectedPeriods) {
+
+const stats = getStats(selectedPeriods);
+
+const display = value =>
+value === null ? "—" : value;
 
 return `
 <tr>
 
-<td>
-${escapeHtml(period.label)}
-</td>
+<td><strong>${label}</strong></td>
 
-<td>
-${period.our}
-</td>
+<td>${stats ? stats.points : "—"}</td>
 
-<td>
-${period.their}
-</td>
+<td>${stats ? stats.oppPoints : "—"}</td>
 
-<td>
-${formatPM(
-Number(period.our) -
-Number(period.their)
-)}
-</td>
+<td>${
+stats
+? formatPM(stats.points - stats.oppPoints)
+: "—"
+}</td>
+
+<td>${stats ? display(stats.oreb) : "—"}</td>
+
+<td>${stats ? display(stats.dreb) : "—"}</td>
+
+<td>${
+stats && stats.rebDiff !== null
+? formatPM(stats.rebDiff)
+: "—"
+}</td>
+
+<td>${
+stats &&
+stats.ftMade !== null &&
+stats.ftAtt !== null
+? `${stats.ftMade}/${stats.ftAtt}`
+: "—"
+}</td>
+
+<td>${
+stats && stats.turnovers !== null
+? stats.turnovers
+: "—"
+}</td>
+
+<td>—</td>
+<td>—</td>
 
 </tr>
 `;
 
-})
-.join("");
+}
+
+const getPeriods = numbers =>
+periods.filter(
+p => numbers.includes(Number(p.period))
+);
+
+let rows = "";
+
+for (let q = 1; q <= 4; q++) {
+
+rows += makeRow(
+`Q${q}`,
+getPeriods([q])
+);
+
+if (q === 2) {
+rows += makeRow(
+"1st Half",
+getPeriods([1, 2])
+);
+}
+
+if (q === 4) {
+rows += makeRow(
+"2nd Half",
+getPeriods([3, 4])
+);
+}
+
+}
+
+// Include overtime periods, if played.
+periods
+.filter(p => Number(p.period) > 4)
+.forEach(p => {
+rows += makeRow(
+p.label || `OT${Number(p.period) - 4}`,
+[p]
+);
+});
+
+rows += makeRow(
+"GAME",
+periods
+);
 
 return `
 
@@ -6681,9 +6800,16 @@ return `
 <thead>
 <tr>
 <th>Period</th>
-<th>Us</th>
-<th>Opp</th>
-<th>Margin</th>
+<th>PTS</th>
+<th>OPP PTS</th>
+<th>PTS +/-</th>
+<th>OREB</th>
+<th>DREB</th>
+<th>REB +/-</th>
+<th>FT</th>
+<th>TO</th>
+<th>FB PTS</th>
+<th>FB +/-</th>
 </tr>
 </thead>
 
@@ -6695,6 +6821,7 @@ ${rows}
 
 </div>
 `;
+
 }
 
 function completedLineupRows(game) {
