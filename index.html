@@ -6375,13 +6375,14 @@ if (!hasRebounds) {
 return;
 }
 
-const our =
-Number(period.ourOreb) +
-Number(period.ourDreb);
+const ourOreb = Number(period.ourOreb);
+const ourDreb = Number(period.ourDreb);
 
-const opp =
-Number(period.oppOreb) +
-Number(period.oppDreb);
+const oppOreb = Number(period.oppOreb);
+const oppDreb = Number(period.oppDreb);
+
+const our = ourOreb + ourDreb;
+const opp = oppOreb + oppDreb;
 
 rows += `
 <tr>
