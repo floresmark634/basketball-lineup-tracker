@@ -2093,16 +2093,6 @@ TIMEOUTS
 <div id="noPlayerMessage">
   Tap one of the five players above to record stats.
 </div>
-<div class="statGrid">
-
-<button class="make" onclick="recordShot('FTM')">
-FT MADE
-</button>
-
-<button class="miss" onclick="recordShot('FTMISS')">
-FT MISS
-</button>
-
 <button class="otherStat" onclick="recordSimpleStat('oreb')">
 OREB
 </button>
@@ -2125,6 +2115,14 @@ TURNOVER
 
 <button class="otherStat" onclick="recordSimpleStat('pf')">
 FOUL
+</button>
+
+<button class="make" onclick="recordShot('FTM')">
+FT MADE
+</button>
+
+<button class="miss" onclick="recordShot('FTMISS')">
+FT MISS
 </button>
 
 <button onclick="closeStatPanel()">
