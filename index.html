@@ -4720,6 +4720,33 @@ total + Number(player.dreb || 0),
 };
 
 }
+/* OUR FREE THROWS AND TURNOVERS */
+
+function getOurTeamTotals() {
+
+return {
+
+ftMade: roster.reduce(
+(total, player) =>
+total + Number(player.ftMade || 0),
+0
+),
+
+ftAtt: roster.reduce(
+(total, player) =>
+total + Number(player.ftAtt || 0),
+0
+),
+
+turnovers: roster.reduce(
+(total, player) =>
+total + Number(player.to || 0),
+0
+)
+
+};
+
+}
 /* OPPONENT SCORING */
 
 function opponentScore(points) {
