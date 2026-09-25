@@ -4331,30 +4331,24 @@ document
 }
 
 }
-function finishFastBreak(points) {
+function finishFastBreak() {
 
 if (!pendingShotType) {
 return;
 }
 
-if (points !== 2 && points !== 3) {
-return;
-}
-
-if (
-(points === 2 && pendingShotType !== "2PT") ||
-(points === 3 && pendingShotType !== "3PT")
-) {
-return;
-}
+const points =
+pendingShotType === "3PT"
+? 3
+: 2;
 
 fastBreakPoints.our += points;
 
-if (points === 2) {
+if (pendingShotType === "2PT") {
 recordShot("2PM");
 }
 
-if (points === 3) {
+if (pendingShotType === "3PT") {
 recordShot("3PM");
 }
 
