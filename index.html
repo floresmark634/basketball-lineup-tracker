@@ -2190,7 +2190,7 @@ OPPONENT STATS
 
 <div class="opponentQuickRow">
 
-<button disabled>
+<button onclick="recordOpponentRebound('oreb')">
 OREB
 </button>
 
@@ -2555,6 +2555,11 @@ let onCourt = [];
 
 let ourScore = 0;
 let theirScore = 0;
+
+let opponentRebounds = {
+  oreb: 0,
+  dreb: 0
+};
 
 let selectedPlayerId = null;
 
@@ -3840,6 +3845,7 @@ roster,
 onCourt,
 ourScore,
 theirScore,
+opponentRebounds,
 lineups,
 gameLog,
 
@@ -3877,9 +3883,13 @@ Number(
 state.theirScore || 0
 );
 
+opponentRebounds = {
+  oreb: Number(state.opponentRebounds?.oreb || 0),
+  dreb: Number(state.opponentRebounds?.dreb || 0)
+};
+
 lineups =
 state.lineups || {};
-
 gameLog =
 state.gameLog || [];
 
@@ -4707,6 +4717,26 @@ logAction(
 );
 
 renderGame();
+}
+
+/* OPPONENT REBOUNDS */
+
+function recordOpponentRebound(type) {
+
+if (type !== "oreb" && type !== "dreb") {
+return;
+}
+
+saveHistory();
+
+opponentRebounds[type] += 1;
+
+logAction(
+`Opponent ${type.toUpperCase()}`
+);
+
+renderGame();
+
 }
 
 /* CLOCK INPUT */
