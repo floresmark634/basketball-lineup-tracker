@@ -3861,6 +3861,7 @@ onCourt,
 ourScore,
 theirScore,
 opponentRebounds,
+fastBreakPoints,
 lineups,
 gameLog,
 
@@ -3902,7 +3903,10 @@ opponentRebounds = {
   oreb: Number(state.opponentRebounds?.oreb || 0),
   dreb: Number(state.opponentRebounds?.dreb || 0)
 };
-
+fastBreakPoints = {
+  our: Number(state.fastBreakPoints?.our || 0),
+  their: Number(state.fastBreakPoints?.their || 0)
+};
 lineups =
 state.lineups || {};
 gameLog =
