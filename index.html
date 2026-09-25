@@ -4789,7 +4789,38 @@ logAction(
 
 renderGame();
 }
+function opponentFastBreak(points) {
 
+saveHistory();
+
+ensureCurrentLineup();
+
+theirScore +=
+points;
+
+fastBreakPoints.their +=
+points;
+
+lineups[
+lineupKey()
+].pointsAgainst +=
+points;
+
+currentPlayers()
+.forEach(player => {
+
+player.plusMinus -=
+points;
+
+});
+
+logAction(
+`Opponent FAST BREAK +${points}`
+);
+
+renderGame();
+
+}
 /* OPPONENT REBOUNDS */
 
 function recordOpponentRebound(type) {
