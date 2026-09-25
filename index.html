@@ -6264,7 +6264,19 @@ Number(periodState.startOppOreb || 0),
 
 oppDreb:
 opponentRebounds.dreb -
-Number(periodState.startOppDreb || 0)
+Number(periodState.startOppDreb || 0),
+
+ftMade:
+getOurTeamTotals().ftMade -
+Number(periodState.startFtMade || 0),
+
+ftAtt:
+getOurTeamTotals().ftAtt -
+Number(periodState.startFtAtt || 0),
+
+turnovers:
+getOurTeamTotals().turnovers -
+Number(periodState.startTurnovers || 0)
 
 };
 }
