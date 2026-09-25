@@ -4323,6 +4323,34 @@ document
 }
 
 }
+function finishFastBreak(points) {
+
+if (!pendingShotType) {
+return;
+}
+
+if (points !== 2 && points !== 3) {
+return;
+}
+
+if (
+(points === 2 && pendingShotType !== "2PT") ||
+(points === 3 && pendingShotType !== "3PT")
+) {
+return;
+}
+
+fastBreakPoints.our += points;
+
+if (points === 2) {
+recordShot("2PM");
+}
+
+if (points === 3) {
+recordShot("3PM");
+}
+
+}
 function showAssistChoices() {
 
 const area =
