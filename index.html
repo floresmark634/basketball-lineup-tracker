@@ -6385,12 +6385,34 @@ const our = ourOreb + ourDreb;
 const opp = oppOreb + oppDreb;
 
 rows += `
+
 <tr>
-<td>${escapeHtml(period.label)}</td>
-<td>${our}</td>
-<td>${opp}</td>
-<td>${formatPM(our - opp)}</td>
+<th colspan="4">
+${escapeHtml(period.label)}
+</th>
 </tr>
+
+<tr>
+<td>Offensive</td>
+<td>${ourOreb}</td>
+<td>${oppOreb}</td>
+<td>${formatPM(ourOreb - oppOreb)}</td>
+</tr>
+
+<tr>
+<td>Defensive</td>
+<td>${ourDreb}</td>
+<td>${oppDreb}</td>
+<td>${formatPM(ourDreb - oppDreb)}</td>
+</tr>
+
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>${our}</strong></td>
+<td><strong>${opp}</strong></td>
+<td><strong>${formatPM(our - opp)}</strong></td>
+</tr>
+
 `;
 
 });
@@ -6404,9 +6426,9 @@ area.innerHTML = `
 
 <thead>
 <tr>
-<th>Quarter</th>
-<th>Our REB</th>
-<th>Opp REB</th>
+<th>Rebounds</th>
+<th>Us</th>
+<th>Them</th>
 <th>Diff</th>
 </tr>
 </thead>
