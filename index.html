@@ -3956,6 +3956,13 @@ fastBreakPoints = {
   our: Number(state.fastBreakPoints?.our || 0),
   their: Number(state.fastBreakPoints?.their || 0)
 };
+timeoutsUsed = Array.isArray(state.timeoutsUsed)
+? state.timeoutsUsed.map(Boolean).slice(0, 5)
+: [false, false, false, false, false];
+
+while (timeoutsUsed.length < 5) {
+timeoutsUsed.push(false);
+}
 lineups =
 state.lineups || {};
 gameLog =
@@ -4013,6 +4020,7 @@ theirScore,
 
 opponentRebounds,
 fastBreakPoints,
+timeoutsUsed,
 
 lineups,
 gameLog,
