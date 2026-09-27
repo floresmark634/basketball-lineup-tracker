@@ -6841,22 +6841,8 @@ stats && stats.turnovers !== null
 : "—"
 }</td>
 
-<td>${
-stats && stats.ourFastBreak !== null
-? stats.ourFastBreak
-: "—"
-}</td>
-
-<td>${
-stats &&
-stats.ourFastBreak !== null &&
-stats.theirFastBreak !== null
-? formatPM(
-stats.ourFastBreak -
-stats.theirFastBreak
-)
-: "—"
-}</td>
+<td>—</td>
+<td>—</td>
 
 </tr>
 `;
