@@ -2078,26 +2078,40 @@ TIMEOUTS
 
 <div class="timeoutBoxes">
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
+<button
+class="timeoutBox"
+data-timeout-index="0"
+onclick="toggleTimeout(this)">
 □ 30
 </button>
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
+<button
+class="timeoutBox"
+data-timeout-index="1"
+onclick="toggleTimeout(this)">
 □ 30
 </button>
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
+<button
+class="timeoutBox"
+data-timeout-index="2"
+onclick="toggleTimeout(this)">
 □ FULL
 </button>
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
+<button
+class="timeoutBox"
+data-timeout-index="3"
+onclick="toggleTimeout(this)">
 □ FULL
 </button>
 
-<button class="timeoutBox" onclick="toggleTimeout(this)">
+<button
+class="timeoutBox"
+data-timeout-index="4"
+onclick="toggleTimeout(this)">
 □ FULL
 </button>
-
 </div>
 
 </div>
@@ -2583,6 +2597,13 @@ let fastBreakPoints = {
   our: 0,
   their: 0
 };
+let timeoutsUsed = [
+false,
+false,
+false,
+false,
+false
+];
 let selectedPlayerId = null;
 
 let pendingShotX = null;
