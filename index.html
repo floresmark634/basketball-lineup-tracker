@@ -4321,7 +4321,8 @@ if (pendingShotType === "3PT") {
 recordShot("3PM");
 }
 
-} else {
+return;
+}
 
 if (pendingShotType === "2PT") {
 recordShot("2MISS");
@@ -4329,6 +4330,8 @@ recordShot("2MISS");
 
 if (pendingShotType === "3PT") {
 recordShot("3MISS");
+}
+
 const marker =
 document.getElementById(
 "pendingShotMarker"
@@ -4363,9 +4366,6 @@ document
 )
 .textContent =
 "Tap where the shot was taken";
-}
-
-}
 
 }
 function finishFastBreak() {
