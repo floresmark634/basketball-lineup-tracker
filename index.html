@@ -5255,7 +5255,15 @@ Number(periodState.startFtAtt || 0),
 
 turnovers:
 getOurTeamTotals().turnovers -
-Number(periodState.startTurnovers || 0)
+Number(periodState.startTurnovers || 0),
+
+ourFastBreak:
+fastBreakPoints.our -
+Number(periodState.startOurFastBreak || 0),
+
+theirFastBreak:
+fastBreakPoints.their -
+Number(periodState.startTheirFastBreak || 0)
 
 });
 
