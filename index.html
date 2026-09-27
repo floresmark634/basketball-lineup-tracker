@@ -2312,17 +2312,28 @@ class="courtLine"
 />
 <g id="shotMarkerLayer"></g>
 </svg>
-<div id="shotDecisionPanel" class="hidden">
+<div id="shotDecisionPanel">
 
-<button class="make" onclick="finishChartShot(true)">
+<button
+id="shotMadeButton"
+class="make"
+onclick="finishChartShot(true)"
+disabled>
 MADE
 </button>
 
-<button class="miss" onclick="finishChartShot(false)">
+<button
+id="shotMissButton"
+class="miss"
+onclick="finishChartShot(false)"
+disabled>
 MISS
 </button>
 
-<button onclick="finishFastBreak()">
+<button
+id="shotFastBreakButton"
+onclick="finishFastBreak()"
+disabled>
 FAST BREAK
 </button>
 
