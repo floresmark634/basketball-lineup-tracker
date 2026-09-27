@@ -6528,7 +6528,12 @@ stats && stats.turnovers !== null
 : "—"
 }</td>
 
-<td>—</td>
+<td>${
+stats && stats.ourFastBreak !== null
+? stats.ourFastBreak
+: "—"
+}</td>
+
 <td>—</td>
 
 </tr>
