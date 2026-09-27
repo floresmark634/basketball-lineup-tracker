@@ -1592,9 +1592,32 @@ body:has(#gameScreen:not(.hidden)) .gameBottomBar button{
   opacity: 0.35;
   cursor: default;
 }
+.shotChartPlaceholder{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  height:100% !important;
+}
+
 #shotCourt{
-  transform:scale(1.28);
-  transform-origin:center center;
+  display:block !important;
+  width:auto !important;
+  height:440px !important;
+  max-width:100% !important;
+  margin-top:auto !important;
+  margin-bottom:12px !important;
+  transform:none !important;
+}
+
+#shotDecisionPanel{
+  position:static !important;
+  transform:none !important;
+  width:auto !important;
+  margin:0 auto 8px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  justify-content:center !important;
+  gap:10px !important;
 }
 </style>
 </head>
