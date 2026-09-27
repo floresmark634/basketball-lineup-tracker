@@ -6534,8 +6534,16 @@ stats && stats.ourFastBreak !== null
 : "—"
 }</td>
 
-<td>—</td>
-
+<td>${
+stats &&
+stats.ourFastBreak !== null &&
+stats.theirFastBreak !== null
+? formatPM(
+stats.ourFastBreak -
+stats.theirFastBreak
+)
+: "—"
+}</td>
 </tr>
 `;
 
