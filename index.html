@@ -4266,10 +4266,18 @@ pendingShotType = shotType;
 
 document
 .getElementById(
-"shotDecisionPanel"
-)
-.classList
-.remove("hidden");
+"shotMadeButton"
+).disabled = false;
+
+document
+.getElementById(
+"shotMissButton"
+).disabled = false;
+
+document
+.getElementById(
+"shotFastBreakButton"
+).disabled = false;
   
   const oldMarker =
 document.getElementById("pendingShotMarker");
