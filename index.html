@@ -5690,24 +5690,37 @@ document
 }
 function toggleTimeout(button) {
 
-const isUsed =
-button.classList.contains("used");
+const index =
+Number(
+button.dataset.timeoutIndex
+);
 
-if (isUsed) {
+if (
+Number.isNaN(index)
+) {
+return;
+}
 
-button.classList.remove("used");
+timeoutsUsed[index] =
+!timeoutsUsed[index];
 
-button.textContent =
-button.textContent.replace("☒","□");
-
-} else {
+if (timeoutsUsed[index]) {
 
 button.classList.add("used");
 
 button.textContent =
 button.textContent.replace("□","☒");
 
+} else {
+
+button.classList.remove("used");
+
+button.textContent =
+button.textContent.replace("☒","□");
+
 }
+
+saveActiveGame();
 
 }
 function openSubstitutionPanel() {
