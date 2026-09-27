@@ -5731,6 +5731,40 @@ button.textContent.replace("☒","□");
 saveActiveGame();
 
 }
+function renderTimeouts() {
+
+document
+.querySelectorAll(
+"#timeoutTracker .timeoutBox"
+)
+.forEach(button => {
+
+const index =
+Number(
+button.dataset.timeoutIndex
+);
+
+const used =
+Boolean(
+timeoutsUsed[index]
+);
+
+button.classList.toggle(
+"used",
+used
+);
+
+button.textContent =
+button.textContent
+.replace("☒","□")
+.replace(
+"□",
+used ? "☒" : "□"
+);
+
+});
+
+}
 function openSubstitutionPanel() {
 
 document
@@ -5811,6 +5845,7 @@ renderBoxScore();
 renderLineups();
 renderCurrentLineup();
 renderTeamStatsBreakdown();
+renderTimeouts();
 renderLog();
 
 saveActiveGame();
