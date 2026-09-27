@@ -6810,7 +6810,19 @@ rebDiff: hasRebounds
 ftMade: hasFT ? total("ftMade") : null,
 ftAtt: hasFT ? total("ftAtt") : null,
 
-turnovers: hasTO ? total("turnovers") : null
+turnovers: hasTO ? total("turnovers") : null,
+
+ourFastBreak: hasFields([
+"ourFastBreak"
+])
+? total("ourFastBreak")
+: null,
+
+theirFastBreak: hasFields([
+"theirFastBreak"
+])
+? total("theirFastBreak")
+: null
 };
 
 }
