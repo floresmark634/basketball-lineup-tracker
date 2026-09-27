@@ -6463,6 +6463,20 @@ rebDiff: hasRebounds
   total("ourDreb") -
   total("oppOreb") -
   total("oppDreb")
+: null,
+
+ourFastBreak:
+selectedPeriods.every(
+p => p.ourFastBreak !== undefined
+)
+? total("ourFastBreak")
+: null,
+
+theirFastBreak:
+selectedPeriods.every(
+p => p.theirFastBreak !== undefined
+)
+? total("theirFastBreak")
 : null
 
 };
