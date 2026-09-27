@@ -4633,10 +4633,18 @@ pendingShotType = null;
 
 document
 .getElementById(
-"shotDecisionPanel"
-)
-.classList
-.add("hidden");
+"shotMadeButton"
+).disabled = true;
+
+document
+.getElementById(
+"shotMissButton"
+).disabled = true;
+
+document
+.getElementById(
+"shotFastBreakButton"
+).disabled = true;
 
 document
 .querySelector(
@@ -4702,11 +4710,18 @@ pendingShotType = null;
 
 document
 .getElementById(
-"shotDecisionPanel"
-)
-.classList
-.add("hidden");
+"shotMadeButton"
+).disabled = true;
 
+document
+.getElementById(
+"shotMissButton"
+).disabled = true;
+
+document
+.getElementById(
+"shotFastBreakButton"
+).disabled = true;
 document
 .querySelector(
 ".shotChartSubtext"
