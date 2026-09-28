@@ -9365,6 +9365,84 @@ careerTotals.ftMade += Number(season.ftMade || 0);
 careerTotals.ftAtt += Number(season.ftAtt || 0);
 
 });
+const careerRebounds =
+Number(careerTotals.oreb || 0) +
+Number(careerTotals.dreb || 0);
+
+const careerRow = `
+<tr>
+<td><strong>CAREER</strong></td>
+
+<td>
+<strong>
+${careerTotals.games}
+</strong>
+</td>
+
+<td>
+<strong>
+${statAverage(
+careerTotals.points,
+careerTotals.games
+)}
+</strong>
+</td>
+
+<td>
+<strong>
+${statAverage(
+careerRebounds,
+careerTotals.games
+)}
+</strong>
+</td>
+
+<td>
+<strong>
+${statAverage(
+careerTotals.ast,
+careerTotals.games
+)}
+</strong>
+</td>
+
+<td>
+<strong>
+${statPercent(
+careerTotals.fgMade,
+careerTotals.fgAtt
+)}
+</strong>
+</td>
+
+<td>
+<strong>
+${statPercent(
+careerTotals.threeMade,
+careerTotals.threeAtt
+)}
+</strong>
+</td>
+
+<td>
+<strong>
+${statPercent(
+careerTotals.ftMade,
+careerTotals.ftAtt
+)}
+</strong>
+</td>
+
+<td>
+<strong>
+${formatPM(
+careerTotals.plusMinus
+)}
+</strong>
+</td>
+
+</tr>
+`;
 const {
 totals
 } =
