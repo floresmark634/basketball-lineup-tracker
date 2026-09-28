@@ -9265,6 +9265,47 @@ String(b.season)
 String(a.season)
 )
 );  
+const seasonRows =
+sortedSeasons
+.map(season => {
+
+const rebounds =
+Number(season.oreb || 0) +
+Number(season.dreb || 0);
+
+return `
+<tr>
+
+<td>${escapeHtml(season.season)}</td>
+
+<td>${season.games}</td>
+
+<td>
+${statAverage(
+season.points,
+season.games
+)}
+</td>
+
+<td>
+${statAverage(
+rebounds,
+season.games
+)}
+</td>
+
+<td>
+${statAverage(
+season.ast,
+season.games
+)}
+</td>
+
+</tr>
+`;
+
+})
+.join("");
 const {
 totals
 } =
