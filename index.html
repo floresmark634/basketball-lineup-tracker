@@ -9213,6 +9213,30 @@ lineup =>
 if (!appeared) {
 return;
 }
+if (!seasonGroups[game.season]) {
+
+seasonGroups[game.season] = {
+season: game.season,
+games: 0,
+points: 0,
+oreb: 0,
+dreb: 0,
+ast: 0,
+stl: 0,
+blk: 0,
+to: 0,
+pf: 0,
+plusMinus: 0,
+fgMade: 0,
+fgAtt: 0,
+threeMade: 0,
+threeAtt: 0,
+ftMade: 0,
+ftAtt: 0
+};
+
+}
+
 });
 const {
 totals
