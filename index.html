@@ -3076,6 +3076,47 @@ season.plusMinus
 
 })
 .join("");
+const careerTotals = {
+games: 0,
+points: 0,
+oreb: 0,
+dreb: 0,
+ast: 0,
+stl: 0,
+blk: 0,
+to: 0,
+pf: 0,
+plusMinus: 0,
+fgMade: 0,
+fgAtt: 0,
+threeMade: 0,
+threeAtt: 0,
+ftMade: 0,
+ftAtt: 0
+};
+
+Object.values(seasonGroups)
+.forEach(season => {
+
+careerTotals.games += Number(season.games || 0);
+careerTotals.points += Number(season.points || 0);
+careerTotals.oreb += Number(season.oreb || 0);
+careerTotals.dreb += Number(season.dreb || 0);
+careerTotals.ast += Number(season.ast || 0);
+careerTotals.stl += Number(season.stl || 0);
+careerTotals.blk += Number(season.blk || 0);
+careerTotals.to += Number(season.to || 0);
+careerTotals.pf += Number(season.pf || 0);
+careerTotals.plusMinus += Number(season.plusMinus || 0);
+
+careerTotals.fgMade += Number(season.fgMade || 0);
+careerTotals.fgAtt += Number(season.fgAtt || 0);
+careerTotals.threeMade += Number(season.threeMade || 0);
+careerTotals.threeAtt += Number(season.threeAtt || 0);
+careerTotals.ftMade += Number(season.ftMade || 0);
+careerTotals.ftAtt += Number(season.ftAtt || 0);
+
+});
 team.appearance = {
 theme: previewTheme,
 font: previewFont
