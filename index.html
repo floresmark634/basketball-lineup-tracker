@@ -9168,8 +9168,26 @@ if (!team) {
 return;
 }
 
-/* CAREER SEASON GROUPS GO HERE */
+const seasonGroups = {};
+team.games.forEach(game => {
 
+if (!game.season) {
+return;
+}
+
+const gamePlayer =
+(game.players || [])
+.find(
+p =>
+Number(p.id) ===
+Number(id)
+);
+
+if (!gamePlayer) {
+return;
+}
+
+});
 const {
 totals
 } =
