@@ -9236,7 +9236,19 @@ ftAtt: 0
 };
 
 }
+const season =
+seasonGroups[game.season];
 
+season.games += 1;
+season.points += Number(gamePlayer.points || 0);
+season.oreb += Number(gamePlayer.oreb || 0);
+season.dreb += Number(gamePlayer.dreb || 0);
+season.ast += Number(gamePlayer.ast || 0);
+season.stl += Number(gamePlayer.stl || 0);
+season.blk += Number(gamePlayer.blk || 0);
+season.to += Number(gamePlayer.to || 0);
+season.pf += Number(gamePlayer.pf || 0);
+season.plusMinus += Number(gamePlayer.plusMinus || 0);
 });
 const {
 totals
