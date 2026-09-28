@@ -2997,6 +2997,85 @@ totals.ftMade += Number(gamePlayer.ftMade || 0);
 totals.ftAtt += Number(gamePlayer.ftAtt || 0);
 
 });
+const seasonRows =
+Object.values(seasonGroups)
+.sort(
+(a,b) =>
+String(b.season)
+.localeCompare(
+String(a.season)
+)
+)
+.map(season => {
+
+const rebounds =
+Number(season.oreb || 0) +
+Number(season.dreb || 0);
+
+return `
+<tr>
+
+<td>
+${escapeHtml(season.season)}
+</td>
+
+<td>
+${season.games}
+</td>
+
+<td>
+${statAverage(
+season.points,
+season.games
+)}
+</td>
+
+<td>
+${statAverage(
+rebounds,
+season.games
+)}
+</td>
+
+<td>
+${statAverage(
+season.ast,
+season.games
+)}
+</td>
+
+<td>
+${statPercent(
+season.fgMade,
+season.fgAtt
+)}
+</td>
+
+<td>
+${statPercent(
+season.threeMade,
+season.threeAtt
+)}
+</td>
+
+<td>
+${statPercent(
+season.ftMade,
+season.ftAtt
+)}
+</td>
+
+<td>
+${formatPM(
+season.plusMinus
+)}
+</td>
+
+</tr>
+`;
+
+})
+.join("");
 team.appearance = {
 theme: previewTheme,
 font: previewFont
