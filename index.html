@@ -6,7 +6,7 @@
 <title>CMT Basketball</title>
 /* SHOT CHART — USE FULL WIDTH */
 .shotChartPlaceholder{
-  position:relative;
+  position:relative;f
 }
 
 #shotDecisionPanel button{
@@ -1972,7 +1972,11 @@ Delete Team
 </p>
 
 <p>
-<input id="gameDate" type="date">
+<input
+id="gameDate"
+type="date"
+onchange="updateSeasonFromDate()"
+>
 </p>
 <p>
 <p>
@@ -3578,7 +3582,53 @@ document
 .getElementById("regulationPeriods")
 .value = 4;
 }
+function updateSeasonFromDate() {
 
+const dateValue =
+document.getElementById(
+"gameDate"
+).value;
+
+if (!dateValue) {
+return;
+}
+
+const date =
+new Date(
+dateValue + "T12:00:00"
+);
+
+const year =
+date.getFullYear();
+
+const month =
+date.getMonth() + 1;
+
+const startYear =
+month >= 7
+? year
+: year - 1;
+
+const season =
+`${startYear}-${String(startYear + 1).slice(-2)}`;
+
+const seasonSelect =
+document.getElementById(
+"gameSeason"
+);
+
+const existingOption =
+[...seasonSelect.options]
+.find(
+option =>
+option.value === season
+);
+
+if (existingOption) {
+seasonSelect.value = season;
+}
+
+}
 function continueToStarters() {
 
 const opponent =
