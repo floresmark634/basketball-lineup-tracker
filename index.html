@@ -2931,7 +2931,72 @@ const team = getSelectedTeam();
 if (!team) {
 return;
 }
+const seasonGroups = {};
 
+team.games.forEach(game => {
+
+if (!game.season) {
+return;
+}
+
+const gamePlayer =
+(game.players || [])
+.find(
+p =>
+Number(p.id) ===
+Number(id)
+);
+
+if (!gamePlayer) {
+return;
+}
+
+if (!seasonGroups[game.season]) {
+
+seasonGroups[game.season] = {
+season: game.season,
+games: 0,
+points: 0,
+oreb: 0,
+dreb: 0,
+ast: 0,
+stl: 0,
+blk: 0,
+to: 0,
+pf: 0,
+plusMinus: 0,
+fgMade: 0,
+fgAtt: 0,
+threeMade: 0,
+threeAtt: 0,
+ftMade: 0,
+ftAtt: 0
+};
+
+}
+
+const totals =
+seasonGroups[game.season];
+
+totals.games += 1;
+totals.points += Number(gamePlayer.points || 0);
+totals.oreb += Number(gamePlayer.oreb || 0);
+totals.dreb += Number(gamePlayer.dreb || 0);
+totals.ast += Number(gamePlayer.ast || 0);
+totals.stl += Number(gamePlayer.stl || 0);
+totals.blk += Number(gamePlayer.blk || 0);
+totals.to += Number(gamePlayer.to || 0);
+totals.pf += Number(gamePlayer.pf || 0);
+totals.plusMinus += Number(gamePlayer.plusMinus || 0);
+
+totals.fgMade += Number(gamePlayer.fgMade || 0);
+totals.fgAtt += Number(gamePlayer.fgAtt || 0);
+totals.threeMade += Number(gamePlayer.threeMade || 0);
+totals.threeAtt += Number(gamePlayer.threeAtt || 0);
+totals.ftMade += Number(gamePlayer.ftMade || 0);
+totals.ftAtt += Number(gamePlayer.ftAtt || 0);
+
+});
 team.appearance = {
 theme: previewTheme,
 font: previewFont
