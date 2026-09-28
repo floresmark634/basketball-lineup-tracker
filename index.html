@@ -9256,6 +9256,15 @@ season.threeAtt += Number(gamePlayer.threeAtt || 0);
 season.ftMade += Number(gamePlayer.ftMade || 0);
 season.ftAtt += Number(gamePlayer.ftAtt || 0);
 });
+const sortedSeasons =
+Object.values(seasonGroups)
+.sort(
+(a,b) =>
+String(b.season)
+.localeCompare(
+String(a.season)
+)
+);  
 const {
 totals
 } =
