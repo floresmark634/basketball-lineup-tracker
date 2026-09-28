@@ -2693,7 +2693,7 @@ let gameLog = [];
 let history = [];
 
 let currentGameInfo = null;
-
+let selectedSeason = null;
 /*
 NEW TIMING DATA
 */
@@ -8280,7 +8280,31 @@ return;
 }
 let gamesToUse =
 team.games;
+const availableSeasons =
+[...new Set(
+team.games
+.map(game => game.season)
+.filter(Boolean)
+)]
+.sort()
+.reverse();
 
+if (
+!selectedSeason &&
+availableSeasons.length
+) {
+selectedSeason =
+availableSeasons[0];
+}
+if (selectedSeason) {
+
+gamesToUse =
+team.games.filter(
+game =>
+game.season === selectedSeason
+);
+
+}
 let navKey =
 "season";
 
@@ -8399,6 +8423,27 @@ document
 <div class="card">
 
 <h2>${dashboardTitle}</h2>
+
+<div class="center">
+
+<select
+id="seasonStatsSelect"
+onchange="changeSeasonStats(this.value)"
+>
+${availableSeasons
+.map(season => `
+<option
+value="${season}"
+${season === selectedSeason ? "selected" : ""}
+>
+${season}
+</option>
+`)
+.join("")}
+</select>
+
+</div>
+
 <div class="center">
 
 <h3>
