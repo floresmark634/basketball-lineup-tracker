@@ -9186,7 +9186,33 @@ Number(id)
 if (!gamePlayer) {
 return;
 }
+let appeared = false;
 
+if (game.timingVersion) {
+
+appeared =
+Number(
+(game.playerSeconds || {})[id] || 0
+) > 0;
+
+} else {
+
+appeared =
+Object.values(
+game.lineups || {}
+)
+.some(
+lineup =>
+(lineup.playerIds || [])
+.map(Number)
+.includes(Number(id))
+);
+
+}
+
+if (!appeared) {
+return;
+}
 });
 const {
 totals
