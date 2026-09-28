@@ -9526,7 +9526,35 @@ document
 #${escapeHtml(player.number)}
 ${escapeHtml(player.name)}
 </h2>
+<h3>Career Stats</h3>
 
+<div class="tableWrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Season</th>
+<th>GP</th>
+<th>PPG</th>
+<th>RPG</th>
+<th>APG</th>
+<th>FG%</th>
+<th>3P%</th>
+<th>FT%</th>
+<th>+/-</th>
+</tr>
+</thead>
+
+<tbody>
+
+${seasonRows}
+
+</tbody>
+
+</table>
+
+</div>
 <h3>Season Averages</h3>
 
 <div class="center">
