@@ -8371,7 +8371,14 @@ showSeasonStats();
 
 function changeMasterSeason(season) {
 selectedSeason = season;
+if (selectedPlayerPageId !== null) {
 
+showPlayerPage(
+selectedPlayerPageId
+);
+
+return;
+}
 const historyButton =
 document.getElementById(
 "navHistory"
