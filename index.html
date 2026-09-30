@@ -3623,11 +3623,21 @@ option =>
 option.value === season
 );
 
-if (existingOption) {
-seasonSelect.value = season;
-}
+if (!existingOption) {
+
+const newOption =
+document.createElement("option");
+
+newOption.value = season;
+newOption.textContent = season;
+
+seasonSelect.appendChild(
+newOption
+);
 
 }
+
+seasonSelect.value = season;
 function continueToStarters() {
 
 const opponent =
