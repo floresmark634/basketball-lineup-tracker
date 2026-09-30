@@ -8357,13 +8357,19 @@ return attempted
 function changeSeasonStats(season) {
 
 selectedSeason = season;
+if (selectedPlayerPageId !== null) {
 
+showPlayerPage(
+selectedPlayerPageId
+);
+
+return;
+}
 showSeasonStats();
 
 }
 
 function changeMasterSeason(season) {
-
 selectedSeason = season;
 
 const historyButton =
