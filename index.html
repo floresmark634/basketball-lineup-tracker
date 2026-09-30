@@ -7022,8 +7022,14 @@ const list =
 document.getElementById(
 "historyList"
 );
-
-[...team.games]
+const historyGames =
+selectedSeason
+? team.games.filter(
+game =>
+game.season === selectedSeason
+)
+: team.games;
+[...historyGames]
 .reverse()
 .forEach(game => {
 
