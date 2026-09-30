@@ -2670,6 +2670,7 @@ const DATA_VERSION = 1;
 let teams = loadTeams();
 const storedDataVersion =
 getStoredDataVersion();
+runDataMigrations();
 let selectedTeamId = null;
 
 let roster = [];
