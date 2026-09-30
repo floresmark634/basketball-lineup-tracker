@@ -8368,15 +8368,62 @@ document.getElementById(
 "navHistory"
 );
 
+const seasonButton =
+document.getElementById(
+"navSeason"
+);
+
+const conferenceButton =
+document.getElementById(
+"navConference"
+);
+
+const tournamentButton =
+document.getElementById(
+"navTournament"
+);
+
 if (
 historyButton &&
 historyButton.classList.contains("primary")
 ) {
 
 showHistory();
+return;
 
 }
 
+if (
+seasonButton &&
+seasonButton.classList.contains("primary")
+) {
+
+showSeasonStats();
+return;
+
+}
+
+if (
+conferenceButton &&
+conferenceButton.classList.contains("primary")
+) {
+
+showConferenceStats();
+return;
+
+}
+
+if (
+tournamentButton &&
+tournamentButton.classList.contains("primary")
+) {
+
+showTournamentStats();
+return;
+
+}
+
+}
 }
 
 function showSeasonStats(
