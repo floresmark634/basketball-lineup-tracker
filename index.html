@@ -3384,6 +3384,10 @@ document.createElement("option");
 option.value = season;
 option.textContent = season;
 
+if (season === selectedSeason) {
+option.selected = true;
+}
+
 masterSeasonSelect.appendChild(
 option
 );
