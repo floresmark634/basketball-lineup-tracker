@@ -2730,7 +2730,15 @@ return JSON.parse(localStorage.getItem(TEAMS_KEY)) || [];
 return [];
 }
 }
+function getStoredDataVersion() {
 
+return Number(
+localStorage.getItem(
+"basketballDataVersion"
+) || 0
+);
+
+}
 function persistTeams() {
 
 localStorage.setItem(
