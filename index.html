@@ -2994,7 +2994,107 @@ return teams.find(
 team => team.id === selectedTeamId
 );
 }
+function ensurePlayerArchive(team) {
 
+if (!team) {
+return [];
+}
+
+if (!Array.isArray(team.playerArchive)) {
+team.playerArchive = [];
+}
+
+const playersById =
+new Map();
+
+team.playerArchive.forEach(player => {
+
+if (
+!player ||
+player.id === undefined ||
+player.id === null
+) {
+return;
+}
+
+playersById.set(
+Number(player.id),
+{
+id: Number(player.id),
+number: player.number || "",
+name: player.name || ""
+}
+);
+
+});
+
+(team.games || []).forEach(game => {
+
+(game.players || []).forEach(player => {
+
+if (
+!player ||
+player.id === undefined ||
+player.id === null
+) {
+return;
+}
+
+const id =
+Number(player.id);
+
+const existing =
+playersById.get(id) || {};
+
+playersById.set(
+id,
+{
+id,
+number:
+player.number ||
+existing.number ||
+"",
+name:
+player.name ||
+existing.name ||
+""
+}
+);
+
+});
+
+});
+
+(team.roster || []).forEach(player => {
+
+if (
+!player ||
+player.id === undefined ||
+player.id === null
+) {
+return;
+}
+
+const id =
+Number(player.id);
+
+playersById.set(
+id,
+{
+id,
+number: player.number || "",
+name: player.name || ""
+}
+);
+
+});
+
+team.playerArchive =
+[...playersById.values()];
+
+return team.playerArchive;
+
+}
 function blankStats() {
 return {
 points:0,
