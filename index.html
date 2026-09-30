@@ -1689,7 +1689,10 @@ aria-label="Open team menu">
 <div class="teamSeasonSelector">
 <label>
 Season:
-<select id="masterSeasonSelect">
+<select
+id="masterSeasonSelect"
+onchange="changeMasterSeason(this.value)"
+>
 </select>
 </label>
 </div>
@@ -8335,6 +8338,15 @@ selectedSeason = season;
 showSeasonStats();
 
 }
+
+function changeMasterSeason(season) {
+
+selectedSeason = season;
+
+renderTeamDashboard();
+
+}
+
 function showSeasonStats(
 view="perGame",
 showAll=false,
