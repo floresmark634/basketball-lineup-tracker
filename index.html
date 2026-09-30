@@ -3359,7 +3359,17 @@ team.games
 )]
 .sort()
 .reverse();
+if (
+!selectedSeason ||
+!seasons.includes(selectedSeason)
+) {
 
+selectedSeason =
+seasons.length
+? seasons[0]
+: null;
+
+}
 masterSeasonSelect.innerHTML = "";
 
 if (seasons.length === 0) {
