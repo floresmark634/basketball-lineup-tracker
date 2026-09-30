@@ -1,0 +1,8 @@
+{
+  "name": "CMT Basketball",
+  "short_name": "CMT Basketball",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f97316"
+}
