@@ -8353,6 +8353,20 @@ function changeMasterSeason(season) {
 
 selectedSeason = season;
 
+const historyButton =
+document.getElementById(
+"navHistory"
+);
+
+if (
+historyButton &&
+historyButton.classList.contains("primary")
+) {
+
+showHistory();
+
+}
+
 }
 
 function showSeasonStats(
