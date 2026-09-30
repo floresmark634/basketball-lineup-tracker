@@ -8539,22 +8539,6 @@ document
 
 <div class="center">
 
-<select
-id="seasonStatsSelect"
-onchange="changeSeasonStats(this.value)"
->
-${availableSeasons
-.map(season => `
-<option
-value="${season}"
-${season === selectedSeason ? "selected" : ""}
->
-${season}
-</option>
-`)
-.join("")}
-</select>
-
 </div>
 
 <div class="center">
