@@ -9570,8 +9570,14 @@ player.timedGames
 : "—";
 
 let gameRows = "";
-
-[...team.games]
+const historyGames =
+selectedSeason
+? team.games.filter(
+game =>
+game.season === selectedSeason
+)
+: team.games;
+[...historyGames]
 .reverse()
 .forEach(game => {
 
