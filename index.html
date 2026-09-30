@@ -2740,6 +2740,21 @@ localStorage.getItem(
 );
 
 }
+function runDataMigrations() {
+
+if (storedDataVersion < 1) {
+
+// Version 1 uses the existing team/game structure.
+// No data conversion is required.
+
+localStorage.setItem(
+"basketballDataVersion",
+"1"
+);
+
+}
+
+}
 function persistTeams() {
 
 localStorage.setItem(
