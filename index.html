@@ -2666,7 +2666,7 @@ End Game
 
 const TEAMS_KEY = "basketballTeamsV2";
 const ACTIVE_GAME_KEY = "basketballActiveGameV2";
-
+const DATA_VERSION = 1;
 let teams = loadTeams();
 
 let selectedTeamId = null;
@@ -2732,10 +2732,17 @@ return [];
 }
 
 function persistTeams() {
+
 localStorage.setItem(
 TEAMS_KEY,
 JSON.stringify(teams)
 );
+
+localStorage.setItem(
+"basketballDataVersion",
+String(DATA_VERSION)
+);
+
 }
 /* =========================
 TEAM APPEARANCE ENGINE
