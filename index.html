@@ -2708,6 +2708,7 @@ let history = [];
 
 let currentGameInfo = null;
 let selectedSeason = null;
+let selectedPlayerPageId = null;
 /*
 NEW TIMING DATA
 */
@@ -9300,6 +9301,8 @@ ${toggleButton}
 /* PLAYER PAGE */
 
 function showPlayerPage(id) {
+
+selectedPlayerPageId = id;
 
 const team =
 getSelectedTeam();
