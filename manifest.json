@@ -5,12 +5,12 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#f97316",
-  "icons": [
-    {
-      "src": "cmt-logo.png.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+ "icons": [
+  {
+    "src": "app-icon.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "any maskable"
+  }
+]
 }
