@@ -2764,6 +2764,8 @@ await syncTeamsAfterLogin(
 data.user.id
 );
 
+await loadActiveGameFromCloud();
+
 document
 .getElementById("loginScreen")
 .classList
@@ -4620,8 +4622,92 @@ timingVersion:1
 })
 
 );
+
+saveActiveGameToCloud();
+
+}
+async function saveActiveGameToCloud() {
+async function loadActiveGameFromCloud() {
+
+const {
+data: { user },
+error: userError
+} =
+await supabaseClient.auth.getUser();
+
+if (userError || !user) {
+return;
 }
 
+const {
+data,
+error
+} =
+await supabaseClient
+.from("cmt_user_data")
+.select("active_game")
+.eq("user_id", user.id)
+.maybeSingle();
+
+if (error) {
+
+console.error(
+"Active game cloud load failed:",
+error
+);
+
+return;
+}
+
+if (!data || !data.active_game) {
+return;
+}
+
+localStorage.setItem(
+ACTIVE_GAME_KEY,
+JSON.stringify(data.active_game)
+);
+
+}
+const {
+data: { user },
+error: userError
+} =
+await supabaseClient.auth.getUser();
+
+if (userError || !user) {
+return;
+}
+
+const activeGame =
+getActiveGame();
+
+if (!activeGame) {
+return;
+}
+
+const {
+error
+} =
+await supabaseClient
+.from("cmt_user_data")
+.update({
+active_game: activeGame,
+updated_at:
+new Date().toISOString()
+})
+.eq("user_id", user.id);
+
+if (error) {
+
+console.error(
+"Active game cloud save failed:",
+error
+);
+
+}
+
+}
 function getActiveGame() {
 
 try {
