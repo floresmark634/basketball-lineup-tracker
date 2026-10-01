@@ -2760,6 +2760,10 @@ return;
 message.textContent =
 "Signed in.";
 
+await syncTeamsAfterLogin(
+data.user.id
+);
+
 document
 .getElementById("loginScreen")
 .classList
@@ -2833,6 +2837,77 @@ return;
 
 message.textContent =
 "Account created. Check your email to confirm your account.";
+
+}
+async function syncTeamsAfterLogin(userId) {
+
+const message =
+document.getElementById(
+"cloudLoginMessage"
+);
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("cmt_user_data")
+.select("teams")
+.eq("user_id", userId)
+.maybeSingle();
+
+if (error) {
+
+console.error(
+"Cloud load failed:",
+error
+);
+
+message.textContent =
+"Signed in, but cloud data could not load.";
+
+return;
+}
+
+if (data && Array.isArray(data.teams)) {
+
+teams = data.teams;
+
+localStorage.setItem(
+TEAMS_KEY,
+JSON.stringify(teams)
+);
+
+return;
+}
+
+/*
+No cloud data exists yet.
+Use this device's current teams
+as the starting cloud data.
+*/
+
+const {
+error: saveError
+} =
+await supabaseClient
+.from("cmt_user_data")
+.insert({
+user_id: userId,
+teams: teams
+});
+
+if (saveError) {
+
+console.error(
+"Initial cloud save failed:",
+saveError
+);
+
+message.textContent =
+"Signed in, but initial cloud save failed.";
+
+}
 
 }
 let teams = loadTeams();
