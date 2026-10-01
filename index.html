@@ -3018,7 +3018,40 @@ String(DATA_VERSION)
 /* =========================
 TEAM APPEARANCE ENGINE
 ========================= */
+async function saveTeamsToCloud() {
 
+const {
+data: { user },
+error: userError
+} =
+await supabaseClient.auth.getUser();
+
+if (userError || !user) {
+return;
+}
+
+const {
+error
+} =
+await supabaseClient
+.from("cmt_user_data")
+.update({
+teams: teams,
+updated_at:
+new Date().toISOString()
+})
+.eq("user_id", user.id);
+
+if (error) {
+
+console.error(
+"Cloud team save failed:",
+error
+);
+
+}
+
+}
 const TEAM_THEMES = {
 cmt: {
 primary: "#f97316",
