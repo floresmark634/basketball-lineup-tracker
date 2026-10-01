@@ -2728,6 +2728,14 @@ document.getElementById(
 "cloudLoginMessage"
 );
 
+if (!email || !password) {
+
+message.textContent =
+"Enter an email and password.";
+
+return;
+}
+
 message.textContent =
 "Signing in...";
 
@@ -2747,6 +2755,20 @@ error.message;
 
 return;
 }
+
+message.textContent =
+"Signed in.";
+
+document
+.getElementById("loginScreen")
+.classList
+.add("hidden");
+
+renderHome();
+
+}
+
+
 async function cloudSignUp() {
 
 const email =
@@ -2810,17 +2832,6 @@ return;
 
 message.textContent =
 "Account created. Check your email to confirm your account.";
-
-}
-message.textContent =
-"Signed in.";
-
-document
-.getElementById("loginScreen")
-.classList
-.add("hidden");
-
-renderHome();
 
 }
 let teams = loadTeams();
