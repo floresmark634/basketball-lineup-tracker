@@ -4626,48 +4626,7 @@ saveActiveGameToCloud();
 
 }
 async function saveActiveGameToCloud() {
-async function loadActiveGameFromCloud() {
 
-const {
-data: { user },
-error: userError
-} =
-await supabaseClient.auth.getUser();
-
-if (userError || !user) {
-return;
-}
-
-const {
-data,
-error
-} =
-await supabaseClient
-.from("cmt_user_data")
-.select("active_game")
-.eq("user_id", user.id)
-.maybeSingle();
-
-if (error) {
-
-console.error(
-"Active game cloud load failed:",
-error
-);
-
-return;
-}
-
-if (!data || !data.active_game) {
-return;
-}
-
-localStorage.setItem(
-ACTIVE_GAME_KEY,
-JSON.stringify(data.active_game)
-);
-
-}
 const {
 data: { user },
 error: userError
@@ -4705,6 +4664,40 @@ error
 );
 
 }
+
+}
+
+
+async function loadActiveGameFromCloud(userId) {
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("cmt_user_data")
+.select("active_game")
+.eq("user_id", userId)
+.maybeSingle();
+
+if (error) {
+
+console.error(
+"Active game cloud load failed:",
+error
+);
+
+return;
+}
+
+if (!data || !data.active_game) {
+return;
+}
+
+localStorage.setItem(
+ACTIVE_GAME_KEY,
+JSON.stringify(data.active_game)
+);
 
 }
 function getActiveGame() {
