@@ -6206,8 +6206,7 @@ renderGame();
 
 /* END GAME */
 
-function endGame() {
-
+async function endGame() {
 const team =
 getSelectedTeam();
 
@@ -6383,10 +6382,13 @@ completedGame
 
 persistTeams();
 
+await saveTeamsToCloud();
+
 localStorage.removeItem(
 ACTIVE_GAME_KEY
 );
-clearActiveGameFromCloud();
+
+await clearActiveGameFromCloud();
 roster = [];
 onCourt = [];
 
