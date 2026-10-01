@@ -4053,7 +4053,7 @@ today.getMonth()+1
 String(
 today.getDate()
 ).padStart(2,"0");
-
+updateSeasonFromDate();
 document
 .getElementById("periodMinutes")
 .value = 10;
@@ -4728,6 +4728,11 @@ return;
 }
 
 if (!data || !data.active_game) {
+
+localStorage.removeItem(
+ACTIVE_GAME_KEY
+);
+
 return;
 }
 
