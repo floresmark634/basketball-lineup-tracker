@@ -2710,6 +2710,55 @@ supabase.createClient(
 SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
 );
+async function cloudSignIn() {
+
+const email =
+document
+.getElementById("cloudEmail")
+.value
+.trim();
+
+const password =
+document
+.getElementById("cloudPassword")
+.value;
+
+const message =
+document.getElementById(
+"cloudLoginMessage"
+);
+
+message.textContent =
+"Signing in...";
+
+const {
+data,
+error
+} =
+await supabaseClient.auth.signInWithPassword({
+email,
+password
+});
+
+if (error) {
+
+message.textContent =
+error.message;
+
+return;
+}
+
+message.textContent =
+"Signed in.";
+
+document
+.getElementById("loginScreen")
+.classList
+.add("hidden");
+
+renderHome();
+
+}
 let teams = loadTeams();
 const storedDataVersion =
 getStoredDataVersion();
