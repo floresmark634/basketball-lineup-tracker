@@ -1,5 +1,4 @@
-const CACHE_NAME = "cmt-basketball-v1";
-
+const CACHE_NAME = "cmt-basketball-v2";
 const APP_FILES = [
   "./",
   "./index.html",
