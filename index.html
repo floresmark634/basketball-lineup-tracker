@@ -8013,6 +8013,68 @@ player.id
 )
 : null;
 
+const statInput = (
+field,
+value
+) => {
+
+if (!editMode) {
+return Number(value || 0);
+}
+
+return `
+<input
+type="number"
+min="0"
+value="${Number(value || 0)}"
+data-player-id="${player.id}"
+data-field="${field}"
+class="completedStatEdit"
+style="width:55px;"
+>
+`;
+
+};
+
+const shootingInput = (
+madeField,
+madeValue,
+attField,
+attValue
+) => {
+
+if (!editMode) {
+
+return `
+${Number(madeValue || 0)}/${Number(attValue || 0)}
+`;
+
+}
+
+return `
+<input
+type="number"
+min="0"
+value="${Number(madeValue || 0)}"
+data-player-id="${player.id}"
+data-field="${madeField}"
+class="completedStatEdit"
+style="width:48px;"
+>
+/
+<input
+type="number"
+min="0"
+value="${Number(attValue || 0)}"
+data-player-id="${player.id}"
+data-field="${attField}"
+class="completedStatEdit"
+style="width:48px;"
+>
+`;
+
+};
+
 return `
 <tr>
 
@@ -8035,23 +8097,44 @@ ${Number(player.points || 0)}
 </td>
 
 <td>
-${Number(player.fgMade || 0)}/${Number(player.fgAtt || 0)}
+${shootingInput(
+"fgMade",
+player.fgMade,
+"fgAtt",
+player.fgAtt
+)}
 </td>
 
 <td>
-${Number(player.threeMade || 0)}/${Number(player.threeAtt || 0)}
+${shootingInput(
+"threeMade",
+player.threeMade,
+"threeAtt",
+player.threeAtt
+)}
 </td>
 
 <td>
-${Number(player.ftMade || 0)}/${Number(player.ftAtt || 0)}
+${shootingInput(
+"ftMade",
+player.ftMade,
+"ftAtt",
+player.ftAtt
+)}
 </td>
 
 <td>
-${Number(player.oreb || 0)}
+${statInput(
+"oreb",
+player.oreb
+)}
 </td>
 
 <td>
-${Number(player.dreb || 0)}
+${statInput(
+"dreb",
+player.dreb
+)}
 </td>
 
 <td>
@@ -8059,23 +8142,38 @@ ${rebounds}
 </td>
 
 <td>
-${Number(player.ast || 0)}
+${statInput(
+"ast",
+player.ast
+)}
 </td>
 
 <td>
-${Number(player.stl || 0)}
+${statInput(
+"stl",
+player.stl
+)}
 </td>
 
 <td>
-${Number(player.blk || 0)}
+${statInput(
+"blk",
+player.blk
+)}
 </td>
 
 <td>
-${Number(player.to || 0)}
+${statInput(
+"to",
+player.to
+)}
 </td>
 
 <td>
-${Number(player.pf || 0)}
+${statInput(
+"pf",
+player.pf
+)}
 </td>
 
 <td>
