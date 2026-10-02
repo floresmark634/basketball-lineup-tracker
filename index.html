@@ -2709,7 +2709,14 @@ const SUPABASE_PUBLISHABLE_KEY =
 const supabaseClient =
 supabase.createClient(
 SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
+SUPABASE_PUBLISHABLE_KEY,
+{
+auth: {
+experimental: {
+passkey: true
+}
+}
+}
 );
 async function cloudSignIn() {
 
