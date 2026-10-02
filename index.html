@@ -8292,7 +8292,31 @@ player.plusMinus || 0
 
 })
 .join("");
+const completedGameButtons =
+editMode
+? `
+<button
+class="primary"
+onclick="saveCompletedGameEdits(${game.id})">
+Save Changes
+</button>
 
+<button
+onclick="viewCompletedGame(${game.id})">
+Cancel
+</button>
+`
+: `
+<button onclick="showHistory()">
+Back to Game History
+</button>
+
+<button
+class="danger"
+onclick="deleteGame(${game.id})">
+Delete Game
+</button>
+`;
 document
 .getElementById("teamContent")
 .innerHTML = `
@@ -8358,31 +8382,7 @@ ${completedLineupRows(game)}
 
 <div class="center">
 
-${editMode
-? `
-<button
-class="primary"
-onclick="saveCompletedGameEdits(${game.id})">
-Save Changes
-</button>
-
-<button
-onclick="viewCompletedGame(${game.id})">
-Cancel
-</button>
-`
-: `
-<button onclick="showHistory()">
-Back to Game History
-</button>
-
-<button
-class="danger"
-onclick="deleteGame(${game.id})">
-Delete Game
-</button>
-`
-}
+${completedGameButtons}
 
 </div>
 </div>
