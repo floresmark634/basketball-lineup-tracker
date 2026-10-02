@@ -7974,6 +7974,111 @@ true
 );
 
 }
+function saveCompletedGameEdits(id) {
+
+const team =
+getSelectedTeam();
+
+if (!team) {
+return;
+}
+
+const game =
+team.games.find(
+game =>
+Number(game.id) ===
+Number(id)
+);
+
+if (!game) {
+return;
+}
+
+document
+.querySelectorAll(
+".completedStatEdit"
+)
+.forEach(input => {
+
+const playerId =
+Number(
+input.dataset.playerId
+);
+
+const field =
+input.dataset.field;
+
+const player =
+(game.players || [])
+.find(
+player =>
+Number(player.id) ===
+playerId
+);
+
+if (!player) {
+return;
+}
+
+player[field] =
+Number(input.value || 0);
+
+});
+
+/*
+Keep shooting totals valid.
+*/
+
+(game.players || [])
+.forEach(player => {
+
+player.fgMade =
+Math.min(
+Number(player.fgMade || 0),
+Number(player.fgAtt || 0)
+);
+
+player.threeMade =
+Math.min(
+Number(player.threeMade || 0),
+Number(player.threeAtt || 0)
+);
+
+player.ftMade =
+Math.min(
+Number(player.ftMade || 0),
+Number(player.ftAtt || 0)
+);
+
+/*
+Recalculate points from shooting.
+*/
+
+player.points =
+(
+Number(player.fgMade || 0) -
+Number(player.threeMade || 0)
+) * 2
++
+Number(player.threeMade || 0) * 3
++
+Number(player.ftMade || 0);
+
+});
+
+game.ourScore =
+(game.players || [])
+.reduce(
+(sum, player) =>
+sum + Number(player.points || 0),
+0
+);
+
+persistTeams();
+
+viewCompletedGame(id);
+
+}
 function viewCompletedGame(
 id,
 editMode = false
