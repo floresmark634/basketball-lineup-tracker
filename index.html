@@ -2977,11 +2977,12 @@ JSON.stringify(teams)
 return;
 }
 
-/*
-No cloud data exists yet.
-Use this device's current teams
-as the starting cloud data.
-*/
+teams = [];
+
+localStorage.setItem(
+TEAMS_KEY,
+JSON.stringify(teams)
+);
 
 const {
 error: saveError
@@ -2990,7 +2991,7 @@ await supabaseClient
 .from("cmt_user_data")
 .insert({
 user_id: userId,
-teams: teams
+teams: []
 });
 
 if (saveError) {
