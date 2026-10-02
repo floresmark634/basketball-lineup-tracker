@@ -2858,6 +2858,34 @@ message.textContent =
 "Account created. Check your email to confirm your account.";
 
 }
+async function registerPasskey() {
+
+const message =
+document.getElementById(
+"passkeyMessage"
+);
+
+message.textContent =
+"Setting up Face ID / fingerprint...";
+
+const {
+data,
+error
+} =
+await supabaseClient.auth.registerPasskey();
+
+if (error) {
+
+message.textContent =
+error.message;
+
+return;
+}
+
+message.textContent =
+"Passkey enabled successfully.";
+
+}
 async function syncTeamsAfterLogin(userId) {
 
 const message =
