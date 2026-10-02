@@ -1688,7 +1688,16 @@ class="smallText"
 <!-- HOME -->
 <div id="homeScreen" class="card hidden">
 <h2>Choose Team</h2>
+<button
+onclick="registerPasskey()"
+>
+Enable Face ID / Fingerprint
+</button>
 
+<p
+id="passkeyMessage"
+class="smallText"
+></p>
 <div id="teamButtons" class="teamButtons"></div>
 
 <div class="center">
