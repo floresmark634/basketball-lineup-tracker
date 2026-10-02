@@ -1675,6 +1675,13 @@ Sign In
 <button onclick="cloudSignUp()">
 Create Account
 </button>
+<br><br>
+
+<button
+onclick="cloudPasskeySignIn()"
+>
+Sign in with Face ID / Fingerprint
+</button>
 </p>
 
 <p
@@ -2791,7 +2798,49 @@ document
 renderHome();
 
 }
+async function cloudPasskeySignIn() {
 
+const message =
+document.getElementById(
+"cloudLoginMessage"
+);
+
+message.textContent =
+"Waiting for Face ID / fingerprint...";
+
+const {
+data,
+error
+} =
+await supabaseClient.auth.signInWithPasskey();
+
+if (error) {
+
+message.textContent =
+error.message;
+
+return;
+}
+
+message.textContent =
+"Signed in.";
+
+await syncTeamsAfterLogin(
+data.user.id
+);
+
+await loadActiveGameFromCloud(
+data.user.id
+);
+
+document
+.getElementById("loginScreen")
+.classList
+.add("hidden");
+
+renderHome();
+
+}
 
 async function cloudSignUp() {
 
