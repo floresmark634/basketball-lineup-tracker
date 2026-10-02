@@ -7966,9 +7966,18 @@ ${rows}
 </div>
 `;
 }
+function editCompletedGame(id) {
 
-function viewCompletedGame(id) {
+viewCompletedGame(
+id,
+true
+);
 
+}
+function viewCompletedGame(
+id,
+editMode = false
+) {
 const team =
 getSelectedTeam();
 
