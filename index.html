@@ -8358,6 +8358,20 @@ ${completedLineupRows(game)}
 
 <div class="center">
 
+${editMode
+? `
+<button
+class="primary"
+onclick="saveCompletedGameEdits(${game.id})">
+Save Changes
+</button>
+
+<button
+onclick="viewCompletedGame(${game.id})">
+Cancel
+</button>
+`
+: `
 <button onclick="showHistory()">
 Back to Game History
 </button>
@@ -8367,9 +8381,10 @@ class="danger"
 onclick="deleteGame(${game.id})">
 Delete Game
 </button>
+`
+}
 
 </div>
-
 </div>
 `;
 }
